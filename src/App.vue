@@ -1,9 +1,9 @@
 <template>
  <v-app>
-   <v-toolbar app color="#D32F2F" id="youth" dark dense scroll-off-screen v-model="onScroll">
+   <v-toolbar app color="#D32F2F" id="youth" dark absolute scroll-off-screen v-model="onScroll">
       
         <div>
-          <img src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/logo.png?alt=media&token=3bb68f47-2e5d-4a41-9844-22ad4f199fd5" width="250" height="120">
+          <img src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/logo.png?alt=media&token=3bb68f47-2e5d-4a41-9844-22ad4f199fd5" width="220" height="120">
         </div>
       <v-menu open-on-hover bottom offset-y origin="center center"
       transition="scale-transition">
@@ -36,6 +36,7 @@
         label="Rechercher"
         id="id"
         v-if="searchVisible"
+        color=#008080
       >
       </v-text-field>
 
@@ -55,8 +56,7 @@
    
     
 
-    <v-content>
-      
+    <v-content style="padding: 0">
       	<v-content>
 	      	<router-view></router-view>
 		    </v-content>
@@ -76,17 +76,19 @@
     
     >
       <v-card-title class="grey darken-3">
-        <v-flex xs2>
-        <strong class="subheading font-italic bold font-weight-medium">Game Players Union</strong>
-        </v-flex>
+       <v-layout align-center justify-space-around row fill-height>
+          <v-flex xs12>
+            <strong class="subheading font-italic bold font-weight-medium">Game Players Union</strong>
+          </v-flex>
 
-        <v-spacer></v-spacer>
-        <div>
-          <img src="https://cdn.discordapp.com/attachments/521706386829082626/540180308390314004/Logo.png" width="100" height="60">
-        </div>
-        <v-spacer></v-spacer>
-        
-
+          <v-flex xs11>
+            <div>
+             <img src="https://cdn.discordapp.com/attachments/521706386829082626/540180308390314004/Logo.png" width="150" height="75">
+            </div>
+          </v-flex>
+      
+       
+       <v-flex xl3>
         <v-btn
           v-for="icone in social"
           :key="icone"
@@ -97,6 +99,8 @@
         >
           <v-icon size="24px">{{ icone.icon }}</v-icon>
         </v-btn>
+       </v-flex>
+        </v-layout>
       </v-card-title>
 
       <v-card-actions class="grey darken-4 justify-center">
@@ -204,7 +208,7 @@ export default {
   z-index: 99; /* Make sure it does not overlap */
   border: none; /* Remove borders */
   outline: none; /* Remove outline */
-  background-color: purple; /* Set a background color */
+  background-color: #008080; /* Set a background color */
   color: white; /* Text color */
   cursor: pointer; /* Add a mouse pointer on hover */
  
