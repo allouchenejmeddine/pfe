@@ -1,6 +1,6 @@
 <template>
  <v-app>
-   <v-toolbar app color="#D32F2F" id="youth" dark absolute scroll-off-screen v-model="onScroll">
+   <v-toolbar app color="#D32F2F" id="youth" dark absolute dense scroll-off-screen v-model="onScroll">
       
         <div>
           <img src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/logo.png?alt=media&token=3bb68f47-2e5d-4a41-9844-22ad4f199fd5" width="220" height="120">
@@ -44,7 +44,7 @@
         <v-icon>fas fa-search</v-icon>
       </v-btn>
 
-      <v-btn flat href='http://localhost:8080/signup'>
+      <v-btn flat @click="openForm()">
         <v-icon left>fas fa-user-circle</v-icon>
         <span>Se Connecter</span>
       </v-btn>
@@ -53,9 +53,15 @@
       
     </v-toolbar>
     
-   
-    
 
+      <div class="form-popup" id="myForm">
+        <v-text-field label="hello">
+          
+        </v-text-field>
+      </div>
+ 
+    
+<v-parallax src="https://i.imgur.com/UfGS6V4.jpg" height="2000">
     <v-content style="padding: 0">
       	<v-content>
 	      	<router-view></router-view>
@@ -64,6 +70,7 @@
        <v-icon>fa-chevron-circle-up</v-icon>
     </v-btn>
     </v-content>
+     </v-parallax>
   
     <v-footer
     dark
@@ -73,7 +80,6 @@
       class="flex"
       flat
       tile
-    
     >
       <v-card-title class="grey darken-3">
        <v-layout align-center justify-space-around row fill-height>
@@ -127,6 +133,7 @@ export default {
         'fab fa-twitter',
         'fab fa-instagram'
       ],
+      isVisible: true,
       searchVisible: true,
       social: [
         {
@@ -196,27 +203,20 @@ export default {
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     },
+    openForm() {
+      document.getElementById("myForm").style.display = "block";
+      this.setVisible;
+    },
+    closeForm() {
+      document.getElementById("myForm").style.display = "none";
+      this.setVisible();
+    },
+    setVisible(){
+      this.isVisible==false ? this.isVisible=true: this.isVisible=false;
+    }
   }
 }
 </script>
-<style>
-#myBtn {
-  display: none; /* Hidden by default */
-  position: fixed; /* Fixed/sticky position */
-  bottom: 20px; /* Place the button at the bottom of the page */
-  right: 30px; /* Place the button 30px from the right */
-  z-index: 99; /* Make sure it does not overlap */
-  border: none; /* Remove borders */
-  outline: none; /* Remove outline */
-  background-color: #008080; /* Set a background color */
-  color: white; /* Text color */
-  cursor: pointer; /* Add a mouse pointer on hover */
- 
-  border-radius: 10px; /* Rounded corners */
-  font-size: 18px; /* Increase font size */
-}
+<style src="./css/homepage.css">
 
-#myBtn:hover {
-  background-color: #555; /* Add a dark-grey background on hover */
-}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-parallax src="https://i.imgur.com/UfGS6V4.jpg" height="2000">
+  
   <v-layout>
     <v-flex xs12 sm6 offset-sm3>
     <v-card raised tile v-for="(item,i) in infos"
@@ -16,7 +16,7 @@
     </v-card>
     </v-flex>
   </v-layout>
-  </v-parallax>
+ 
   </template>
 
 <script>
