@@ -1,6 +1,6 @@
 <template>
  <v-app>
-   <v-toolbar app color="#D32F2F" id="youth" dark absolute dense scroll-off-screen v-model="onScroll">
+   <v-toolbar app color="#D32F2F" id="youth" dark absolute scroll-off-screen v-model="onScroll">
       
         <div>
           <img src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/logo.png?alt=media&token=3bb68f47-2e5d-4a41-9844-22ad4f199fd5" width="220" height="120">
@@ -44,21 +44,37 @@
         <v-icon>fas fa-search</v-icon>
       </v-btn>
 
-      <v-btn flat @click="openForm()">
+      <v-menu open-on-click bottom offset-y
+      transition="scale-transition">
+      <v-btn slot="activator" flat>
         <v-icon left>fas fa-user-circle</v-icon>
         <span>Se Connecter</span>
       </v-btn>
-      
-       
-      
+      <v-list>
+        <v-text-field
+            label="Pseudo"
+            prepend-inner-icon="fas fa-user"
+          ></v-text-field>
+
+        <v-text-field
+            label="Mot de passe"
+            prepend-inner-icon="fas fa-unlock-alt"
+          ></v-text-field>
+
+        <v-btn color="#F5DCD7"><span>S'inscrire</span> </v-btn>
+
+        <v-btn color="#F5DCD7" class="mx-3" icon>
+          <v-icon size="24px">fab fa-google</v-icon>
+        </v-btn>
+
+        <v-btn color="#F5DCD7" class="mx-3" icon>
+          <v-icon size="24px">fab fa-facebook</v-icon>
+        </v-btn>
+      </v-list>
+      </v-menu>
     </v-toolbar>
     
-
-      <div class="form-popup" id="myForm">
-        <v-text-field label="hello">
-          
-        </v-text-field>
-      </div>
+     
  
     
 <v-parallax src="https://i.imgur.com/UfGS6V4.jpg" height="2000">
@@ -137,7 +153,7 @@ export default {
       searchVisible: true,
       social: [
         {
-          icon: ' fab fa-facebook-f',
+          icon: ' fab fa-facebook',
           link: 'https://www.facebook.com/GamePlayerUnion/'
         },
         {
