@@ -55,9 +55,11 @@
     
 
       <div class="form-popup" id="myForm">
-        <v-text-field label="hello">
+        <v-form>
+          <v-text-field label="hello">
           
-        </v-text-field>
+          </v-text-field>
+        </v-form>
       </div>
  
     
