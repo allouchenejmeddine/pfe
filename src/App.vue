@@ -73,7 +73,6 @@
             color=#F5DCD7>
             </v-text-field>
         </v-flex>
-        
         <v-layout justify-center>
 
           <v-btn color="#F5DCD7">
