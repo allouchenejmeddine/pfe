@@ -1,6 +1,6 @@
 <template>
  <v-app>
-   <v-toolbar app color="#D32F2F" id="youth" dark absolute scroll-off-screen v-model="onScroll">
+   <v-toolbar app color="#D32F2F" id="youth" dark fixed  v-model="onScroll">
       
         <div>
           <img src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/logo.png?alt=media&token=3bb68f47-2e5d-4a41-9844-22ad4f199fd5" width="220" height="120">
@@ -47,7 +47,7 @@
       <v-dialog width="500" >
       <v-btn slot="activator" flat>
         <v-icon left>fas fa-user-circle</v-icon>
-        <span>Se Connecter</span>
+        <span >Se Connecter</span>
       </v-btn>
       
       <v-card  style="border:5px solid #008080;border-radius:20px;-moz-border-radius:20px;-webkit-border-radius:20px;background-color:#424242" >
@@ -96,20 +96,19 @@
      
  
     
-<v-parallax src="https://i.imgur.com/UfGS6V4.jpg" height="2000">
-    <v-content style="padding: 0">
+<v-parallax src="https://i.imgur.com/UfGS6V4.jpg" height="auto" >
+    <v-content style="padding: 0" >
       	<v-content>
 	      	<router-view></router-view>
 		    </v-content>
-    <v-btn id="myBtn" @click="topFunction" ripple icon>
-       <v-icon>fa-chevron-circle-up</v-icon>
-    </v-btn>
+    
     </v-content>
      </v-parallax>
   
     <v-footer
     dark
     height="auto"
+    id="footer"
   >
     <v-card
       class="flex"
@@ -145,11 +144,14 @@
       </v-card-title>
 
       <v-card-actions class="grey darken-4 justify-center">
-        &copy;2019 — <strong primary>GPU Team</strong>
+        &copy;2019 —<strong primary>&nbsp;GPU Team</strong>
       </v-card-actions>
     </v-card>
   </v-footer>
-
+  
+  <v-btn id="myBtn" @click="topFunction" ripple icon v-show-transition>
+       <v-icon>fa-chevron-circle-up</v-icon>
+  </v-btn>
   </v-app>
 </template>
 
@@ -169,7 +171,7 @@ export default {
         'fab fa-instagram'
       ],
       isVisible: true,
-      searchVisible: true,
+      searchVisible: false,
       social: [
         {
           icon: ' fab fa-facebook',
@@ -227,16 +229,35 @@ export default {
   },
   methods: {
     scrollFunction (){
-       if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+
+      var limit = Math.max( document.body.scrollHeight, document.body.offsetHeight, 
+                   document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight ) - window.innerHeight;
+
+       if ((document.body.scrollTop > document.getElementById("youth").clientHeight && document.body.scrollTop <= limit -  document.getElementById("footer").clientHeight) || (document.documentElement.scrollTop > document.getElementById("youth").clientHeight && document.documentElement.scrollTop <= limit -  document.getElementById("footer").clientHeight)) {
+        document.getElementById("myBtn").style.bottom = "30px";
         document.getElementById("myBtn").style.display = "block";
+        document.getElementById("myBtn").style.position = "fixed";
+        
+         
         } 
+        else if ((document.body.scrollTop > limit -  document.getElementById("footer").clientHeight) || (document.documentElement.scrollTop > limit -  document.getElementById("footer").clientHeight))
+        {     
+            document.getElementById("myBtn").style.bottom = document.getElementById("footer").clientHeight.toString()+"px";
+            document.getElementById("myBtn").style.position = "absolute";
+        }
         else {
           document.getElementById("myBtn").style.display = "none";
+          document.getElementById("myBtn").style.bottom = "30px";
         }
     },
     topFunction () {
-      document.body.scrollTop = 0; // For Safari
-      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      
+          window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+          });
+          document.getElementById("myBtn").style.display = "none";
     },
     openForm() {
       document.getElementById("myForm").style.display = "block";

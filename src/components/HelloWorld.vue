@@ -1,5 +1,8 @@
 <template>
   
+  <v-content fill-height>
+  <v-container fluid >
+
   <v-layout>
     <v-flex xs12 sm6 offset-sm3>
     <v-card raised tile v-for="(item,i) in infos"
@@ -16,6 +19,8 @@
     </v-card>
     </v-flex>
   </v-layout>
+  </v-container>
+  </v-content>
  
   </template>
 
@@ -35,6 +40,13 @@
           text: 'Nunc vero inanes flatus quorundam vile esse quicquid extra urbis pomerium nascitur aestimant praeter orbos et caelibes, nec credi potest qua obsequiorum diversitate coluntur homines sine liberis Romae.',
           image: 'https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/ar.jpg?alt=media&token=f1130270-8636-4fba-8cc4-41ebe3f8bbea',
           page:'https://google.com'
+        },
+        { 
+          title: 'Article 1',
+          text: 'Nunc vero inanes flatus quorundam vile esse quicquid extra urbis pomerium nascitur aestimant praeter orbos et caelibes, nec credi potest qua obsequiorum diversitate coluntur homines sine liberis Romae.',
+          image: 'https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/ar.jpg?alt=media&token=f1130270-8636-4fba-8cc4-41ebe3f8bbea',
+          page:'https://google.com'
+          
         },
         { 
           title: 'Article 1',
