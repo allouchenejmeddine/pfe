@@ -1,6 +1,6 @@
 <template>
  <v-app>
-   <v-toolbar app color="#D32F2F" id="youth" dark fixed  v-model="onScroll">
+   <v-toolbar app color="#D32F2F" id="youth" dark absolute  v-model="onScroll">
       
         <div>
           <img src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/logo.png?alt=media&token=3bb68f47-2e5d-4a41-9844-22ad4f199fd5" width="220" height="120">
