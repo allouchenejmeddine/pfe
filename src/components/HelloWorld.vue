@@ -1,9 +1,8 @@
 <template>
   
-  <v-content fill-height>
-  <v-container fluid >
-
-  <v-layout>
+  
+  <v-container fluid fill-height>
+  <v-layout >
     <v-flex xs12 sm6 offset-sm3>
     <v-card raised tile v-for="(item,i) in infos"
                :key="i"
@@ -20,7 +19,7 @@
     </v-flex>
   </v-layout>
   </v-container>
-  </v-content>
+  
  
   </template>
 

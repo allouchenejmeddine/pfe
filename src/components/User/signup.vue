@@ -1,11 +1,11 @@
-<template>
-    <div>
-        <v-layout row>
-            <v-flex xs12 sm6 offset-sm3>
-                <v-card>
-                    <v-card-text>
-                        <v-container>
-                            <v-form @submit.prevent="onSignUp()">
+<template>  
+  <v-container fill-height fluid col>
+        <v-layout align-center>
+            <v-flex xs12 sm6 offset-sm3 >
+                <v-card dark height=400 align-center>
+                    <v-card-text >
+                        <v-container >
+                            <v-form @submit.prevent="onSignUp()" justify-space-around fill-height>
                              <v-layout row wrap>
                                  <v-flex >
                                      <v-text-field
@@ -58,8 +58,7 @@
                 
             </v-flex>
         </v-layout>
-    </div>
-    
+    </v-container >       
 </template>
 <script>
 export default {
