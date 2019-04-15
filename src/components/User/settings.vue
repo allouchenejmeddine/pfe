@@ -11,7 +11,7 @@
                                 </v-flex>
                             </v-layout>
                         
-                            <v-divider></v-divider>
+                            <v-divider color="#008080"></v-divider>
                         
                             <v-layout align-start fluid fill-height mx-3 mt-3 column>
                                 <v-flex mb-4>
@@ -35,7 +35,7 @@
                                 </v-flex>
                             </v-layout>
 
-                            <v-divider></v-divider>
+                            <v-divider color="#008080"></v-divider>
                         
                             <v-layout column mx-3 mt-3 pr-5>
                                 <v-flex mb-4>
@@ -81,7 +81,7 @@
                             </v-layout>
                             
                         </v-layout>
-                            <v-divider></v-divider>
+                            <v-divider color="#008080"></v-divider>
                         </v-layout>
                     </v-list>
                     <v-card-actions > 
