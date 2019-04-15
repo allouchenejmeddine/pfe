@@ -3,7 +3,7 @@
   
   <v-container fluid fill-height>
   <v-layout >
-    <v-flex xs12 sm6 offset-sm3>
+    <v-flex xs10 offset-xs1 sm8 offset-sm2 md8 offset-md2>
     <v-card raised tile v-for="(item,i) in infos"
                :key="i"
                :src="item">

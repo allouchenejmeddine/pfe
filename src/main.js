@@ -10,6 +10,10 @@ import '@fortawesome/fontawesome-free/css/all.css'
 
 Vue.config.productionTip = false
 
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title
+  next()
+});
 new Vue({
   router,
   store,
@@ -23,4 +27,5 @@ new Vue({
       storageBucket: "gpufinal.appspot.com"
     })
   }
-}).$mount('#app')
+}).$mount('#app');
+

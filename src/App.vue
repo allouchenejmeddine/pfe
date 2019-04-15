@@ -1,17 +1,97 @@
 <template>
   <v-app>
     
+    <v-navigation-drawer dark app v-model="sideNav">
+      <v-list>          
+          <v-list-tile>
+            <v-list-tile-content>
+              <v-dialog width="500" v-model="dialog">
+                <template v-slot:activator="{ on }">
+                  <v-btn v-on="on" flat>
+                    <v-icon left>fas fa-user-circle</v-icon>
+                    <span>Se Connecter</span>
+                  </v-btn>
+                </template>
+                <v-card
+                  style="border:5px solid #008080;border-radius:20px;-moz-border-radius:20px;-webkit-border-radius:20px;background-color:#424242"
+                >
+                  <v-layout column align-center>
+                    <img
+                      src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/logo.png?alt=media&token=3bb68f47-2e5d-4a41-9844-22ad4f199fd5"
+                      width="200"
+                      height="125"
+                    >
+                    <span style="font-size:18px;color:#F5DCD7">Identifiez-vous</span>
+                  </v-layout>
+                  <v-flex mx-5 mt-3 justify-center>
+                    <v-text-field dark label="Pseudo" prepend-inner-icon="fas fa-user" color="#F5DCD7"></v-text-field>
+                  </v-flex>
+                  <v-flex mx-5 mt-3 justify-center>
+                    <v-text-field
+                    dark
+                    label="Mot de passe"
+                    prepend-inner-icon="fas fa-unlock-alt"
+                    color="#F5DCD7"
+                  >
+                    </v-text-field>
+                  </v-flex>
+                  <v-layout justify-center>
+                    <v-btn color="#F5DCD7" to="/signup" @click="dialog = false">
+                      <span>S'inscrire</span>
+                    </v-btn>
+                    <v-btn color="#F5DCD7" class="mx-3" icon @click="dialog = false">
+                      <v-icon size="24px">fab fa-google</v-icon>
+                    </v-btn>
+                    <v-btn color="#F5DCD7" class="mx-3" icon @click="dialog = false">
+                      <v-icon size="24px">fab fa-facebook</v-icon>
+                    </v-btn>
+                  </v-layout>
+                </v-card>
+              </v-dialog>
+            </v-list-tile-content>
+          </v-list-tile>
+          
+          <v-list-group >
+              <v-list-tile slot="activator" >
+                <v-list-tile-action><v-icon>fas fa-gamepad</v-icon></v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title >Jeux</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-divider></v-divider>
+              <v-list-tile v-for="(item, index) in jeux" :key="index" @click>
+                <v-list-tile-title>{{item.title}}</v-list-tile-title>
+              </v-list-tile>
+          </v-list-group>
+          
+          <v-list-tile to="Settings">
+            <v-list-tile-action><v-icon>far fa-newspaper</v-icon></v-list-tile-action>
+              <v-list-tile-title >News</v-list-tile-title>
+          </v-list-tile>
+          
+          <v-list-tile v-for="(item, index) in console" :key="index" @click :to="item.link">
+            <v-list-tile-action><v-icon>{{item.icon}}</v-icon></v-list-tile-action>
+              <v-list-tile-title>{{item.title}}</v-list-tile-title>
+          </v-list-tile>
+          
+      </v-list>
+    </v-navigation-drawer>
+
     <v-toolbar app color="#D32F2F" id="youth" dark absolute v-model="onScroll">
-      <div>
+      <v-toolbar-side-icon
+        @click.stop="sideNav = !sideNav"
+        class="hidden-md-and-up"></v-toolbar-side-icon>
+
+      <v-toolbar-items>
         <v-btn to="/" color="transparent" flat width="120"
           height="120"><img
           src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/logo.png?alt=media&token=3bb68f47-2e5d-4a41-9844-22ad4f199fd5"
           width="220"
-          height="120"
-          
+          height="120"   
         >
         </v-btn>
-      </div>
+      </v-toolbar-items>
+      <v-toolbar-items class="hidden-sm-and-down">
       <v-menu open-on-hover bottom offset-y origin="center center" transition="scale-transition">
         <v-btn slot="activator" flat>Jeux</v-btn>
         <v-list>
@@ -21,17 +101,24 @@
         </v-list>
       </v-menu>
       <v-btn slot="activator" flat>News</v-btn>
-
-      <v-btn v-for="icone in console" :key="icone" class="mx-3" dark icon :href="icone.link">
+      </v-toolbar-items>
+      <v-toolbar-items class="hidden-sm-and-down">
+      <v-btn v-for="icone in console" :key="icone" class="mx-2" dark icon :href="icone.link">
         <v-icon size="24px">{{ icone.icon }}</v-icon>
       </v-btn>
-      <v-spacer></v-spacer>
-      <v-text-field name="name" label="Rechercher" id="id" v-if="searchVisible" color="#008080"></v-text-field>
+      </v-toolbar-items>
 
+      <v-spacer></v-spacer>
+
+      <v-toolbar-items class="hidden-sm-and-down">
+      <v-text-field name="name" label="Rechercher" id="id" v-if="searchVisible" color="#008080" ></v-text-field>
+      <v-layout align-center>
       <v-btn icon @click="searchVisible = !searchVisible">
         <v-icon>fas fa-search</v-icon>
       </v-btn>
 
+      
+        <v-flex>
       <v-dialog width="500" v-model="dialog">
         <template v-slot:activator="{ on }">
         <v-btn v-on="on" flat>
@@ -80,6 +167,9 @@
           </v-layout>
         </v-card>
       </v-dialog>
+        </v-flex>
+      </v-layout>
+      </v-toolbar-items>
     </v-toolbar>
     
       
@@ -150,6 +240,7 @@ export default {
     
     return {
       dialog: false,
+      sideNav: false,
       icons: ["fab fa-facebook", "fab fa-twitter", "fab fa-instagram"],
       isVisible: true,
       searchVisible: false,
@@ -170,19 +261,23 @@ export default {
       console: [
         {
           icon: "fab fa-playstation",
-          link: ""
+          link: "Settings",
+          title: "Playstation"
         },
         {
           icon: "fab fa-xbox",
-          link: ""
+          link: "",
+          title: "Xbox"
         },
         {
           icon: "fab fa-nintendo-switch",
-          link: ""
+          link: "",
+          title: "Nintendo Switch"
         },
         {
           icon: "fas fa-desktop",
-          link: ""
+          link: "",
+          title: "PC"
         }
       ],
       jeux: [

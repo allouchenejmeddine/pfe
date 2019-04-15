@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Signup from './components/User/signup'
+import Settings from './components/User/settings'
 
 Vue.use(Router)
 
@@ -12,16 +13,37 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      meta:
+      {
+        title: 'Accueil - Game Players Union'
+      }
     },
     {
       path: '/signup',
       name: 'signup',
-      component: Signup
+      component: Signup,
+      meta:
+      {
+        title: 'S\'inscrire - Game Players Union'
+      }
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: Settings,
+      meta:
+      {
+        title: 'Paramètres de Compte - Game Players Union'
+      }
     },
     {
       path: '/about',
       name: 'about',
+      meta:
+      {
+        title: 'A propos - Game Players Union'
+      },
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
