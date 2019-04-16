@@ -3,9 +3,9 @@
     
     <v-navigation-drawer dark app v-model="sideNav">
       <v-list>          
-          <v-list-tile>
+          <v-list-tile v-if="userIsAnthenticated==false">
             <v-list-tile-content>
-              <v-dialog width="500" v-model="dialog">
+              <v-dialog width="500"  v-model="dialog">
                 <template v-slot:activator="{ on }">
                   <v-btn v-on="on" flat>
                     <v-icon left>fas fa-user-circle</v-icon>
@@ -15,6 +15,7 @@
                 <v-card
                   style="border:5px solid #008080;border-radius:20px;-moz-border-radius:20px;-webkit-border-radius:20px;background-color:#424242"
                 >
+                <v-form @submit.prevent="onSignIn()">
                   <v-layout column align-center>
                     <img
                       src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/logo.png?alt=media&token=3bb68f47-2e5d-4a41-9844-22ad4f199fd5"
@@ -36,7 +37,7 @@
                     </v-text-field>
                   </v-flex>
                   <v-layout justify-center>
-                    <v-btn color="#F5DCD7" to="/signup" @click="dialog = false">
+                    <v-btn color="#F5DCD7" to="signup" @click="dialog = false">
                       <span>S'inscrire</span>
                     </v-btn>
                     <v-btn color="#F5DCD7" class="mx-3" icon @click="dialog = false">
@@ -46,9 +47,15 @@
                       <v-icon size="24px">fab fa-facebook</v-icon>
                     </v-btn>
                   </v-layout>
+                </v-form>
                 </v-card>
               </v-dialog>
             </v-list-tile-content>
+          </v-list-tile>
+
+          <v-list-tile v-else>                            
+            <v-list-tile-action><v-avatar><v-img  src="https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png"></v-img></v-avatar></v-list-tile-action>
+            <v-list-tile-title>Profil</v-list-tile-title>
           </v-list-tile>
           
           <v-list-group >
@@ -58,8 +65,8 @@
                   <v-list-tile-title >Jeux</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
-              <v-divider></v-divider>
-              <v-list-tile v-for="(item, index) in jeux" :key="index" @click>
+              
+              <v-list-tile v-for="(item, index) in jeux" :key="index" @click.stop :to="item.link">
                 <v-list-tile-title>{{item.title}}</v-list-tile-title>
               </v-list-tile>
           </v-list-group>
@@ -69,7 +76,7 @@
               <v-list-tile-title >News</v-list-tile-title>
           </v-list-tile>
           
-          <v-list-tile v-for="(item, index) in console" :key="index" @click :to="item.link">
+          <v-list-tile v-for="(item, index) in console" :key="index" @click.stop :to="item.link">
             <v-list-tile-action><v-icon>{{item.icon}}</v-icon></v-list-tile-action>
               <v-list-tile-title>{{item.title}}</v-list-tile-title>
           </v-list-tile>
@@ -95,7 +102,7 @@
       <v-menu open-on-hover bottom offset-y origin="center center" transition="scale-transition">
         <v-btn slot="activator" flat>Jeux</v-btn>
         <v-list>
-          <v-list-tile v-for="(item, index) in jeux" :key="index" @click>
+          <v-list-tile v-for="(item, index) in jeux" :key="index" @click.stop :to="item.link">
             <v-list-tile-title>{{item.title}}</v-list-tile-title>
           </v-list-tile>
         </v-list>
@@ -103,7 +110,7 @@
       <v-btn slot="activator" flat>News</v-btn>
       </v-toolbar-items>
       <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn v-for="icone in console" :key="icone" class="mx-2" dark icon :href="icone.link">
+      <v-btn v-for="icone in console" :key="icone" class="mx-2" dark icon :to="icone.link">
         <v-icon size="24px">{{ icone.icon }}</v-icon>
       </v-btn>
       </v-toolbar-items>
@@ -118,8 +125,8 @@
       </v-btn>
 
       
-        <v-flex>
-      <v-dialog width="500" v-model="dialog">
+      <v-flex>
+      <v-dialog v-if="this.userIsAnthenticated==false" width="500" v-model="dialog">
         <template v-slot:activator="{ on }">
         <v-btn v-on="on" flat>
           <v-icon left>fas fa-user-circle</v-icon>
@@ -153,7 +160,7 @@
             ></v-text-field>
           </v-flex>
           <v-layout justify-center>
-            <v-btn color="#F5DCD7" to="/signup" @click="dialog = false">
+            <v-btn color="#F5DCD7" to="signup" @click="dialog = false">
               <span>S'inscrire</span>
             </v-btn>
 
@@ -167,7 +174,17 @@
           </v-layout>
         </v-card>
       </v-dialog>
+      
+      <v-menu v-else open-on-hover bottom offset-y origin="center center" transition="scale-transition">
+        <v-btn slot="activator" flat><v-avatar><v-img  src="https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png"></v-img></v-avatar>&nbsp;Profil</v-btn>
+        <v-list>
+          <v-list-tile v-for="(item, index) in profil" :key="index" @click.stop :to="item.link">
+            <v-list-tile-title>{{item.title}}</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
         </v-flex>
+        
       </v-layout>
       </v-toolbar-items>
     </v-toolbar>
@@ -239,6 +256,10 @@ export default {
   data() {
     
     return {
+      email:'',
+      password:'',
+      confirmPassword:'',
+
       dialog: false,
       sideNav: false,
       icons: ["fab fa-facebook", "fab fa-twitter", "fab fa-instagram"],
@@ -261,7 +282,7 @@ export default {
       console: [
         {
           icon: "fab fa-playstation",
-          link: "Settings",
+          link: "/settings",
           title: "Playstation"
         },
         {
@@ -283,7 +304,7 @@ export default {
       jeux: [
         {
           title: "Classement",
-          link: ""
+          link: "/settings"
         },
         {
           title: "Tous les jeux",
@@ -293,6 +314,16 @@ export default {
           title: "Nouveautés",
           link: ""
         }
+      ],
+      profil: [
+        {
+          title: "Paramètres",
+          link: "/settings"
+        },
+        {
+          title: "Déconnexion",
+          link: ""
+        },
       ]
     };
   },
@@ -301,12 +332,18 @@ export default {
       window.onscroll = () => {
         this.scrollFunction();
       };
+    },
+    userIsAnthenticated(){
+      return this.$store.getters.user != null && this.$store.getters.user != undefined
     }
   },
   mounted: function() {
       this.getHeight();
   },
   methods: {
+    onSignUp () {
+            this.$store.dispatch('signUserIn',{email:this.email, password:this.password})
+        },
     scrollFunction() {
       var limit =
         Math.max(

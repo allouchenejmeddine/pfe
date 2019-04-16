@@ -1,7 +1,7 @@
 <template>
     <v-container fill-height fluid>
-        <v-layout align-center ma-3>
-            <v-flex xs10 offset-xs1 sm8 offset-sm2 md8 offset-md2 >
+        <v-layout align-center>
+            <v-flex xs12 sm8 offset-sm2 md8 offset-md2>
                 <v-card dark fill-height>
                     <v-list>
                         <v-layout column ma-3>
@@ -18,13 +18,13 @@
                                     <span style="font-size:16px">Avatar</span>
                                 </v-flex>
                                 <v-flex mb-4> 
-                                    <v-avatar size="200" tile>
+                                    <v-avatar size="170" tile>
                                         <v-img  src="https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png">
                                             <v-layout row justify-end align-end fill-height>
                                             
                                                 <v-tooltip color="rgb(0,128,128)" left>
                                                     <template v-slot:activator="{ on }">
-                                                        <v-btn v-on="on" icon><v-icon >fas fa-edit</v-icon></v-btn>
+                                                        <v-btn light v-on="on" icon><v-icon >fas fa-edit</v-icon></v-btn>
                                                     </template>
                                                     <span style="font-size:9px">NB : Taille max de l'image 8Mo</span>
                                                 </v-tooltip>
@@ -37,12 +37,12 @@
 
                             <v-divider color="#008080"></v-divider>
                         
-                            <v-layout column mx-3 mt-3 pr-5>
+                            <v-layout column ma-3>
                                 <v-flex mb-4>
                                     <span style="font-size:16px">Vos données personnelles</span>
                                 </v-flex>
-                                <v-layout column align-space-between fluid pr-5>
-                                <v-flex mb-1 pr-5> 
+                                <v-layout column align-space-between fluid>
+                                <v-flex mb-1> 
                                     <v-text-field
                                     color="#F5DCD7"
                                     name="oldpassword"
@@ -51,7 +51,7 @@
                                     required>
                                     </v-text-field> 
                                 </v-flex>
-                                <v-flex mb-1 pr-5> 
+                                <v-flex mb-1> 
                                     <v-text-field
                                     color="#F5DCD7"
                                     name="newpassword"
@@ -60,7 +60,7 @@
                                     required>
                                     </v-text-field> 
                                 </v-flex>
-                                <v-flex mb-5 pr-5> 
+                                <v-flex mb-5> 
                                     <v-text-field color="#F5DCD7"
                                     name="confpassword"
                                     label="Confirmer votre nouveau mot de passe"
@@ -69,7 +69,7 @@
                                     </v-text-field> 
                                 </v-flex>
 
-                                <v-flex mb-1 pr-5> 
+                                <v-flex mb-1> 
                                     <v-text-field
                                     color="#F5DCD7"
                                     name="nickname"

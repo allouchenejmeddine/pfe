@@ -1,21 +1,21 @@
 <template>
     <v-container fluid>
-        <v-layout align-content-center>
-            <v-flex xs10 offset-xs1 sm8 offset-sm2 md8 offset-md2 >
+        <v-layout align-center>
+            <v-flex xs12 sm8 offset-sm2 md8 offset-md2 >
                 <v-card dark >
                     <v-list>
-                        <v-container align-content-center>
+                        <v-container>
                         <v-layout column  >
-                            <v-layout align-center >
-                                <v-flex > 
+                            <v-layout align-center>
+                                <v-flex pb-3> 
                                     <span style="font-size:22px">Suggestion d'un nouveau jeux</span>
                                 </v-flex>
                             </v-layout>
                             <v-divider color="#008080"></v-divider>
                         
-                            <v-layout align-content-center >
+                            <v-layout column align-center my-3>
                                 
-                                <v-flex align-content-center> 
+                                <v-flex align-center>
                                     <v-avatar size="200" tile>
                                         <v-img  src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/logo_jeux.png?alt=media&token=e70be2d3-39cd-45db-a2d4-2652858e6dae">
                                             <v-layout row justify-end align-end fill-height>
@@ -36,7 +36,7 @@
 
                             <v-divider color="#008080"></v-divider>
                         
-                            <v-layout column >
+                            <v-layout column my-3>
                                 <v-flex mb-4>
                                     <span style="font-size:16px">Informations sur le jeux</span>
                                 </v-flex>
@@ -55,7 +55,7 @@
                                             </v-text-field>
                                         </v-flex>
                                         <v-spacer></v-spacer>
-                                        <v-flex xs5 mr-5>
+                                        <v-flex xs5 mr-5 mb-5>
                                             <v-menu
                                             ref="menu1"
                                             v-model="menu1"
@@ -70,6 +70,7 @@
                                             >
                                             <template v-slot:activator="{ on }">
                                                 <v-text-field
+                                                readonly
                                                 v-model="dateFormatted"
                                                 label="Date de sortie"
                                                 hint="MM/JJ/AAAA format"
@@ -81,7 +82,7 @@
                                             </template>
                                             <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
                                             </v-menu>
-                                            <p>Format de date: <strong>{{ date }}</strong></p>
+                                            
                                         </v-flex>
                                     </v-layout>
                                     <v-layout align-center fill-height justify-center row  >
