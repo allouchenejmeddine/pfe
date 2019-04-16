@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Signup from './components/User/signup'
 import Settings from './components/User/settings'
+import GameSuggestion from './components/Game/GameSuggestion'
 
 Vue.use(Router)
 
@@ -35,6 +36,15 @@ export default new Router({
       meta:
       {
         title: 'Paramètres de Compte - Game Players Union'
+      }
+    },
+    {
+      path: '/suggest_game',
+      name : 'suggestgame',
+      component : GameSuggestion,
+      meta:
+      {
+        title: "Suggestion d'un jeux " 
       }
     },
     {
