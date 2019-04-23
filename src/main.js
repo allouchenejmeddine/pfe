@@ -2,7 +2,7 @@ import Vue from 'vue'
 import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import {store} from './store'
 import firebase from 'firebase/app'
 
 import './registerServiceWorker'
@@ -26,6 +26,11 @@ new Vue({
       databaseURL: "https://gpufinal.firebaseio.com",
       projectId: "gpufinal",
       storageBucket: "gpufinal.appspot.com"
+    })
+    firebase.auth().onAuthStateChanged((user)=>{
+      if(user){
+        this.$store.dispatch('autoSignIn',user)
+      }
     })
   }
 }).$mount('#app');

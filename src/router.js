@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Signup from './components/User/signup'
 import Settings from './components/User/settings'
 import GameSuggestion from './components/Game/GameSuggestion'
+import authGuard from '../auth-guard';
 
 Vue.use(Router)
 
@@ -36,7 +37,8 @@ export default new Router({
       meta:
       {
         title: 'Paramètres de Compte - Game Players Union'
-      }
+      },
+      beforeEnter:authGuard
     },
     {
       path: '/suggest_game',
@@ -45,7 +47,8 @@ export default new Router({
       meta:
       {
         title: "Suggestion d'un jeux " 
-      }
+      },
+      beforeEnter:authGuard
     },
     {
       path: '/about',

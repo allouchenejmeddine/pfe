@@ -45,6 +45,7 @@
                                 <v-flex mb-1> 
                                     <v-text-field
                                     color="#F5DCD7"
+                                    v-model="oldPassword"
                                     name="oldpassword"
                                     label="Ancien mot de passe"
                                     type="password"
@@ -54,6 +55,7 @@
                                 <v-flex mb-1> 
                                     <v-text-field
                                     color="#F5DCD7"
+                                    v-model="newPassword"
                                     name="newpassword"
                                     label="Nouveau mot de passe"
                                     type="password"
@@ -63,9 +65,11 @@
                                 <v-flex mb-5> 
                                     <v-text-field color="#F5DCD7"
                                     name="confpassword"
+                                    v-model="confirmPassword"
                                     label="Confirmer votre nouveau mot de passe"
                                     type="password"
-                                    required>
+                                    required
+                                    :rules="[comparePasswords]">
                                     </v-text-field> 
                                 </v-flex>
 
@@ -93,3 +97,22 @@
         </v-layout>
     </v-container>
 </template>
+<script>
+export default {
+    data () {
+        return {
+            newPassword:'',
+            confirmPassword:'',
+            oldPassword:''
+        }
+    },
+    computed:{
+        comparePasswords() {
+            return this.newPassword !== this.confirmPassword ? "Reverifiez votre mot de passe svp" : ''
+        }
+    }
+}
+</script>
+
+
+    

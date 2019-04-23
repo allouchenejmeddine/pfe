@@ -3,9 +3,10 @@ import Vuex from 'vuex'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
+import router from './router'
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+export const store = new Vuex.Store({
   state: {
       user: null
   },
@@ -45,6 +46,51 @@ export default new Vuex.Store({
           console.log(error)
         }
       )
+    },
+    signUserIn({commit}, payload){
+      firebase.auth().signInWithEmailAndPassword(payload.email,payload.password)
+      .then(
+        (user) =>{
+          const newUser={
+            id:user.uid,
+            email: user.email,
+            nom: user.nom,
+            prenom: user.prenom,
+            dateNaissance: user.dateNaissance,
+            pseudo : user.pseudo,
+            listeJeux: user.listeJeux,
+            listeEnvies: user.listeEnvies,
+            listeGenre: user.listeGenre,
+            listeVisible: user.listeVisible
+
+            
+        }
+        var userto = firebase.auth().currentUser
+        commit('setUser',userto)
+        
+        alert(user.uid)
+        
+      })
+      .catch(
+        error=>{
+          console.log(error)
+        }
+      )
+    },
+    autoSignIn({commit},payload){
+      commit('setUser',{id:payload.uid,email:payload.email,nom:payload.nom,prenom:payload.prenom,
+      dateNaissance:payload.dateNaissance,pseudo:payload.pseudo,listeJeux:payload.listeJeux,
+      listeEnvies:payload.listeEnvies,listeGenre:payload.listeGenre,listeVisible:payload.listeVisible})
+    },
+    logoutUser({commit}){
+      firebase.auth().signOut().then(function(){
+        alert('successfully logout')
+        router.push('/settings') 
+      }).catch((err)=>{
+        alert(err)
+      })
+      commit('setUser',null)
+      
     }
 
   },

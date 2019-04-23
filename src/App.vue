@@ -3,7 +3,7 @@
     
     <v-navigation-drawer dark app v-model="sideNav">
       <v-list>          
-          <v-list-tile v-if="userIsAnthenticated==false">
+          <v-list-tile v-if="userIsAuthenticated==false">
             <v-list-tile-content>
               <v-dialog width="500"  v-model="dialog">
                 <template v-slot:activator="{ on }">
@@ -25,11 +25,12 @@
                     <span style="font-size:18px;color:#F5DCD7">Identifiez-vous</span>
                   </v-layout>
                   <v-flex mx-5 mt-3 justify-center>
-                    <v-text-field dark label="Pseudo" prepend-inner-icon="fas fa-user" color="#F5DCD7"></v-text-field>
+                    <v-text-field dark label="Pseudo" v-model="email" prepend-inner-icon="fas fa-user" color="#F5DCD7"></v-text-field>
                   </v-flex>
                   <v-flex mx-5 mt-3 justify-center>
                     <v-text-field
                     dark
+                    v-model="password"
                     label="Mot de passe"
                     prepend-inner-icon="fas fa-unlock-alt"
                     color="#F5DCD7"
@@ -37,8 +38,8 @@
                     </v-text-field>
                   </v-flex>
                   <v-layout justify-center>
-                    <v-btn color="#F5DCD7" to="signup" @click="dialog = false">
-                      <span>S'inscrire</span>
+                    <v-btn color="#F5DCD7"  @click="onSignIn()">
+                      <span>Se connecter</span>
                     </v-btn>
                     <v-btn color="#F5DCD7" class="mx-3" icon @click="dialog = false">
                       <v-icon size="24px">fab fa-google</v-icon>
@@ -126,7 +127,7 @@
 
       
       <v-flex>
-      <v-dialog v-if="this.userIsAnthenticated==false" width="500" v-model="dialog">
+      <v-dialog v-if="this.userIsAuthenticated==false" width="500" v-model="dialog">
         <template v-slot:activator="{ on }">
         <v-btn v-on="on" flat>
           <v-icon left>fas fa-user-circle</v-icon>
@@ -148,20 +149,21 @@
           </v-layout>
 
           <v-flex mx-5 mt-3 justify-center>
-            <v-text-field dark label="Pseudo" prepend-inner-icon="fas fa-user" color="#F5DCD7"></v-text-field>
+            <v-text-field  dark label="Pseudo" prepend-inner-icon="fas fa-user" color="#F5DCD7"></v-text-field>
           </v-flex>
 
           <v-flex mx-5 mt-3 justify-center>
             <v-text-field
               dark
+              
               label="Mot de passe"
               prepend-inner-icon="fas fa-unlock-alt"
               color="#F5DCD7"
             ></v-text-field>
           </v-flex>
           <v-layout justify-center>
-            <v-btn color="#F5DCD7" to="signup" @click="dialog = false">
-              <span>S'inscrire</span>
+            <v-btn color="#F5DCD7"  @click="onSignIn()">
+              <span>Se connecter</span>
             </v-btn>
 
             <v-btn color="#F5DCD7" class="mx-3" icon @click="dialog = false">
@@ -178,7 +180,7 @@
       <v-menu v-else open-on-hover bottom offset-y origin="center center" transition="scale-transition">
         <v-btn slot="activator" flat><v-avatar><v-img  src="https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png"></v-img></v-avatar>&nbsp;Profil</v-btn>
         <v-list>
-          <v-list-tile @click='logout()'>
+          <v-list-tile @click='onLogout()'>
             <v-list-tile-title>Deconnexion</v-list-tile-title>
           </v-list-tile>
         </v-list>
@@ -249,6 +251,7 @@
 import HelloWorld from "./components/HelloWorld";
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import {store} from './store'
 export default {
   name: "App",
   components: {
@@ -334,16 +337,16 @@ export default {
         this.scrollFunction();
       };
     },
-    userIsAnthenticated(){
-      return this.$store.getters.user != null && this.$store.getters.user != undefined
+    userIsAuthenticated(){
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     }
   },
   mounted: function() {
       this.getHeight();
   },
   methods: {
-    onSignUp () {
-            this.$store.dispatch('signUserIn',{email:this.email, password:this.password})
+    onSignIn () {
+          this.$store.dispatch('signUserIn',{email:this.email, password:this.password})
         },
     scrollFunction() {
       var limit =
@@ -417,13 +420,8 @@ export default {
         ? (this.isVisible = true)
         : (this.isVisible = false);
     },
-    logout(){
-      firebase.auth().signOut().then(function(){
-        alert('successfully logout')
-      }, function(error){
-        alert('oops.. problem')
-      });
-      this.$router.push('settings')
+    onLogout(){
+      this.$store.dispatch('logoutUser')
     }
   }
 };
