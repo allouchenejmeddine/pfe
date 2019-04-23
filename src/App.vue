@@ -110,7 +110,7 @@
       <v-btn slot="activator" flat>News</v-btn>
       </v-toolbar-items>
       <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn v-for="icone in console" :key="icone" class="mx-2" dark icon :to="icone.link">
+      <v-btn v-for="(icone, index) in console" :key="index" class="mx-2" dark icon :to="icone.link">
         <v-icon size="24px">{{ icone.icon }}</v-icon>
       </v-btn>
       </v-toolbar-items>
@@ -178,8 +178,8 @@
       <v-menu v-else open-on-hover bottom offset-y origin="center center" transition="scale-transition">
         <v-btn slot="activator" flat><v-avatar><v-img  src="https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png"></v-img></v-avatar>&nbsp;Profil</v-btn>
         <v-list>
-          <v-list-tile v-for="(item, index) in profil" :key="index" @click.stop :to="item.link">
-            <v-list-tile-title>{{item.title}}</v-list-tile-title>
+          <v-list-tile @click='logout()'>
+            <v-list-tile-title>Deconnexion</v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
@@ -223,7 +223,7 @@
             </v-flex>
 
             <v-flex xl3>
-              <v-btn v-for="icone in social" :key="icone" class="mx-3" dark icon :href="icone.link">
+              <v-btn v-for="(icone, index) in social" :key="index" class="mx-3" dark icon :href="icone.link">
                 <v-icon size="24px">{{ icone.icon }}</v-icon>
               </v-btn>
             </v-flex>
@@ -239,7 +239,7 @@
     </v-flex>
 </v-layout>
 
-    <v-btn id="myBtn" @click="topFunction" ripple icon v-show-transition>
+    <v-btn id="myBtn" @click="topFunction" ripple icon >
       <v-icon>fa-chevron-circle-up</v-icon>
     </v-btn>
   </v-app>
@@ -247,7 +247,8 @@
 
 <script>
 import HelloWorld from "./components/HelloWorld";
-
+import firebase from 'firebase/app'
+import 'firebase/auth'
 export default {
   name: "App",
   components: {
@@ -415,6 +416,14 @@ export default {
       this.isVisible == false
         ? (this.isVisible = true)
         : (this.isVisible = false);
+    },
+    logout(){
+      firebase.auth().signOut().then(function(){
+        alert('successfully logout')
+      }, function(error){
+        alert('oops.. problem')
+      });
+      this.$router.push('settings')
     }
   }
 };

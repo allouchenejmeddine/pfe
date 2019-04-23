@@ -16,13 +16,19 @@
     </v-card>
     </v-flex>
   </v-layout>
+  <v-btn @click="getid()">
+    user
+  </v-btn>
   </v-container>
   
  
   </template>
 
 <script>
+import firebase from 'firebase/app'
+import 'firebase/auth'
   export default {
+    
     data: () => ({
       infos: [
         {
@@ -52,8 +58,17 @@
           page:'https://google.com'
           
         }
-      ]
-    })
+        
+      ],
+      userId:''
+    }),
+    methods : {
+      getid : function (){
+        if(firebase.auth().currentUser==null)
+          alert('sorry, no user')
+        else alert(firebase.auth().currentUser.email)
+      }
+    }
   }
 </script>
 
