@@ -421,6 +421,7 @@ export default {
         : (this.isVisible = false);
     },
     onLogout(){
+      this.dialog = false;
       this.$store.dispatch('logoutUser')
     }
   }

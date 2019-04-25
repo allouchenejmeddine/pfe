@@ -84,8 +84,7 @@ export const store = new Vuex.Store({
     },
     logoutUser({commit}){
       firebase.auth().signOut().then(function(){
-        alert('successfully logout')
-        router.push('/settings') 
+        router.push('/') 
       }).catch((err)=>{
         alert(err)
       })
