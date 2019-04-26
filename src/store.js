@@ -1,18 +1,21 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/database'
+
+import * as firebase from 'firebase'
 import router from './router'
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-      user: null
+      user: null,
+      loadedGames:[]
   },
   mutations: {
   setUser(state,payload){
     state.user=payload
+  },
+  setLoadedGames (state, payload) {
+    state.loadedGames = payload
   }
 },
   actions: {
@@ -50,7 +53,7 @@ export const store = new Vuex.Store({
     signUserIn({commit}, payload){
       firebase.auth().signInWithEmailAndPassword(payload.email,payload.password)
       .then(
-        (user) =>{
+        user =>{
           const newUser={
             id:user.uid,
             email: user.email,
@@ -65,10 +68,17 @@ export const store = new Vuex.Store({
 
             
         }
-        var userto = firebase.auth().currentUser
-        commit('setUser',userto)
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            // User is signed in.
+            commit('setUser',user)
+            alert(store.getters.user.uid)
+          } else {
+            // No user is signed in.
+            alert("No user found")
+          }
+        });        
         
-        alert(user.uid)
         
       })
       .catch(
@@ -81,16 +91,80 @@ export const store = new Vuex.Store({
       commit('setUser',{id:payload.uid,email:payload.email,nom:payload.nom,prenom:payload.prenom,
       dateNaissance:payload.dateNaissance,pseudo:payload.pseudo,listeJeux:payload.listeJeux,
       listeEnvies:payload.listeEnvies,listeGenre:payload.listeGenre,listeVisible:payload.listeVisible})
+      alert(store.getters.user.id)
     },
     logoutUser({commit}){
       firebase.auth().signOut().then(function(){
-        alert('successfully logout')
-        router.push('/settings') 
+        router.push('/') 
       }).catch((err)=>{
         alert(err)
       })
       commit('setUser',null)
       
+    },
+    addGameToDatabase({commit},payload){
+      let user = firebase.auth().currentUser
+      let imageUrl
+      let key
+      const newGame={
+        nom:payload.nom,
+        configuration:payload.configuration,
+        developpeur:payload.developpeur,
+        description:payload.description,
+        plateformeJeux:payload.plateformeJeux,
+        dlc:payload.dlc,
+        modeJeux:payload.modeJeux,
+        moteurGraph:payload.moteurGraph,
+        genreJeux:payload.genreJeux,
+        suggestedFrom:user.uid,
+        image:''
+      }
+      firebase.database().ref('/jeuxSuggeres').push(newGame).then((data)=>{
+        const key = data.key
+        return key
+      }).then(key=>{
+        const filename=payload.image.name
+        const ext = filename.slice(filename.lastIndexOf('.'))
+        var toReturn = [key,ext,firebase.storage().ref(key+ext).put(payload.image)]
+        return toReturn
+      }).then(fileData=>{
+        imageUrl= ''+firebase.storage().ref(fileData[0]+fileData[1])
+        alert(imageUrl)
+        alert(fileData[0])
+        firebase.database().ref('/jeuxSuggeres').child(fileData[0])
+        return firebase.database().ref('/jeuxSuggeres').child(fileData[0]).update({image:imageUrl})
+      }).then(()=>{
+        commit('addGameToDatabase',{
+          ...newGame,
+          imageUrl:'',
+          id:key
+        })
+      }).then(()=>{
+        alert('Success! what a champion!')
+        router.push('/game_created')
+      })
+
+    },
+    loadGames ({commit}) {
+      firebase.database().ref('jeuxSuggeres').once('value')
+        .then((data) => {
+          const jeux = []
+          const obj = data.val()
+          for (let key in obj) {
+            jeux.push({
+              id: key,
+              nom: obj[key].nom,
+              description: obj[key].description,
+              suggestedFrom: obj[key].suggestedFrom
+            })
+          }
+          commit('setLoadedGames', jeux)
+        })
+        .catch(
+          (error) => {
+            console.log(error)
+          }
+        )
     }
 
   },

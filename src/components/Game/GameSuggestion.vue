@@ -17,12 +17,12 @@
                                 
                                 <v-flex align-center>
                                     <v-avatar size="200" tile>
-                                        <v-img  src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/logo_jeux.png?alt=media&token=e70be2d3-39cd-45db-a2d4-2652858e6dae">
+                                        <v-img ref="avatar" src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/logo_jeux.png?alt=media&token=e70be2d3-39cd-45db-a2d4-2652858e6dae">
                                             <v-layout row justify-end align-end fill-height>
                                             
                                                 <v-tooltip color="rgb(0,128,128)" left>
                                                     <template v-slot:activator="{ on }">
-                                                        <v-btn v-on="on" icon><v-icon >fas fa-edit</v-icon></v-btn>
+                                                        <v-btn @click="$refs.inputUpload.click()" v-on="on" icon><v-icon >fas fa-edit</v-icon></v-btn>
                                                     </template>
                                                     <span style="font-size:9px">NB : Taille max de l'image 8Mo</span>
                                                 </v-tooltip>
@@ -31,6 +31,7 @@
                                         </v-img>
                                     </v-avatar>
                                 </v-flex>
+                                <input v-show="false" ref="inputUpload" type="file" @change="onFilePicked"  >    
                                 
                             </v-layout>
 
@@ -44,14 +45,15 @@
                                         <v-flex xs5 ml-5> 
                                             <v-text-field
                                             color="#F5DCD7"
-                                            name="Nom"
+                                            name="nom"
                                             label="Nom du jeux"
                                             single-line
                                             outline
                                             v-model="nom"
                                             clearable
+                                            required
                                             :rules="[verifyNom]"
-                                            required>
+                                            >
                                             </v-text-field>
                                         </v-flex>
                                         <v-spacer></v-spacer>
@@ -64,6 +66,7 @@
                                             lazy
                                             transition="scale-transition"
                                             offset-y
+                                        
                                             full-width
                                             max-width="290px"
                                             min-width="290px"
@@ -71,13 +74,13 @@
                                             <template v-slot:activator="{ on }">
                                                 <v-text-field
                                                 readonly
-                                                v-model="dateFormatted"
+                                                required
+                                                v-model="dateSortie"
                                                 label="Date de sortie"
                                                 hint="MM/JJ/AAAA format"
                                                 persistent-hint
                                                 prepend-icon='fas fa-calendar-week'
-                                                @blur="date = parseDate(dateFormatted)"
-                                                v-on="on"
+                                                @blur="date = parseDate(dateSortie)"
                                                 ></v-text-field>
                                             </template>
                                             <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
@@ -92,9 +95,12 @@
                                             name="Developpeur"
                                             label="Développeur du jeux"
                                             single-line
+                                            required
                                             outline
+                                            v-model="developpeur"
                                             clearable
-                                            required>
+                                            
+                                            >
                                             </v-text-field>
                                         </v-flex>
                                         <v-spacer></v-spacer>
@@ -104,8 +110,9 @@
                                             name="ModeJeux"
                                             label="Mode de jeux"
                                             outline
-                                            clearable
                                             required
+                                            v-model="modeJeux"
+                                            clearable
                                             :items=mode
                                             >
                                             
@@ -119,9 +126,11 @@
                                             name="moteurGraphique"
                                             label="Moteur graphique"
                                             single-line
+                                            v-model="moteurGraph"
                                             outline
+                                            required
                                             clearable
-                                            required>
+                                            >
                                             </v-text-field>
                                         </v-flex>
                                         <v-spacer></v-spacer>
@@ -130,8 +139,9 @@
                                             :items=genres
                                             prefix="Genre: "
                                             clearable
-                                            outline
                                             required
+                                            v-model="genreJeux"
+                                            outline
                                              >
                                             </v-select>
                                         </v-flex>
@@ -143,9 +153,11 @@
                                             name="dlc"
                                             label="DLC"
                                             single-line
+                                            v-model="dlc"
                                             outline
+                                            required
                                             clearable
-                                            required>
+                                            >
                                             </v-text-field>
                                         </v-flex>
                                         <v-spacer></v-spacer>
@@ -154,8 +166,10 @@
                                             :items=plateforme
                                             prefix="Plateforme: "
                                             clearable
-                                            outline
                                             required
+                                            v-model="plateformeJeux"
+                                            outline
+                                            
                                              >
                                             </v-select>
                                         </v-flex>
@@ -167,9 +181,11 @@
                                             name="description"
                                             label="Description du jeux"
                                             single-line
+                                            v-model="description"
                                             outline
+                                            aria-required
                                             clearable
-                                            required>
+                                            >
                                             </v-textarea>
                                         </v-flex>
                                         <v-spacer></v-spacer>
@@ -180,8 +196,9 @@
                                             label="Configuration nécessaire"
                                             single-line
                                             outline
+                                            v-model="configuration"
                                             clearable
-                                            required
+                                            aria-required
                                              >
                                             </v-textarea>
                                         </v-flex>
@@ -193,7 +210,7 @@
                     </v-list>
                     <v-card-actions > 
                         <v-spacer></v-spacer>
-                        <v-btn outline color="#008080"><span style="font-weight: bold">Valider</span><v-icon right>fas fa-check</v-icon></v-btn> 
+                        <v-btn outline @click="addToDatabase()" color="#008080"><span style="font-weight: bold">Valider</span><v-icon right>fas fa-check</v-icon></v-btn> 
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -212,7 +229,19 @@
             genres:["FPS","MOBA","SPORT","COURSE","BATTLE ROYAL"],
             plateforme:['PC','PS','SWITCH','XBOX'],
             mode:['SOLO','MULTIPLAYER','COOP'],
-            nbVotes:0
+            nbVotes:0,
+            nom:'',
+            dateSortie:'',
+            configuration:'',
+            developpeur:'',
+            description:'',
+            plateformeJeux:'',
+            dlc:'',
+            modeJeux:'',
+            moteurGraph:'',
+            genreJeux:'',
+            image:null
+            
         }
       
     
@@ -222,12 +251,16 @@
     computed: {
       computedDateFormatted () {
         return this.formatDate(this.date)
+      },
+      imageRefresh(){
+          this.image=inputUpload
       }
     },
+    
 
     watch: {
       date (val) {
-        this.dateFormatted = this.formatDate(this.date)
+        this.dateSortie = this.formatDate(this.date)
       }
     },
 
@@ -243,12 +276,36 @@
 
         const [month, day, year] = date.split('/')
         return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+      },
+      addToDatabase(){
+          alert('hello , you can begin now !')
+          this.$store.dispatch('addGameToDatabase',{nom:this.nom,configuration:this.configuration,
+          developpeur:this.developpeur,description:this.description,
+          plateformeJeux:this.plateformeJeux,dlc:this.dlc,modeJeux:this.modeJeux,
+          moteurGraph:this.moteurGraph,genreJeux:this.genreJeux,image:this.image})
+      },
+      onFilePicked(event){
+          alert(event.currentTarget)
+
+          const files = event.target.files
+          let filename= files[0].name
+          if(filename.lastIndexOf('.')<= 0){
+              alert("Veuillez vérifier le type de votre fichier d'image")
+          }
+          const fileReader = new FileReader()
+          fileReader.addEventListener('load', ()=>{
+              this.$refs.avatar.src=fileReader.result
+          })
+          fileReader.readAsDataURL(files[0])
+          this.image=files[0]
+        
       }
     },
     computed: {
       verifyNom()
       {
           if ( (this.nom.toString().charCodeAt(0)<65)|| (this.nom.toString().charCodeAt(0)>91)) return "Le nom de jeu doit commencer en majuscule"
+          else return ''
       }
     }
   }

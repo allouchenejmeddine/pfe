@@ -4,7 +4,9 @@ import Home from './views/Home.vue'
 import Signup from './components/User/signup'
 import Settings from './components/User/settings'
 import GameSuggestion from './components/Game/GameSuggestion'
-import authGuard from '../auth-guard';
+import authGuard from './auth-guard';
+import GameSuggestions from './components/Game/suggestedGames'
+import GameCreated from './components/Game/GameCreatedSuccessfully'
 
 Vue.use(Router)
 
@@ -48,7 +50,27 @@ export default new Router({
       {
         title: "Suggestion d'un jeux " 
       },
-      beforeEnter:authGuard
+      //beforeEnter:authGuard
+    },
+    {
+      path: '/suggested_games',
+      name : 'suggestedgames',
+      component : GameSuggestions,
+      meta:
+      {
+        title: "Jeux suggérés " 
+      },
+      //beforeEnter:authGuard
+    },
+    {
+      path: '/game_created',
+      name : 'gameCreated',
+      component : GameCreated,
+      meta:
+      {
+        title: "Jeu suggéré avec succès" 
+      },
+      //beforeEnter:authGuard
     },
     {
       path: '/about',

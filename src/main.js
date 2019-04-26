@@ -3,7 +3,7 @@ import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
 import {store} from './store'
-import firebase from 'firebase/app'
+import * as firebase from 'firebase'
 
 import './registerServiceWorker'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
@@ -32,6 +32,8 @@ new Vue({
         this.$store.dispatch('autoSignIn',user)
       }
     })
+    this.$store.dispatch('loadGames')
+    
   }
 }).$mount('#app');
 
