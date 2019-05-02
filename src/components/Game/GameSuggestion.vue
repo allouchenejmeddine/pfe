@@ -254,6 +254,14 @@
       },
       imageRefresh(){
           this.image=inputUpload
+      },
+      logo(){
+          this
+      },
+      verifyNom()
+      {
+          if ( (this.nom.toString().charCodeAt(0)<65)|| (this.nom.toString().charCodeAt(0)>91)) return "Le nom de jeu doit commencer en majuscule"
+          else return ''
       }
     },
     
@@ -299,13 +307,6 @@
           fileReader.readAsDataURL(files[0])
           this.image=files[0]
         
-      }
-    },
-    computed: {
-      verifyNom()
-      {
-          if ( (this.nom.toString().charCodeAt(0)<65)|| (this.nom.toString().charCodeAt(0)>91)) return "Le nom de jeu doit commencer en majuscule"
-          else return ''
       }
     }
   }

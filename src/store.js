@@ -17,6 +17,8 @@ export const store = new Vuex.Store({
   setLoadedGames (state, payload) {
     state.loadedGames = payload
   }
+    
+  
 },
   actions: {
     signUserUp({commit},payload){
@@ -105,6 +107,8 @@ export const store = new Vuex.Store({
     addGameToDatabase({commit},payload){
       let user = firebase.auth().currentUser
       let imageUrl
+      let path
+      let uploadTask
       let key
       const newGame={
         nom:payload.nom,
@@ -117,7 +121,8 @@ export const store = new Vuex.Store({
         moteurGraph:payload.moteurGraph,
         genreJeux:payload.genreJeux,
         suggestedFrom:user.uid,
-        image:''
+        image:'',
+        id:''
       }
       firebase.database().ref('/jeuxSuggeres').push(newGame).then((data)=>{
         const key = data.key
@@ -125,26 +130,30 @@ export const store = new Vuex.Store({
       }).then(key=>{
         const filename=payload.image.name
         const ext = filename.slice(filename.lastIndexOf('.'))
-        var toReturn = [key,ext,firebase.storage().ref(key+ext).put(payload.image)]
-        return toReturn
+        return firebase.storage().ref(key+ext).put(payload.image)
       }).then(fileData=>{
-        imageUrl= ''+firebase.storage().ref(fileData[0]+fileData[1])
-        alert(imageUrl)
-        alert(fileData[0])
-        firebase.database().ref('/jeuxSuggeres').child(fileData[0])
-        return firebase.database().ref('/jeuxSuggeres').child(fileData[0]).update({image:imageUrl})
-      }).then(()=>{
-        commit('addGameToDatabase',{
-          ...newGame,
-          imageUrl:'',
-          id:key
+        path=fileData.metadata.fullPath
+        const some =firebase.storage().ref().child(path).getDownloadURL()
+        some.then((url)=>{
+          path=fileData.metadata.fullPath.substring(0,fileData.metadata.fullPath.length -4)
+          return firebase.database().ref('/jeuxSuggeres').child(path).update({image:url})
         })
       }).then(()=>{
         alert('Success! what a champion!')
         router.push('/game_created')
       })
-
     },
+      /* firebase.database().ref('/jeuxSuggeres').push(newGame).then((data)=>{
+        const key = data.key
+        return key
+      }).then((key)=>{
+        commit('saveLogoInStorage',key, payload.image)
+      }) */
+    
+    
+       
+       
+  
     loadGames ({commit}) {
       firebase.database().ref('jeuxSuggeres').once('value')
         .then((data) => {
@@ -155,6 +164,7 @@ export const store = new Vuex.Store({
               id: key,
               nom: obj[key].nom,
               description: obj[key].description,
+              image: obj[key].image,
               suggestedFrom: obj[key].suggestedFrom
             })
           }
