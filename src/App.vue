@@ -119,7 +119,7 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items class="hidden-sm-and-down">
-      <v-text-field name="name" label="Rechercher" id="id" v-if="searchVisible" color="#008080" ></v-text-field>
+      <v-text-field name="name" v-model="search" label="Rechercher" id="id" v-if="searchVisible" color="#008080" ></v-text-field>
       <v-layout align-center>
       <v-btn icon @click="searchVisible = !searchVisible">
         <v-icon>fas fa-search</v-icon>
@@ -252,6 +252,7 @@ import HelloWorld from "./components/HelloWorld";
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import {store} from './store'
+
 export default {
   name: "App",
   components: {
@@ -263,7 +264,6 @@ export default {
       email:'',
       password:'',
       confirmPassword:'',
-
       dialog: false,
       sideNav: false,
       icons: ["fab fa-facebook", "fab fa-twitter", "fab fa-instagram"],

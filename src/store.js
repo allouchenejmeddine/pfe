@@ -143,12 +143,7 @@ export const store = new Vuex.Store({
         router.push('/game_created')
       })
     },
-      /* firebase.database().ref('/jeuxSuggeres').push(newGame).then((data)=>{
-        const key = data.key
-        return key
-      }).then((key)=>{
-        commit('saveLogoInStorage',key, payload.image)
-      }) */
+     
     
     
        
