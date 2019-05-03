@@ -119,7 +119,6 @@ export default {
     methods:{
         onFilePicked(event){
           alert(event.currentTarget)
-
           const files = event.target.files
           let filename= files[0].name
           if(filename.lastIndexOf('.')<= 0){

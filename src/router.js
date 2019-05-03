@@ -61,7 +61,7 @@ export default new Router({
       {
         title: 'Paramètres de Compte - Game Players Union'
       },
-      beforeEnter:authGuard
+      //beforeEnter:authGuard
     },
     {
       path: '/suggest_game',
