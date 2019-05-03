@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import GameDesc from './components/Game/GameDesc'
+import Signin from './components/User/signin'
 import Signup from './components/User/signup'
 import Settings from './components/User/settings'
 import GameSuggestion from './components/Game/GameSuggestion'
@@ -30,6 +32,24 @@ export default new Router({
       meta:
       {
         title: 'S\'inscrire - Game Players Union'
+      }
+    },
+    {
+      path: '/signin',
+      name: 'signin',
+      component: Signin,
+      meta:
+      {
+        title: 'Se connecter - Game Players Union'
+      }
+    },
+    {
+      path: '/gamedesc',
+      name: 'GameDesc',
+      component: GameDesc,
+      meta:
+      {
+        title: 'Description - Game Players Union'
       }
     },
     {

@@ -19,12 +19,12 @@
                                 </v-flex>
                                 <v-flex mb-4> 
                                     <v-avatar size="170" tile>
-                                        <v-img  src="https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png">
+                                        <v-img ref="avatar" src="https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png">
                                             <v-layout row justify-end align-end fill-height>
                                             
                                                 <v-tooltip color="rgb(0,128,128)" left>
                                                     <template v-slot:activator="{ on }">
-                                                        <v-btn light v-on="on" icon><v-icon >fas fa-edit</v-icon></v-btn>
+                                                        <v-btn @click="$refs.inputUpload.click()" v-on="on" icon><v-icon >fas fa-edit</v-icon></v-btn>
                                                     </template>
                                                     <span style="font-size:9px">NB : Taille max de l'image 8Mo</span>
                                                 </v-tooltip>
@@ -33,6 +33,7 @@
                                         </v-img>
                                     </v-avatar>
                                 </v-flex>
+                                 <input v-show="false" ref="inputUpload" type="file" @change="onFilePicked"  >
                             </v-layout>
 
                             <v-divider color="#008080"></v-divider>
@@ -103,13 +104,34 @@ export default {
         return {
             newPassword:'',
             confirmPassword:'',
-            oldPassword:''
+            oldPassword:'',
+            image:null
         }
     },
     computed:{
         comparePasswords() {
             return this.newPassword !== this.confirmPassword ? "Reverifiez votre mot de passe svp" : ''
-        }
+        },
+        imageRefresh(){
+          this.image=inputUpload
+      }
+    },
+    methods:{
+        onFilePicked(event){
+          alert(event.currentTarget)
+
+          const files = event.target.files
+          let filename= files[0].name
+          if(filename.lastIndexOf('.')<= 0){
+              alert("Veuillez vérifier le type de votre fichier d'image")
+          }
+          const fileReader = new FileReader()
+          fileReader.addEventListener('load', ()=>{
+              this.$refs.avatar.src=fileReader.result
+          })
+          fileReader.readAsDataURL(files[0])
+          this.image=files[0]  
+      }
     }
 }
 </script>

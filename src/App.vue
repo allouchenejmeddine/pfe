@@ -1,7 +1,7 @@
 <template>
   <v-app>
     
-    <v-navigation-drawer dark app v-model="sideNav">
+    <v-navigation-drawer width="250" dark app v-model="sideNav">
       <v-list>          
           <v-list-tile v-if="userIsAuthenticated==false">
             <v-list-tile-content>
@@ -37,27 +37,37 @@
                   >
                     </v-text-field>
                   </v-flex>
-                  <v-layout justify-center>
-                    <v-btn color="#F5DCD7"  @click="onSignIn()">
-                      <span>Se connecter</span>
-                    </v-btn>
-                    <v-btn color="#F5DCD7" class="mx-3" icon @click="dialog = false">
-                      <v-icon size="24px">fab fa-google</v-icon>
-                    </v-btn>
-                    <v-btn color="#F5DCD7" class="mx-3" icon @click="dialog = false">
-                      <v-icon size="24px">fab fa-facebook</v-icon>
-                    </v-btn>
-                  </v-layout>
+                  <v-layout column wrap align-center justify-center mx-5>
+                    <v-flex >
+                        <v-btn type="submit" color="#F5DCD7">
+                            <div>Se Connecter</div>
+                        </v-btn>
+                    </v-flex>
+                    <v-flex>
+                        <v-btn color="#F5DCD7" class="mx-3" icon>
+                            <v-icon size="24px">fab fa-google</v-icon>
+                        </v-btn>
+                    
+                        <v-btn color="#F5DCD7" class="mx-3" icon>
+                            <v-icon size="24px">fab fa-facebook</v-icon>
+                        </v-btn>
+                    </v-flex>
+                </v-layout>
                 </v-form>
                 </v-card>
               </v-dialog>
             </v-list-tile-content>
           </v-list-tile>
 
-          <v-list-tile v-else>                            
-            <v-list-tile-action><v-avatar><v-img  src="https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png"></v-img></v-avatar></v-list-tile-action>
-            <v-list-tile-title>Profil</v-list-tile-title>
-          </v-list-tile>
+          <v-list-group v-else>
+            <v-list-tile slot="activator">                            
+              <v-list-tile-action><v-avatar><v-img  src="https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png"></v-img></v-avatar></v-list-tile-action>
+              <v-list-tile-title>Profil</v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile @click='onLogout()'>
+              <v-list-tile-title>Deconnexion</v-list-tile-title>
+            </v-list-tile>
+          </v-list-group>
           
           <v-list-group >
               <v-list-tile slot="activator" >
@@ -138,42 +148,45 @@
         <v-card
           style="border:5px solid #008080;border-radius:20px;-moz-border-radius:20px;-webkit-border-radius:20px;background-color:#424242"
         >
-          <v-layout column align-center>
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/logo.png?alt=media&token=3bb68f47-2e5d-4a41-9844-22ad4f199fd5"
-              width="200"
-              height="125"
-            >
-
-            <span style="font-size:18px;color:#F5DCD7">Identifiez-vous</span>
-          </v-layout>
-
-          <v-flex mx-5 mt-3 justify-center>
-            <v-text-field  dark label="Pseudo" prepend-inner-icon="fas fa-user" color="#F5DCD7"></v-text-field>
-          </v-flex>
-
-          <v-flex mx-5 mt-3 justify-center>
-            <v-text-field
-              dark
-              
-              label="Mot de passe"
-              prepend-inner-icon="fas fa-unlock-alt"
-              color="#F5DCD7"
-            ></v-text-field>
-          </v-flex>
-          <v-layout justify-center>
-            <v-btn color="#F5DCD7"  @click="onSignIn()">
-              <span>Se connecter</span>
-            </v-btn>
-
-            <v-btn color="#F5DCD7" class="mx-3" icon @click="dialog = false">
-              <v-icon size="24px">fab fa-google</v-icon>
-            </v-btn>
-
-            <v-btn color="#F5DCD7" class="mx-3" icon @click="dialog = false">
-              <v-icon size="24px">fab fa-facebook</v-icon>
-            </v-btn>
-          </v-layout>
+          <v-form @submit.prevent="onSignIn()">
+                  <v-layout column align-center>
+                    <img
+                      src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/logo.png?alt=media&token=3bb68f47-2e5d-4a41-9844-22ad4f199fd5"
+                      width="200"
+                      height="125"
+                    >
+                    <span style="font-size:18px;color:#F5DCD7">Identifiez-vous</span>
+                  </v-layout>
+                  <v-flex mx-5 mt-3 justify-center>
+                    <v-text-field dark label="Pseudo" v-model="email" prepend-inner-icon="fas fa-user" color="#F5DCD7"></v-text-field>
+                  </v-flex>
+                  <v-flex mx-5 mt-3 justify-center>
+                    <v-text-field
+                    dark
+                    v-model="password"
+                    label="Mot de passe"
+                    prepend-inner-icon="fas fa-unlock-alt"
+                    color="#F5DCD7"
+                  >
+                    </v-text-field>
+                  </v-flex>
+                  <v-layout column wrap align-center justify-center mx-5>
+                    <v-flex >
+                        <v-btn type="submit" color="#F5DCD7">
+                            <div>Se Connecter</div>
+                        </v-btn>
+                    </v-flex>
+                    <v-flex>
+                        <v-btn color="#F5DCD7" class="mx-3" icon>
+                            <v-icon size="24px">fab fa-google</v-icon>
+                        </v-btn>
+                    
+                        <v-btn color="#F5DCD7" class="mx-3" icon>
+                            <v-icon size="24px">fab fa-facebook</v-icon>
+                        </v-btn>
+                    </v-flex>
+                </v-layout>
+                </v-form>
         </v-card>
       </v-dialog>
       
@@ -346,6 +359,10 @@ export default {
   },
   methods: {
     onSignIn () {
+      if(this.sideNav==true)
+      {
+        this.sideNav=!this.sideNav
+      }
           this.$store.dispatch('signUserIn',{email:this.email, password:this.password})
         },
     scrollFunction() {

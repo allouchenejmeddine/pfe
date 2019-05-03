@@ -5,7 +5,7 @@
                 <v-card dark >
                     <v-list>
                         <v-container>
-                        <v-layout column  >
+                        <v-layout column  wrap>
                             <v-layout align-center>
                                 <v-flex pb-3> 
                                     <span style="font-size:22px">Suggestion d'un nouveau jeux</span>
@@ -41,8 +41,8 @@
                                 <v-flex mb-4>
                                     <span style="font-size:16px">Informations sur le jeux</span>
                                 </v-flex>
-                                <v-layout align-center fill-height justify-center row  >
-                                        <v-flex xs5 ml-5> 
+                                <v-layout align-center fill-height justify-center row wrap >
+                                        <v-flex xs12 md6 pa-3> 
                                             <v-text-field
                                             color="#F5DCD7"
                                             name="nom"
@@ -57,7 +57,7 @@
                                             </v-text-field>
                                         </v-flex>
                                         <v-spacer></v-spacer>
-                                        <v-flex xs5 mr-5 mb-5>
+                                        <v-flex xs12 md6 pa-3>
                                             <v-menu
                                             ref="menu1"
                                             v-model="menu1"
@@ -88,8 +88,8 @@
                                             
                                         </v-flex>
                                     </v-layout>
-                                    <v-layout align-center fill-height justify-center row  >
-                                        <v-flex xs5 ml-5> 
+                                    <v-layout align-center fill-height justify-center row wrap >
+                                        <v-flex xs12 md6 pa-3> 
                                             <v-text-field
                                             color="#F5DCD7"
                                             name="Developpeur"
@@ -104,7 +104,7 @@
                                             </v-text-field>
                                         </v-flex>
                                         <v-spacer></v-spacer>
-                                        <v-flex xs5 mr-5>
+                                        <v-flex xs12 md6 pa-3>
                                             <v-select
                                             color="#F5DCD7"
                                             name="ModeJeux"
@@ -119,8 +119,8 @@
                                             </v-select>
                                         </v-flex>
                                     </v-layout>
-                                    <v-layout align-center fill-height justify-center row  >
-                                        <v-flex xs5 ml-5> 
+                                    <v-layout align-center fill-height justify-center row wrap >
+                                        <v-flex xs12 md6 pa-3> 
                                             <v-text-field
                                             color="#F5DCD7"
                                             name="moteurGraphique"
@@ -134,7 +134,7 @@
                                             </v-text-field>
                                         </v-flex>
                                         <v-spacer></v-spacer>
-                                        <v-flex xs5 mr-5>
+                                        <v-flex xs12 md6 pa-3>
                                             <v-select
                                             :items=genres
                                             prefix="Genre: "
@@ -146,8 +146,8 @@
                                             </v-select>
                                         </v-flex>
                                     </v-layout>
-                                    <v-layout align-center fill-height justify-center row  >
-                                        <v-flex xs5 ml-5> 
+                                    <v-layout align-center fill-height justify-center row wrap >
+                                        <v-flex xs12 md6 pa-3> 
                                             <v-text-field
                                             color="#F5DCD7"
                                             name="dlc"
@@ -161,7 +161,7 @@
                                             </v-text-field>
                                         </v-flex>
                                         <v-spacer></v-spacer>
-                                        <v-flex xs5 mr-5>
+                                        <v-flex xs12 md6 pa-3>
                                             <v-select
                                             :items=plateforme
                                             prefix="Plateforme: "
@@ -174,8 +174,8 @@
                                             </v-select>
                                         </v-flex>
                                     </v-layout>
-                                    <v-layout align-center fill-height justify-center row  >
-                                        <v-flex xs5 ml-5> 
+                                    <v-layout align-center fill-height justify-center row wrap >
+                                        <v-flex xs12 md6 pa-3> 
                                             <v-textarea
                                             color="#F5DCD7"
                                             name="description"
@@ -189,7 +189,7 @@
                                             </v-textarea>
                                         </v-flex>
                                         <v-spacer></v-spacer>
-                                        <v-flex xs5 mr-5>
+                                        <v-flex xs12 md6 pa-3>
                                             <v-textarea
                                             color="#F5DCD7"
                                             name="configuration"
