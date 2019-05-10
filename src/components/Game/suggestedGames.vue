@@ -29,7 +29,7 @@ export default {
     },
     computed: {
         gamesCharged: function (){
-            return this.$store.state.loadedGames
+            return this.$store.state.loadedSuggestedGames
         }
     },
     methods: {

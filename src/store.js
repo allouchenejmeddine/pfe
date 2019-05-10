@@ -8,14 +8,18 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
       user: null,
+      loadedSuggestedGames:[],
       loadedGames:[]
   },
   mutations: {
   setUser(state,payload){
     state.user=payload
   },
-  setLoadedGames (state, payload) {
-    state.loadedGames = payload
+  setLoadedSuggestedGames (state, payload) {
+    state.loadedSuggestedGames = payload
+  },
+  setLoadedGames(state,paylaod){
+    state.loadedGames=paylaod
   }
     
   
@@ -143,19 +147,28 @@ export const store = new Vuex.Store({
         router.push('/game_created')
       })
     },
-      /* firebase.database().ref('/jeuxSuggeres').push(newGame).then((data)=>{
-        const key = data.key
-        return key
-      }).then((key)=>{
-        commit('saveLogoInStorage',key, payload.image)
-      }) */
-    
-    
-       
-       
-  
     loadGames ({commit}) {
       firebase.database().ref('jeuxSuggeres').once('value')
+        .then((data) => {
+          const jeuxSuggeres = []
+          const obj = data.val()
+          for (let key in obj) {
+            jeuxSuggeres.push({
+              id: key,
+              nom: obj[key].nom,
+              description: obj[key].description,
+              image: obj[key].image,
+              suggestedFrom: obj[key].suggestedFrom
+            })
+          }
+          commit('setLoadedSuggestedGames', jeuxSuggeres)
+        })
+        .catch(
+          (error) => {
+            console.log(error)
+          }
+        )
+        firebase.database().ref('jeux').once('value')
         .then((data) => {
           const jeux = []
           const obj = data.val()
@@ -175,12 +188,13 @@ export const store = new Vuex.Store({
             console.log(error)
           }
         )
+
     }
 
   },
   getters: {
-    user(state){
-      return state.user
+    user(){
+      return store.state.user
     } 
   }
 })

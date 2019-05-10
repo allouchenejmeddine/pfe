@@ -9,6 +9,7 @@ import GameSuggestion from './components/Game/GameSuggestion'
 import authGuard from './auth-guard';
 import GameSuggestions from './components/Game/suggestedGames'
 import GameCreated from './components/Game/GameCreatedSuccessfully'
+import GameSearch from './components/Game/GameSearch'
 
 Vue.use(Router)
 
@@ -60,7 +61,7 @@ export default new Router({
       {
         title: 'Paramètres de Compte - Game Players Union'
       },
-      beforeEnter:authGuard
+      //beforeEnter:authGuard
     },
     {
       path: '/suggest_game',
@@ -69,6 +70,16 @@ export default new Router({
       meta:
       {
         title: "Suggestion d'un jeux " 
+      },
+      //beforeEnter:authGuard
+    },
+    {
+      path: '/search_game',
+      name : 'searchGame',
+      component : GameSearch,
+      meta:
+      {
+        title: "Recherche d'un jeux " 
       },
       //beforeEnter:authGuard
     },
