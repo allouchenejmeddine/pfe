@@ -137,7 +137,7 @@
                                         <v-flex xs12 md6 pa-3>
                                             <v-select
                                             :items=genres
-                                            prefix="Genre: "
+                                            label="Genre: "
                                             clearable
                                             required
                                             v-model="genreJeux"
@@ -164,7 +164,7 @@
                                         <v-flex xs12 md6 pa-3>
                                             <v-select
                                             :items=plateforme
-                                            prefix="Plateforme: "
+                                            label="Plateformes: "
                                             clearable
                                             required
                                             v-model="plateformeJeux"

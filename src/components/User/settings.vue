@@ -13,13 +13,13 @@
                         
                             <v-divider color="#008080"></v-divider>
                         
-                            <v-layout align-start fluid fill-height mx-3 mt-3 column>
+                            <v-layout align-center fluid fill-height mx-3 mt-3 column>
                                 <v-flex mb-4>
                                     <span style="font-size:16px">Avatar</span>
                                 </v-flex>
-                                <v-flex mb-4> 
-                                    <v-avatar size="170" tile>
-                                        <v-img ref="avatar" src="https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png">
+                                <v-flex xs12 sm6 md8 mb-4> 
+                                    <v-avatar size="200" tile>
+                                        <v-img ref="avatar" src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/Portrait_placeholder.png?alt=media&token=49580b44-9483-4418-8c35-92fcd766e72d">
                                             <v-layout row justify-end align-end fill-height>
                                             
                                                 <v-tooltip color="rgb(0,128,128)" left>
@@ -40,7 +40,7 @@
                         
                             <v-layout column ma-3>
                                 <v-flex mb-4>
-                                    <span style="font-size:16px">Vos données personnelles</span>
+                                    <span style="font-size:16px" id="text">Vos données personnelles</span>
                                 </v-flex>
                                 <v-layout column align-space-between fluid>
                                 <v-flex mb-1> 

@@ -5,6 +5,7 @@ export default ( to , from , next) => {
         console.log('anything')
     }
     else{
+        document.title = from.meta.title;
         next('/')
         console.log("hello world!")
     }
