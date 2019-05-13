@@ -20,7 +20,9 @@
                                         
                                         </v-flex>
                                         <v-flex xs12 sm12 md8 lg4 xl3 pb-2>
-                                            <v-rating color="#008080" 
+                                            <v-rating
+                                                v-model="rating"
+                                                color="#008080" 
                                                 background-color="#008080"
                                                 empty-icon="far fa-star"
                                                 half-icon="fas fa-star-half-alt"
@@ -88,7 +90,11 @@
 
 <script>
   export default {
-
+    data (){
+        return {
+            rating : 2
+        }
+    },
     mounted: function(){
         this.writeDesc();
     },

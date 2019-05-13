@@ -286,7 +286,6 @@
         return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
       },
       addToDatabase(){
-          alert('hello , you can begin now !')
           this.$store.dispatch('addGameToDatabase',{nom:this.nom,configuration:this.configuration,
           developpeur:this.developpeur,description:this.description,
           plateformeJeux:this.plateformeJeux,dlc:this.dlc,modeJeux:this.modeJeux,

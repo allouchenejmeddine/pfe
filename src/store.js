@@ -189,6 +189,15 @@ export const store = new Vuex.Store({
           }
         )
 
+    },
+    editProfile({commit},payload){
+      var user = firebase.auth().currentUser;
+      var newPass = payload.newPassword;
+      user.updatePassword(newPass).then(function() {
+        alert("Mot de passe changé avec succès")
+      }).catch(function(error) {
+        alert(error)
+      });
     }
 
   },
