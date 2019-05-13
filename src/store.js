@@ -8,18 +8,42 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
       user: null,
-      loadedSuggestedGames:[],
-      loadedGames:[]
+      loadedSuggestedGamesXBOX:[],
+      loadedSuggestedGamesPC:[],
+      loadedSuggestedGamesPS:[],
+      loadedSuggestedGamesSWITCH:[],
+      loadedGamesPC:[],
+      loadedGamesPS:[],
+      loadedGamesSWITCH:[],
+      loadedGamesXBOX:[]
   },
   mutations: {
   setUser(state,payload){
     state.user=payload
   },
-  setLoadedSuggestedGames (state, payload) {
-    state.loadedSuggestedGames = payload
+  setLoadedSuggestedGamesPC (state, payload) {
+    state.loadedSuggestedGamesPC = payload
   },
-  setLoadedGames(state,paylaod){
-    state.loadedGames=paylaod
+  setLoadedSuggestedGamesPS (state, payload) {
+    state.loadedSuggestedGamesPS = payload
+  },
+  setLoadedSuggestedGamesXBOX (state, payload) {
+    state.loadedSuggestedGamesXBOX = payload
+  },
+  setLoadedSuggestedGamesSWITCH (state, payload) {
+    state.loadedSuggestedGamesSWITCH = payload
+  },
+  setLoadedGamesPC(state,paylaod){
+    state.loadedGamesPC=paylaod
+  },
+  setLoadedGamesPS(state,paylaod){
+    state.loadedGamesPS=paylaod
+  },
+  setLoadedGamesXBOX(state,paylaod){
+    state.loadedGamesXBOX=paylaod
+  },
+  setLoadedGamesSWITCH(state,paylaod){
+    state.loadedGamesSWITCH=paylaod
   }
     
   
@@ -109,17 +133,15 @@ export const store = new Vuex.Store({
       
     },
     addGameToDatabase({commit},payload){
+      let location = '/JeuxSuggeres'
       let user = firebase.auth().currentUser
-      let imageUrl
       let path
-      let uploadTask
-      let key
       const newGame={
         nom:payload.nom,
         configuration:payload.configuration,
         developpeur:payload.developpeur,
         description:payload.description,
-        plateformeJeux:payload.plateformeJeux,
+        plateformeJeux:payload.plateformeJeux+'',
         dlc:payload.dlc,
         modeJeux:payload.modeJeux,
         moteurGraph:payload.moteurGraph,
@@ -128,7 +150,28 @@ export const store = new Vuex.Store({
         image:'',
         id:''
       }
-      firebase.database().ref('/jeuxSuggeres').push(newGame).then((data)=>{
+      // Find the appropriate location on the database
+      alert(newGame.plateformeJeux)
+      if (newGame.plateformeJeux.localeCompare('PC','en', {sensitivity: 'base'})==0)
+      {
+        location='/JeuxSuggeres/PC'
+      }
+      if (newGame.plateformeJeux.localeCompare('SWITCH','en', {sensitivity: 'base'})==0)
+      {
+        location='/JeuxSuggeres/SWITCH'
+      }
+      if (newGame.plateformeJeux.localeCompare('PS','en', {sensitivity: 'base'})==0)
+      {
+        location='/JeuxSuggeres/PS'
+      }
+      if(newGame.plateformeJeux.localeCompare('XBOX','en', {sensitivity: 'base'})==0)
+      {
+        location='/JeuxSuggeres/XBOX'
+      } 
+      // Create a reference to destination
+      let reference = firebase.database().ref(location)
+      // Add game to database
+      reference.push(newGame).then((data)=>{
         const key = data.key
         return key
       }).then(key=>{
@@ -140,7 +183,8 @@ export const store = new Vuex.Store({
         const some =firebase.storage().ref().child(path).getDownloadURL()
         some.then((url)=>{
           path=fileData.metadata.fullPath.substring(0,fileData.metadata.fullPath.length -4)
-          return firebase.database().ref('/jeuxSuggeres').child(path).update({image:url})
+          // Add stored image url to image property of game in the database
+          return reference.child(path).update({image:url})
         })
       }).then(()=>{
         alert('Success! what a champion!')
@@ -148,7 +192,29 @@ export const store = new Vuex.Store({
       })
     },
     loadGames ({commit}) {
-      firebase.database().ref('jeuxSuggeres').once('value')
+      // Load suggested games for PC 
+      firebase.database().ref('/JeuxSuggeres/PC').once('value')
+      .then((data) => {
+        const jeuxSuggeres = []
+        const obj = data.val()
+        for (let key in obj) {
+          jeuxSuggeres.push({
+            id: key,
+            nom: obj[key].nom,
+            description: obj[key].description,
+            image: obj[key].image,
+            suggestedFrom: obj[key].suggestedFrom
+          })
+        }
+        commit('setLoadedSuggestedGamesPC', jeuxSuggeres)
+      })
+      .catch(
+        (error) => {
+          console.log(error)
+        }
+      )
+      // Load suggested games for PS 
+      firebase.database().ref('/JeuxSuggeres/PS').once('value')
         .then((data) => {
           const jeuxSuggeres = []
           const obj = data.val()
@@ -161,14 +227,57 @@ export const store = new Vuex.Store({
               suggestedFrom: obj[key].suggestedFrom
             })
           }
-          commit('setLoadedSuggestedGames', jeuxSuggeres)
+          commit('setLoadedSuggestedGamesPS', jeuxSuggeres)
         })
         .catch(
           (error) => {
             console.log(error)
           }
         )
-        firebase.database().ref('jeux').once('value')
+        // Load suggested games for XBOX
+        firebase.database().ref('/JeuxSuggeres/XBOX').once('value')
+        .then((data) => {
+          const jeuxSuggeres = []
+          const obj = data.val()
+          for (let key in obj) {
+            jeuxSuggeres.push({
+              id: key,
+              nom: obj[key].nom,
+              description: obj[key].description,
+              image: obj[key].image,
+              suggestedFrom: obj[key].suggestedFrom
+            })
+          }
+          commit('setLoadedSuggestedGamesXBOX', jeuxSuggeres)
+        })
+        .catch(
+          (error) => {
+            console.log(error)
+          }
+        )
+        // Load suggested games for SWITCH
+        firebase.database().ref('/JeuxSuggeres/SWITCH').once('value')
+        .then((data) => {
+          const jeuxSuggeres = []
+          const obj = data.val()
+          for (let key in obj) {
+            jeuxSuggeres.push({
+              id: key,
+              nom: obj[key].nom,
+              description: obj[key].description,
+              image: obj[key].image,
+              suggestedFrom: obj[key].suggestedFrom
+            })
+          }
+          commit('setLoadedSuggestedGamesSWITCH', jeuxSuggeres)
+        })
+        .catch(
+          (error) => {
+            console.log(error)
+          }
+        )
+        // Load confirmed games for PC
+        firebase.database().ref('jeux/PC').once('value')
         .then((data) => {
           const jeux = []
           const obj = data.val()
@@ -181,7 +290,70 @@ export const store = new Vuex.Store({
               suggestedFrom: obj[key].suggestedFrom
             })
           }
-          commit('setLoadedGames', jeux)
+          commit('setLoadedGamesPC', jeux)
+        })
+        .catch(
+          (error) => {
+            console.log(error)
+          }
+        )
+        // Load confirmed games for PS
+        firebase.database().ref('jeux/PS').once('value')
+        .then((data) => {
+          const jeux = []
+          const obj = data.val()
+          for (let key in obj) {
+            jeux.push({
+              id: key,
+              nom: obj[key].nom,
+              description: obj[key].description,
+              image: obj[key].image,
+              suggestedFrom: obj[key].suggestedFrom
+            })
+          }
+          commit('setLoadedGamesPS', jeux)
+        })
+        .catch(
+          (error) => {
+            console.log(error)
+          }
+        )
+        // Load confirmed games for SWITCH
+        firebase.database().ref('jeux/SWITCH').once('value')
+        .then((data) => {
+          const jeux = []
+          const obj = data.val()
+          for (let key in obj) {
+            jeux.push({
+              id: key,
+              nom: obj[key].nom,
+              description: obj[key].description,
+              image: obj[key].image,
+              suggestedFrom: obj[key].suggestedFrom
+            })
+          }
+          commit('setLoadedGamesSWITCH', jeux)
+        })
+        .catch(
+          (error) => {
+            console.log(error)
+          }
+        )
+        // Load confirmed games for XBOX
+        firebase.database().ref('jeux/XBOX').once('value')
+        .then((data) => {
+          const jeux = []
+          const obj = data.val()
+          for (let key in obj) {
+            jeux.push({
+              id: key,
+              nom: obj[key].nom,
+              description: obj[key].description,
+              image: obj[key].image,
+              suggestedFrom: obj[key].suggestedFrom
+            })
+          }
+          commit('setLoadedGamesXBOX', jeux)
         })
         .catch(
           (error) => {

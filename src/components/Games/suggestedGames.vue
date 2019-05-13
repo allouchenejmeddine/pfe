@@ -3,7 +3,7 @@
     <v-layout>
       <v-flex xs12 sm8 offset-sm2 md8 offset-md2>
         <!--affiche les cards des jeux en attente de validation-->
-        <v-card raised tile v-for="(item,i) in gamesCharged" :key="i" :src="item">
+        <v-card raised tile v-for="(item,i) in gamesChargedForPc" :key="i" :src="item">
           <v-card-title primary-title>{{item.nom}}</v-card-title>
           <v-img
             :src="item.image"
@@ -32,9 +32,18 @@ import firebase from 'firebase'
     
     },
     computed : {
-      gamesCharged : function (){
-          return this.$store.state.loadedSuggestedGames
-        }
+      gamesChargedForPc : function (){
+        return this.$store.state.loadedSuggestedGamesPC
+      },
+      gamesChargedForPS : function (){
+        return this.$store.state.loadedSuggestedGamesPS
+      },
+      gamesChargedForXBOX : function (){
+        return this.$store.state.loadedSuggestedGamesXBOX
+      },
+      gamesChargedForSWITCH : function (){
+        return this.$store.state.loadedSuggestedGamesSWITCH
+      }
     },
     methods: {
     // Method to move game from Jeux suggeres to Jeux after being approved

@@ -1,15 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import GameDesc from './components/Game/GameDesc'
+import GameDesc from './components/Games/GameDesc'
 import Signin from './components/User/signin'
 import Signup from './components/User/signup'
 import Settings from './components/User/settings'
-import GameSuggestion from './components/Game/GameSuggestion'
+import GameSuggestion from './components/Games/GameSuggestion'
 import authGuard from './auth-guard';
-import GameSuggestions from './components/Game/suggestedGames'
-import GameCreated from './components/Game/GameCreatedSuccessfully'
-import GameSearch from './components/Game/GameSearch'
+import GameSuggestions from './components/Games/suggestedGames'
+import GameCreated from './components/Games/GameCreatedSuccessfully'
 
 Vue.use(Router)
 
@@ -70,16 +69,6 @@ export default new Router({
       meta:
       {
         title: "Suggestion d'un jeux " 
-      },
-      //beforeEnter:authGuard
-    },
-    {
-      path: '/search_game',
-      name : 'searchGame',
-      component : GameSearch,
-      meta:
-      {
-        title: "Recherche d'un jeux " 
       },
       //beforeEnter:authGuard
     },

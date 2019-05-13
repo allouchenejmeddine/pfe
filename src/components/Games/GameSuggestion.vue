@@ -169,7 +169,6 @@
                                             required
                                             v-model="plateformeJeux"
                                             outline
-                                            
                                              >
                                             </v-select>
                                         </v-flex>

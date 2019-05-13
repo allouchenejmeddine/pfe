@@ -129,7 +129,10 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items class="hidden-sm-and-down">
-      <v-text-field name="name" v-model="search" label="Rechercher" id="id" v-if="searchVisible" color="#008080" ></v-text-field>
+      <v-autocomplete name="name" :items="items"
+        :search-input.sync="search" label="Rechercher" id="id" 
+        v-if="searchVisible" color="#008080" @change="redirectToGame()" >
+      </v-autocomplete>
       <v-layout align-center>
       <v-btn icon @click="searchVisible = !searchVisible">
         <v-icon>fas fa-search</v-icon>
@@ -282,6 +285,8 @@ export default {
       icons: ["fab fa-facebook", "fab fa-twitter", "fab fa-instagram"],
       isVisible: true,
       searchVisible: false,
+      search : null,
+      model: null,
       social: [
         {
           icon: " fab fa-facebook",
@@ -352,7 +357,17 @@ export default {
     },
     userIsAuthenticated(){
       return this.$store.getters.user !== null && this.$store.getters.user !== undefined
-    }
+    },
+    items () {
+      let gamesChargedTitles= []
+      this.gamesCharged.map(entry => {
+        gamesChargedTitles.push(entry.nom)
+      })
+        return gamesChargedTitles
+      },
+    gamesCharged : function (){
+        return this.$store.state.loadedGames
+      }
   },
   mounted: function() {
       this.getHeight();
@@ -440,6 +455,9 @@ export default {
     onLogout(){
       this.dialog = false;
       this.$store.dispatch('logoutUser')
+    },
+    redirectToGame(){
+      alert('A implementer')
     }
   }
 };
