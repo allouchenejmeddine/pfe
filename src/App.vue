@@ -130,7 +130,7 @@
 
       <v-toolbar-items class="hidden-sm-and-down">
       <v-autocomplete name="name" :items="items"
-        :search-input.sync="search" label="Rechercher" id="id" 
+        :search-input.sync="search" label="Rechercher" id="id" height="40px"
         v-if="searchVisible" color="#008080" @change="redirectToGame()" >
       </v-autocomplete>
       <v-layout align-center>
@@ -366,7 +366,7 @@ export default {
         return gamesChargedTitles
       },
     gamesCharged : function (){
-        return this.$store.state.loadedGames
+        return this.$store.state.loadedSuggestedGamesPC
       }
   },
   mounted: function() {

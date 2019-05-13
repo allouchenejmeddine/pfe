@@ -1,21 +1,171 @@
 <template>
   <v-container>
-    <v-layout>
+    <v-layout fluid>
       <v-flex xs12 sm8 offset-sm2 md8 offset-md2>
-        <!--affiche les cards des jeux en attente de validation-->
-        <v-card raised tile v-for="(item,i) in gamesChargedForPc" :key="i" :src="item">
-          <v-card-title primary-title>{{item.nom}}</v-card-title>
-          <v-img
-            :src="item.image"
-          ></v-img>
-          <v-card-actions>
-            <!-- affiche les details du jeu-->
-            <v-btn flat color="orange" :href="item.page">inspecter</v-btn>
-            <!--acceptation du jeu et deplacementvers la liste des jeux confirmé-->
-            <v-btn flat icon><v-icon color="green" @click="moveToConfirmedGames(item.id)">fas fa-check</v-icon></v-btn>
-            <!--suppression du jeu car non accepter(rajouter une confirmation avant la suppression-->
-            <v-btn flat icon><v-icon color="red">fas fa-times</v-icon></v-btn>
-          </v-card-actions>
+        <v-card dark fill-height>
+          <v-list>
+            <v-layout column ma-3>
+              <v-flex>
+                <v-layout align-center fluid fill-height mx-3 mt-4>
+                    <v-flex mb-4>
+                        <span style="font-size:22px">Jeux PC</span>
+                    </v-flex>
+                </v-layout>
+              </v-flex>
+              <v-divider color="#008080"></v-divider>
+              <!--affiche les cards des jeux en attente de validation-->
+              <v-flex v-if="!testgamesChargedForPC">
+              <v-layout row wrap  justify-center pa-3>
+                <v-flex md3 xs12 sm8 pa-3 v-for="(item,i) in gamesChargedForPc" :key="i" :src="item">
+                  <v-card light raised tile>
+                    <v-card-title primary-title>{{item.nom}}</v-card-title>
+                    <v-img max-height="250"
+                      :src="item.image"
+                    ></v-img>
+                    <v-card-actions>
+                      <v-layout align-center justify-space-around>
+                      <!-- affiche les details du jeu-->
+                    <v-btn flat icon :href="item.page"><v-icon color="#008080">fas fa-eye</v-icon></v-btn>
+                    <!--acceptation du jeu et deplacementvers la liste des jeux confirmé-->
+                    <v-btn flat icon><v-icon color="green" @click="moveToConfirmedGames(item.id)">fas fa-check</v-icon></v-btn>
+                    <!--suppression du jeu car non accepter(rajouter une confirmation avant la suppression-->
+                    <v-btn flat icon><v-icon color="red">fas fa-times</v-icon></v-btn>
+                      </v-layout>
+                    </v-card-actions>
+                  </v-card>
+                </v-flex>
+              </v-layout>
+              </v-flex>
+              <v-flex v-else>
+                <v-layout row wrap justify-center pa-3>
+                  <v-flex md3 pa-3>
+                    <v-img width="250px" src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/nosuggestion.png?alt=media&token=0d6d051c-73e1-4974-8581-1b319bf26e1d">
+                    </v-img>
+                  </v-flex>
+                </v-layout>
+                </v-flex>
+              
+              <v-flex>
+                <v-layout align-center fluid fill-height mx-3 mt-4>
+                    <v-flex mb-4>
+                        <span style="font-size:22px">Jeux PS</span>
+                    </v-flex>
+                </v-layout>
+              </v-flex>
+              <v-divider color="#008080"></v-divider>
+              <!--affiche les cards des jeux en attente de validation-->
+              <v-flex v-if="!testgamesChargedForPS">
+              <v-layout row wrap justify-center pa-3>
+                <v-flex md3 xs12 sm8 pa-3 v-for="(item,i) in gamesChargedForPS" :key="i" :src="item">
+                  <v-card light raised tile>
+                    <v-card-title primary-title>{{item.nom}}</v-card-title>
+                    <v-img max-height="250"
+                      :src="item.image"
+                    ></v-img>
+                    <v-card-actions>
+                      <v-layout align-center justify-space-around>
+                      <!-- affiche les details du jeu-->
+                    <v-btn flat icon :href="item.page"><v-icon color="#008080">fas fa-eye</v-icon></v-btn>
+                    <!--acceptation du jeu et deplacementvers la liste des jeux confirmé-->
+                    <v-btn flat icon><v-icon color="green" @click="moveToConfirmedGames(item.id)">fas fa-check</v-icon></v-btn>
+                    <!--suppression du jeu car non accepter(rajouter une confirmation avant la suppression-->
+                    <v-btn flat icon><v-icon color="red">fas fa-times</v-icon></v-btn>
+                      </v-layout>
+                    </v-card-actions>
+                  </v-card>
+                </v-flex>
+              </v-layout>
+              </v-flex>
+              <v-flex v-else>
+                <v-layout row wrap justify-center pa-3>
+                  <v-flex md3 pa-3>
+                    <v-img width="250px" src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/nosuggestion.png?alt=media&token=0d6d051c-73e1-4974-8581-1b319bf26e1d">
+                    </v-img>
+                  </v-flex>
+                </v-layout>
+                </v-flex>
+              
+              <v-flex>
+                <v-layout align-center fluid fill-height mx-3 mt-4>
+                    <v-flex mb-4>
+                        <span style="font-size:22px">Jeux Xbox</span>
+                    </v-flex>
+                </v-layout>
+              </v-flex>
+              <v-divider color="#008080"></v-divider>
+              <!--affiche les cards des jeux en attente de validation-->
+              <v-flex v-if="!testgamesChargedForXBOX">
+              <v-layout row wrap justify-center pa-3 >
+                <v-flex md3 xs12 sm8 pa-3 v-for="(item,i) in gamesChargedForXBOX" :key="i" :src="item">
+                  <v-card light raised tile>
+                    <v-card-title primary-title>{{item.nom}}</v-card-title>
+                    <v-img max-height="250"
+                      :src="item.image"
+                    ></v-img>
+                    <v-card-actions>
+                      <v-layout align-center justify-space-around>
+                      <!-- affiche les details du jeu-->
+                    <v-btn flat icon :href="item.page"><v-icon color="#008080">fas fa-eye</v-icon></v-btn>
+                    <!--acceptation du jeu et deplacementvers la liste des jeux confirmé-->
+                    <v-btn flat icon><v-icon color="green" @click="moveToConfirmedGames(item.id)">fas fa-check</v-icon></v-btn>
+                    <!--suppression du jeu car non accepter(rajouter une confirmation avant la suppression-->
+                    <v-btn flat icon><v-icon color="red">fas fa-times</v-icon></v-btn>
+                      </v-layout>
+                    </v-card-actions>
+                  </v-card>
+                </v-flex>
+              </v-layout>
+              </v-flex>
+              <v-flex v-else>
+                <v-layout row wrap justify-center pa-3>
+                  <v-flex md3 pa-3>
+                    <v-img width="250px" src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/nosuggestion.png?alt=media&token=0d6d051c-73e1-4974-8581-1b319bf26e1d">
+                    </v-img>
+                  </v-flex>
+                </v-layout>
+                </v-flex>
+
+              <v-flex>
+                <v-layout align-center fluid fill-height mx-3 mt-4>
+                    <v-flex mb-4>
+                        <span style="font-size:22px" id="testmsg">Jeux Switch</span>
+                    </v-flex>
+                </v-layout>
+              </v-flex>
+              <v-divider color="#008080"></v-divider>
+              <!--affiche les cards des jeux en attente de validation-->
+              <v-flex v-if="!testgamesChargedForSWITCH">
+              <v-layout row wrap justify-center pa-3>
+                <v-flex md3 xs12 sm8 pa-3 v-for="(item,i) in gamesChargedForSWITCH" :key="i" :src="item">
+                  <v-card light raised tile>
+                    <v-card-title primary-title>{{item.nom}}</v-card-title>
+                    <v-img max-height="250"
+                      :src="item.image"
+                    ></v-img>
+                    <v-card-actions>
+                      <v-layout align-center justify-space-around>
+                      <!-- affiche les details du jeu-->
+                    <v-btn flat icon :href="item.page"><v-icon color="#008080">fas fa-eye</v-icon></v-btn>
+                    <!--acceptation du jeu et deplacementvers la liste des jeux confirmé-->
+                    <v-btn flat icon><v-icon color="green" @click="moveToConfirmedGames(item.id)">fas fa-check</v-icon></v-btn>
+                    <!--suppression du jeu car non accepter(rajouter une confirmation avant la suppression-->
+                    <v-btn flat icon><v-icon color="red">fas fa-times</v-icon></v-btn>
+                      </v-layout>
+                    </v-card-actions>
+                  </v-card>
+                </v-flex>
+              </v-layout>
+              </v-flex>
+              <v-flex v-else>
+                <v-layout row wrap justify-center pa-3>
+                  <v-flex md3 pa-3>
+                    <v-img width="250px" src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/nosuggestion.png?alt=media&token=0d6d051c-73e1-4974-8581-1b319bf26e1d">
+                    </v-img>
+                  </v-flex>
+                </v-layout>
+                </v-flex>
+            </v-layout>
+          </v-list>
         </v-card>
       </v-flex>
     </v-layout>
@@ -31,6 +181,7 @@ import firebase from 'firebase'
       }
     
     },
+
     computed : {
       gamesChargedForPc : function (){
         return this.$store.state.loadedSuggestedGamesPC
@@ -43,6 +194,18 @@ import firebase from 'firebase'
       },
       gamesChargedForSWITCH : function (){
         return this.$store.state.loadedSuggestedGamesSWITCH
+      },
+      testgamesChargedForSWITCH : function(){
+        return this.$store.state.loadedSuggestedGamesSWITCH.length == 0
+      },
+      testgamesChargedForPC : function(){
+        return this.$store.state.loadedSuggestedGamesPC.length == 0
+      },
+      testgamesChargedForXBOX : function(){
+        return this.$store.state.loadedSuggestedGamesXBOX.length == 0
+      },
+      testgamesChargedForPS : function(){
+        return this.$store.state.loadedSuggestedGamesPS.length == 0
       }
     },
     methods: {

@@ -17,9 +17,25 @@
                                 <v-flex mb-4>
                                     <span style="font-size:16px">Avatar</span>
                                 </v-flex>
-                                <v-flex xs12 sm6 md8 mb-4> 
+                                <v-flex v-if="image == null" xs12 sm6 md8 mb-4> 
                                     <v-avatar size="200" tile>
                                         <v-img ref="avatar" src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/Portrait_placeholder.png?alt=media&token=49580b44-9483-4418-8c35-92fcd766e72d">
+                                            <v-layout row justify-end align-end fill-height>
+                                            
+                                                <v-tooltip color="rgb(0,128,128)" left>
+                                                    <template v-slot:activator="{ on }">
+                                                        <v-btn @click="$refs.inputUpload.click()" v-on="on" icon><v-icon >fas fa-edit</v-icon></v-btn>
+                                                    </template>
+                                                    <span style="font-size:9px">NB : Taille max de l'image 8Mo</span>
+                                                </v-tooltip>
+                                            
+                                            </v-layout>
+                                        </v-img>
+                                    </v-avatar>
+                                </v-flex>
+                                <v-flex v-else xs12 sm6 md8 mb-4> 
+                                    <v-avatar size="200" tile>
+                                        <v-img :src="imageRefresh">
                                             <v-layout row justify-end align-end fill-height>
                                             
                                                 <v-tooltip color="rgb(0,128,128)" left>

@@ -167,7 +167,7 @@ export const store = new Vuex.Store({
       if(newGame.plateformeJeux.localeCompare('XBOX','en', {sensitivity: 'base'})==0)
       {
         location='/JeuxSuggeres/XBOX'
-      } 
+      }
       // Create a reference to destination
       let reference = firebase.database().ref(location)
       // Add game to database

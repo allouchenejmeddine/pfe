@@ -3,6 +3,7 @@
         <v-layout align-center>
             <v-flex xs12 sm8 offset-sm2 md8 offset-md2 >
                 <v-card dark >
+                    <v-form @submit.prevent="addToDatabase()">
                     <v-list>
                         <v-container>
                         <v-layout column  wrap>
@@ -12,12 +13,28 @@
                                 </v-flex>
                             </v-layout>
                             <v-divider color="#008080"></v-divider>
-                        
+                            
                             <v-layout column align-center my-3>
                                 
-                                <v-flex align-center>
+                                <v-flex v-if="image == null" align-center>
                                     <v-avatar size="200" tile>
                                         <v-img ref="avatar" src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/logo_jeux.png?alt=media&token=e70be2d3-39cd-45db-a2d4-2652858e6dae">
+                                            <v-layout row justify-end align-end fill-height>
+                                            
+                                                <v-tooltip color="rgb(0,128,128)" left>
+                                                    <template v-slot:activator="{ on }">
+                                                        <v-btn @click="$refs.inputUpload.click()" v-on="on" icon><v-icon >fas fa-edit</v-icon></v-btn>
+                                                    </template>
+                                                    <span style="font-size:9px">NB : Taille max de l'image 8Mo</span>
+                                                </v-tooltip>
+                                            
+                                            </v-layout>
+                                        </v-img>
+                                    </v-avatar>
+                                </v-flex>
+                                <v-flex v-else align-center>
+                                    <v-avatar size="200" tile>
+                                        <v-img :src="imageRefresh">
                                             <v-layout row justify-end align-end fill-height>
                                             
                                                 <v-tooltip color="rgb(0,128,128)" left>
@@ -209,8 +226,9 @@
                     </v-list>
                     <v-card-actions > 
                         <v-spacer></v-spacer>
-                        <v-btn outline @click="addToDatabase()" color="#008080"><span style="font-weight: bold">Valider</span><v-icon right>fas fa-check</v-icon></v-btn> 
+                        <v-btn outline color="#008080" type="submit" :loading="loading"><span style="font-weight: bold">Valider</span><v-icon right>fas fa-check</v-icon></v-btn> 
                     </v-card-actions>
+                    </v-form>
                 </v-card>
             </v-flex>
         </v-layout>
@@ -239,7 +257,8 @@
             modeJeux:'',
             moteurGraph:'',
             genreJeux:'',
-            image:null
+            image:null,
+            loading: false
             
         }
       
@@ -285,10 +304,14 @@
         return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
       },
       addToDatabase(){
-          this.$store.dispatch('addGameToDatabase',{nom:this.nom,configuration:this.configuration,
+          
+         this.$store.dispatch('addGameToDatabase',{nom:this.nom,configuration:this.configuration,
           developpeur:this.developpeur,description:this.description,
           plateformeJeux:this.plateformeJeux,dlc:this.dlc,modeJeux:this.modeJeux,
           moteurGraph:this.moteurGraph,genreJeux:this.genreJeux,image:this.image})
+          
+          
+          
       },
       onFilePicked(event){
           alert(event.currentTarget)
