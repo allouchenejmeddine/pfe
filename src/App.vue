@@ -130,8 +130,8 @@
 
       <v-toolbar-items class="hidden-sm-and-down">
       <v-autocomplete name="name" :items="items"
-        :search-input.sync="search" label="Rechercher" id="id" height="40px"
-        v-if="searchVisible" color="#008080" @change="redirectToGame()" >
+        :search-input.sync="search" v-model="selectedGame" label="Rechercher"  height="40px"
+        v-if="searchVisible" color="#008080" @change="getSelectedGame()" >
       </v-autocomplete>
       <v-layout align-center>
       <v-btn icon @click="searchVisible = !searchVisible">
@@ -280,6 +280,8 @@ export default {
       email:'',
       password:'',
       confirmPassword:'',
+      selectedGame:'',
+      search:'something',
       dialog: false,
       sideNav: false,
       icons: ["fab fa-facebook", "fab fa-twitter", "fab fa-instagram"],
@@ -361,7 +363,7 @@ export default {
     items () {
       let gamesChargedTitles= []
       this.gamesCharged.map(entry => {
-        gamesChargedTitles.push(entry.nom)
+        gamesChargedTitles.push(entry)
       })
         return gamesChargedTitles
       },
@@ -456,8 +458,11 @@ export default {
       this.dialog = false;
       this.$store.dispatch('logoutUser')
     },
-    redirectToGame(){
-      alert('A implementer')
+    getSelectedGame(){
+      let context = this
+      setTimeout(() => {
+      alert(this.selectedGame)
+      }, 0)
     }
   }
 };

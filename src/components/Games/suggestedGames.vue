@@ -27,7 +27,7 @@
                       <!-- affiche les details du jeu-->
                     <v-btn flat icon :href="item.page"><v-icon color="#008080">fas fa-eye</v-icon></v-btn>
                     <!--acceptation du jeu et deplacementvers la liste des jeux confirmé-->
-                    <v-btn flat icon><v-icon color="green" @click="moveToConfirmedGames(item.id)">fas fa-check</v-icon></v-btn>
+                    <v-btn flat icon><v-icon color="green" @click="moveToConfirmedGames(item.id,'PC')">fas fa-check</v-icon></v-btn>
                     <!--suppression du jeu car non accepter(rajouter une confirmation avant la suppression-->
                     <v-btn flat icon><v-icon color="red">fas fa-times</v-icon></v-btn>
                       </v-layout>
@@ -67,7 +67,7 @@
                       <!-- affiche les details du jeu-->
                     <v-btn flat icon :href="item.page"><v-icon color="#008080">fas fa-eye</v-icon></v-btn>
                     <!--acceptation du jeu et deplacementvers la liste des jeux confirmé-->
-                    <v-btn flat icon><v-icon color="green" @click="moveToConfirmedGames(item.id)">fas fa-check</v-icon></v-btn>
+                    <v-btn flat icon><v-icon color="green" @click="moveToConfirmedGames(item.id,'PS')">fas fa-check</v-icon></v-btn>
                     <!--suppression du jeu car non accepter(rajouter une confirmation avant la suppression-->
                     <v-btn flat icon><v-icon color="red">fas fa-times</v-icon></v-btn>
                       </v-layout>
@@ -107,7 +107,7 @@
                       <!-- affiche les details du jeu-->
                     <v-btn flat icon :href="item.page"><v-icon color="#008080">fas fa-eye</v-icon></v-btn>
                     <!--acceptation du jeu et deplacementvers la liste des jeux confirmé-->
-                    <v-btn flat icon><v-icon color="green" @click="moveToConfirmedGames(item.id)">fas fa-check</v-icon></v-btn>
+                    <v-btn flat icon><v-icon color="green" @click="moveToConfirmedGames(item.id,'XBOX')">fas fa-check</v-icon></v-btn>
                     <!--suppression du jeu car non accepter(rajouter une confirmation avant la suppression-->
                     <v-btn flat icon><v-icon color="red">fas fa-times</v-icon></v-btn>
                       </v-layout>
@@ -147,7 +147,7 @@
                       <!-- affiche les details du jeu-->
                     <v-btn flat icon :href="item.page"><v-icon color="#008080">fas fa-eye</v-icon></v-btn>
                     <!--acceptation du jeu et deplacementvers la liste des jeux confirmé-->
-                    <v-btn flat icon><v-icon color="green" @click="moveToConfirmedGames(item.id)">fas fa-check</v-icon></v-btn>
+                    <v-btn flat icon><v-icon color="green" @click="moveToConfirmedGames(item.id,'SWITCH')">fas fa-check</v-icon></v-btn>
                     <!--suppression du jeu car non accepter(rajouter une confirmation avant la suppression-->
                     <v-btn flat icon><v-icon color="red">fas fa-times</v-icon></v-btn>
                       </v-layout>
@@ -210,9 +210,10 @@ import firebase from 'firebase'
     },
     methods: {
     // Method to move game from Jeux suggeres to Jeux after being approved
-    moveToConfirmedGames(gameId) {   
-      let oldRef= firebase.database().ref('/jeuxSuggeres').child(gameId)
-      let newRef=firebase.database().ref('/jeux').child(gameId)
+    moveToConfirmedGames(gameId , src) {   
+      let oldRef= firebase.database().ref('/JeuxSuggeres/'+src).child(gameId)
+      let newRef=firebase.database().ref('/jeux/'+src).child(gameId)
+      alert(gameId)
       return new Promise((resolve, reject) => {
           oldRef.once('value').then(snap => {
                return newRef.set(snap.val());
@@ -220,7 +221,7 @@ import firebase from 'firebase'
                return oldRef.set(null);
           }).then(() => {
                console.log('Done!');
-               this.$router.push('/suggested_games')
+               location.reload()
                resolve();
           }).catch(err => {
                console.log(err.message);

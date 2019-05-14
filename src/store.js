@@ -191,6 +191,12 @@ export const store = new Vuex.Store({
         router.push('/game_created')
       })
     },
+    getSearchGame({commit}, payload){
+      var ref = firebase.database().ref("jeux");
+      ref.orderByChild("nom").equalTo(payload.nom).on("child_added", function(snapshot) {
+        console.log(snapshot.key);
+      });
+    },
     loadGames ({commit}) {
       // Load suggested games for PC 
       firebase.database().ref('/JeuxSuggeres/PC').once('value')
