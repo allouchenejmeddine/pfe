@@ -9,6 +9,15 @@ import GameSuggestion from './components/Games/GameSuggestion'
 import authGuard from './auth-guard';
 import GameSuggestions from './components/Games/suggestedGames'
 import GameCreated from './components/Games/GameCreatedSuccessfully'
+import Game from './components/Game'
+import AllGames from './components/Games/AllGames'
+import GameRank from './components/Games/GameRank'
+import RecentGames from './components/Games/RecentGames'
+import News from './components/News'
+import PlaystationGames from './components/Games/PlaystationGames'
+import XboxGames from './components/Games/XboxGames'
+import SwitchGames from './components/Games/SwitchGames'
+import PcGames from './components/Games/PcGames'
 
 Vue.use(Router)
 
@@ -23,6 +32,87 @@ export default new Router({
       meta:
       {
         title: 'Accueil - Game Players Union'
+      }
+    },
+    {
+      path: '/Game',
+      name: 'Game',
+      component: Game,
+      meta:
+      {
+        title: 'Jeux - Game Players Union'
+      }
+    },
+    {
+      path: '/AllGames',
+      name: 'AllGames',
+      component: AllGames,
+      meta:
+      {
+        title: 'Tous les jeux - Game Players Union'
+      }
+    },
+    {
+      path: '/GameRank',
+      name: 'GameRank',
+      component: GameRank,
+      meta:
+      {
+        title: 'Classement - Game Players Union'
+      }
+    },
+    {
+      path: '/RecentGames',
+      name: 'RecentGames',
+      component: RecentGames,
+      meta:
+      {
+        title: 'Ajout récent - Game Players Union'
+      }
+    },
+    {
+      path: '/News',
+      name: 'News',
+      component: News,
+      meta:
+      {
+        title: 'News - Game Players Union'
+      }
+    },
+    {
+      path: '/PlaystationGames',
+      name: 'PlaystationGames',
+      component: PlaystationGames,
+      meta:
+      {
+        title: 'Jeux Playstation - Game Players Union'
+      }
+    },
+    {
+      path: '/XboxGames',
+      name: 'XboxGames',
+      component: XboxGames,
+      meta:
+      {
+        title: 'Jeux Xbox - Game Players Union'
+      }
+    },
+    {
+      path: '/SwitchGames',
+      name: 'SwitchGames',
+      component: SwitchGames,
+      meta:
+      {
+        title: 'Jeux Switch - Game Players Union'
+      }
+    },
+    {
+      path: '/PcGames',
+      name: 'PcGames',
+      component: PcGames,
+      meta:
+      {
+        title: 'Jeux PC - Game Players Union'
       }
     },
     {

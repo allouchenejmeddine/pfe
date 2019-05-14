@@ -1,8 +1,8 @@
-<!--liste de tous les jeux switch-->
+<!--toutes les nouveautés du jeu video (articles)-->
 <template>
     <v-card>
     <v-card-text>
-        page switch games a faire
+        page news a faire
     </v-card-text>
     </v-card>
 </template>

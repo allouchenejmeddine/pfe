@@ -1,8 +1,8 @@
-<!--liste de tous les jeux switch-->
+<!--Dernier jeux ajoutés-->
 <template>
     <v-card>
     <v-card-text>
-        page switch games a faire
+        page dernier jeux ajouté a faire
     </v-card-text>
     </v-card>
 </template>

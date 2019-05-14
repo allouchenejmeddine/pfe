@@ -1,8 +1,8 @@
-<!--liste de tous les jeux switch-->
+<!--liste de tous les jeux-->
 <template>
     <v-card>
     <v-card-text>
-        page switch games a faire
+        page tous les jeux a faire
     </v-card-text>
     </v-card>
 </template>

@@ -111,14 +111,14 @@
       </v-toolbar-items>
       <v-toolbar-items class="hidden-sm-and-down">
       <v-menu open-on-hover bottom offset-y origin="center center" transition="scale-transition">
-        <v-btn slot="activator" flat>Jeux</v-btn>
+        <v-btn slot="activator" flat to="Game">Jeux</v-btn>
         <v-list>
           <v-list-tile v-for="(item, index) in jeux" :key="index" @click.stop :to="item.link">
             <v-list-tile-title>{{item.title}}</v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
-      <v-btn slot="activator" flat>News</v-btn>
+      <v-btn slot="activator" flat to="News">News</v-btn>
       </v-toolbar-items>
       <v-toolbar-items class="hidden-sm-and-down">
       <v-btn v-for="(icone, index) in console" :key="index" class="mx-2" dark icon :to="icone.link">
@@ -306,37 +306,37 @@ export default {
       console: [
         {
           icon: "fab fa-playstation",
-          link: "/settings",
+          link: "/PlaystationGames",
           title: "Playstation"
         },
         {
           icon: "fab fa-xbox",
-          link: "",
+          link: "/XboxGames",
           title: "Xbox"
         },
         {
           icon: "fab fa-nintendo-switch",
-          link: "",
+          link: "/SwitchGames",
           title: "Nintendo Switch"
         },
         {
           icon: "fas fa-desktop",
-          link: "",
+          link: "/PcGames",
           title: "PC"
         }
       ],
       jeux: [
         {
           title: "Classement",
-          link: "/settings"
+          link: "/GameRank"
         },
         {
           title: "Tous les jeux",
-          link: ""
+          link: "/AllGames"
         },
         {
           title: "Nouveautés",
-          link: ""
+          link: "/RecentGames"
         }
       ],
       profil: [
