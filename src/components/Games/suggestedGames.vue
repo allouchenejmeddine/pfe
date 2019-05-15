@@ -15,7 +15,7 @@
               <v-divider color="#008080"></v-divider>
               <!--affiche les cards des jeux en attente de validation-->
               <v-flex v-if="!testgamesChargedForPC">
-              <v-layout row wrap  justify-center pa-3>
+              <v-layout row wrap  justify-start pa-3>
                 <v-flex md3 xs12 sm8 pa-3 v-for="(item,i) in gamesChargedForPc" :key="i" :src="item">
                   <v-card light raised tile>
                     <v-card-title primary-title>{{item.nom}}</v-card-title>
@@ -55,8 +55,8 @@
               <v-divider color="#008080"></v-divider>
               <!--affiche les cards des jeux en attente de validation-->
               <v-flex v-if="!testgamesChargedForPS">
-              <v-layout row wrap justify-center pa-3>
-                <v-flex md3 xs12 sm8 pa-3 v-for="(item,i) in gamesChargedForPS" :key="i" :src="item">
+              <v-layout row wrap justify-start pa-3>
+                <v-flex md6 xs12 sm6 lg4 xl3 pa-3 v-for="(item,i) in gamesChargedForPS" :key="i" :src="item">
                   <v-card light raised tile>
                     <v-card-title primary-title>{{item.nom}}</v-card-title>
                     <v-img max-height="250"
@@ -78,7 +78,7 @@
               </v-flex>
               <v-flex v-else>
                 <v-layout row wrap justify-center pa-3>
-                  <v-flex md3 pa-3>
+                  <v-flex md6 xs12 sm6 lg4 xl3 pa-3>
                     <v-img width="250px" src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/nosuggestion.png?alt=media&token=0d6d051c-73e1-4974-8581-1b319bf26e1d">
                     </v-img>
                   </v-flex>
@@ -95,8 +95,8 @@
               <v-divider color="#008080"></v-divider>
               <!--affiche les cards des jeux en attente de validation-->
               <v-flex v-if="!testgamesChargedForXBOX">
-              <v-layout row wrap justify-center pa-3 >
-                <v-flex md3 xs12 sm8 pa-3 v-for="(item,i) in gamesChargedForXBOX" :key="i" :src="item">
+              <v-layout row wrap justify-start pa-3 >
+                <v-flex md6 xs12 sm6 lg4 xl3 pa-3 v-for="(item,i) in gamesChargedForXBOX" :key="i" :src="item">
                   <v-card light raised tile>
                     <v-card-title primary-title>{{item.nom}}</v-card-title>
                     <v-img max-height="250"
@@ -123,7 +123,7 @@
                     </v-img>
                   </v-flex>
                 </v-layout>
-                </v-flex>
+              </v-flex>
 
               <v-flex>
                 <v-layout align-center fluid fill-height mx-3 mt-4>
@@ -135,7 +135,7 @@
               <v-divider color="#008080"></v-divider>
               <!--affiche les cards des jeux en attente de validation-->
               <v-flex v-if="!testgamesChargedForSWITCH">
-              <v-layout row wrap justify-center pa-3>
+              <v-layout row wrap justify-start pa-3>
                 <v-flex md3 xs12 sm8 pa-3 v-for="(item,i) in gamesChargedForSWITCH" :key="i" :src="item">
                   <v-card light raised tile>
                     <v-card-title primary-title>{{item.nom}}</v-card-title>

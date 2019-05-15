@@ -15,7 +15,8 @@ export const store = new Vuex.Store({
       loadedGamesPC:[],
       loadedGamesPS:[],
       loadedGamesSWITCH:[],
-      loadedGamesXBOX:[]
+      loadedGamesXBOX:[],
+      loadedAllGames:[]
   },
   mutations: {
   setUser(state,payload){
@@ -221,6 +222,7 @@ export const store = new Vuex.Store({
             dateSortie:obj[key].dateSortie
           })
         }
+        jeuxSuggeres.sort(function(a,b){return a.nom.localeCompare(b.nom); });
         commit('setLoadedSuggestedGamesPC', jeuxSuggeres)
       })
       .catch(
@@ -250,6 +252,7 @@ export const store = new Vuex.Store({
               dateSortie:obj[key].dateSortie
             })
           }
+          jeuxSuggeres.sort(function(a,b){return a.nom.localeCompare(b.nom); });
           commit('setLoadedSuggestedGamesPS', jeuxSuggeres)
         })
         .catch(
@@ -279,6 +282,7 @@ export const store = new Vuex.Store({
               dateSortie:obj[key].dateSortie
             })
           }
+          jeuxSuggeres.sort(function(a,b){return a.nom.localeCompare(b.nom); });
           commit('setLoadedSuggestedGamesXBOX', jeuxSuggeres)
         })
         .catch(
@@ -308,6 +312,7 @@ export const store = new Vuex.Store({
               dateSortie:obj[key].dateSortie
             })
           }
+          jeuxSuggeres.sort(function(a,b){return a.nom.localeCompare(b.nom); });
           commit('setLoadedSuggestedGamesSWITCH', jeuxSuggeres)
         })
         .catch(
@@ -337,6 +342,7 @@ export const store = new Vuex.Store({
               dateSortie:obj[key].dateSortie
             })
           }
+          jeux.sort(function(a,b){return a.nom.localeCompare(b.nom); });
           commit('setLoadedGamesPC', jeux)
         })
         .catch(
@@ -366,6 +372,7 @@ export const store = new Vuex.Store({
               dateSortie:obj[key].dateSortie
             })
           }
+          jeux.sort(function(a,b){return a.nom.localeCompare(b.nom); });
           commit('setLoadedGamesPS', jeux)
         })
         .catch(
@@ -395,6 +402,7 @@ export const store = new Vuex.Store({
               dateSortie:obj[key].dateSortie
             })
           }
+          jeux.sort(function(a,b){return a.nom.localeCompare(b.nom); });
           commit('setLoadedGamesSWITCH', jeux)
         })
         .catch(
@@ -424,6 +432,7 @@ export const store = new Vuex.Store({
               dateSortie:obj[key].dateSortie
             })
           }
+          jeux.sort(function(a,b){return a.nom.localeCompare(b.nom); });
           commit('setLoadedGamesXBOX', jeux)
         })
         .catch(
@@ -431,7 +440,6 @@ export const store = new Vuex.Store({
             console.log(error)
           }
         )
-
     },
     editProfile({commit},payload){
       var user = firebase.auth().currentUser;
@@ -441,8 +449,7 @@ export const store = new Vuex.Store({
       }).catch(function(error) {
         alert(error)
       });
-    }
-
+    },
   },
   getters: {
     user(){
