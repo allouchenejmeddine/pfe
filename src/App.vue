@@ -131,7 +131,7 @@
       <v-toolbar-items class="hidden-sm-and-down">
       <v-autocomplete name="name" :items="items"
         :search-input.sync="search" v-model="selectedGame" label="Rechercher"  height="40px"
-        v-if="searchVisible" color="#008080" @change="getSelectedGame()" >
+        v-if="searchVisible" color="#008080" @change="getSelectedGame()" item-text="nom" >
       </v-autocomplete>
       <v-layout align-center>
       <v-btn icon @click="searchVisible = !searchVisible">
@@ -352,6 +352,12 @@ export default {
     };
   },
   computed: {
+    contact() {
+      const id = parseInt(this.$route.params.id)
+        return this.$store.state.loadedGamesPC.filter(function(c) {
+            return c.id === id;
+        })[0];
+    },
     onScroll() {
       window.onscroll = () => {
         this.scrollFunction();
@@ -369,6 +375,9 @@ export default {
       },
     gamesCharged : function (){
         return this.$store.state.loadedSuggestedGamesPC
+          .concat(this.$store.state.loadedSuggestedGamesPS)
+          .concat(this.$store.state.loadedSuggestedGamesXBOX)
+          .concat(this.$store.state.loadedSuggestedGamesSWITCH)
       }
   },
   mounted: function() {
@@ -461,8 +470,25 @@ export default {
     getSelectedGame(){
       let context = this
       setTimeout(() => {
-      alert(this.selectedGame)
+      alert(this.selectedGame.nom)
+      if(this.selectedGame.plateformeJeux.localeCompare('PC','en', {sensitivity: 'base'})==0)
+      {
+        this.$router.push('/Jeux_PC/'+ this.selectedGame.id)
+      }
+      if(this.selectedGame.plateformeJeux.localeCompare('PS','en', {sensitivity: 'base'})==0)
+      {
+        this.$router.push('/Jeux_PS/'+ this.selectedGame.id)
+      }
+      if(this.selectedGame.plateformeJeux.localeCompare('XBOX','en', {sensitivity: 'base'})==0)
+      {
+        this.$router.push('/Jeux_XBOX/'+ this.selectedGame.id)
+      }
+      if(this.selectedGame.plateformeJeux.localeCompare('SWITCH','en', {sensitivity: 'base'})==0)
+      {
+        this.$router.push('/Jeux_SWITCH/'+ this.selectedGame.id)
+      }
       }, 0)
+      
     }
   }
 };

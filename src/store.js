@@ -209,7 +209,14 @@ export const store = new Vuex.Store({
             nom: obj[key].nom,
             description: obj[key].description,
             image: obj[key].image,
-            suggestedFrom: obj[key].suggestedFrom
+            suggestedFrom: obj[key].suggestedFrom,
+            plateformeJeux:obj[key].plateformeJeux,
+            configuration:obj[key].configuration,
+            developpeur:obj[key].developpeur,
+            dlc:obj[key].dlc,
+            modeJeux:obj[key].modeJeux,
+            moteurGraph:obj[key].moteurGraph,
+            genreJeux:obj[key].genreJeux
           })
         }
         commit('setLoadedSuggestedGamesPC', jeuxSuggeres)
@@ -230,7 +237,14 @@ export const store = new Vuex.Store({
               nom: obj[key].nom,
               description: obj[key].description,
               image: obj[key].image,
-              suggestedFrom: obj[key].suggestedFrom
+              suggestedFrom: obj[key].suggestedFrom,
+              plateformeJeux:obj[key].plateformeJeux,
+              configuration:obj[key].configuration,
+              developpeur:obj[key].developpeur,
+              dlc:obj[key].dlc,
+              modeJeux:obj[key].modeJeux,
+              moteurGraph:obj[key].moteurGraph,
+              genreJeux:obj[key].genreJeux
             })
           }
           commit('setLoadedSuggestedGamesPS', jeuxSuggeres)
@@ -251,7 +265,14 @@ export const store = new Vuex.Store({
               nom: obj[key].nom,
               description: obj[key].description,
               image: obj[key].image,
-              suggestedFrom: obj[key].suggestedFrom
+              suggestedFrom: obj[key].suggestedFrom,
+              plateformeJeux:obj[key].plateformeJeux,
+              configuration:obj[key].configuration,
+              developpeur:obj[key].developpeur,
+              dlc:obj[key].dlc,
+              modeJeux:obj[key].modeJeux,
+              moteurGraph:obj[key].moteurGraph,
+              genreJeux:obj[key].genreJeux
             })
           }
           commit('setLoadedSuggestedGamesXBOX', jeuxSuggeres)
@@ -272,7 +293,14 @@ export const store = new Vuex.Store({
               nom: obj[key].nom,
               description: obj[key].description,
               image: obj[key].image,
-              suggestedFrom: obj[key].suggestedFrom
+              suggestedFrom: obj[key].suggestedFrom,
+              plateformeJeux:obj[key].plateformeJeux,
+              configuration:obj[key].configuration,
+              developpeur:obj[key].developpeur,
+              dlc:obj[key].dlc,
+              modeJeux:obj[key].modeJeux,
+              moteurGraph:obj[key].moteurGraph,
+              genreJeux:obj[key].genreJeux
             })
           }
           commit('setLoadedSuggestedGamesSWITCH', jeuxSuggeres)
@@ -293,7 +321,14 @@ export const store = new Vuex.Store({
               nom: obj[key].nom,
               description: obj[key].description,
               image: obj[key].image,
-              suggestedFrom: obj[key].suggestedFrom
+              suggestedFrom: obj[key].suggestedFrom,
+              plateformeJeux:obj[key].plateformeJeux,
+              configuration:obj[key].configuration,
+              developpeur:obj[key].developpeur,
+              dlc:obj[key].dlc,
+              modeJeux:obj[key].modeJeux,
+              moteurGraph:obj[key].moteurGraph,
+              genreJeux:obj[key].genreJeux
             })
           }
           commit('setLoadedGamesPC', jeux)
@@ -314,7 +349,14 @@ export const store = new Vuex.Store({
               nom: obj[key].nom,
               description: obj[key].description,
               image: obj[key].image,
-              suggestedFrom: obj[key].suggestedFrom
+              suggestedFrom: obj[key].suggestedFrom,
+              plateformeJeux:obj[key].plateformeJeux,
+              configuration:obj[key].configuration,
+              developpeur:obj[key].developpeur,
+              dlc:obj[key].dlc,
+              modeJeux:obj[key].modeJeux,
+              moteurGraph:obj[key].moteurGraph,
+              genreJeux:obj[key].genreJeux
             })
           }
           commit('setLoadedGamesPS', jeux)
@@ -335,7 +377,14 @@ export const store = new Vuex.Store({
               nom: obj[key].nom,
               description: obj[key].description,
               image: obj[key].image,
-              suggestedFrom: obj[key].suggestedFrom
+              suggestedFrom: obj[key].suggestedFrom,
+              plateformeJeux:obj[key].plateformeJeux,
+              configuration:obj[key].configuration,
+              developpeur:obj[key].developpeur,
+              dlc:obj[key].dlc,
+              modeJeux:obj[key].modeJeux,
+              moteurGraph:obj[key].moteurGraph,
+              genreJeux:obj[key].genreJeux
             })
           }
           commit('setLoadedGamesSWITCH', jeux)
@@ -356,7 +405,14 @@ export const store = new Vuex.Store({
               nom: obj[key].nom,
               description: obj[key].description,
               image: obj[key].image,
-              suggestedFrom: obj[key].suggestedFrom
+              suggestedFrom: obj[key].suggestedFrom,
+              plateformeJeux:obj[key].plateformeJeux,
+              configuration:obj[key].configuration,
+              developpeur:obj[key].developpeur,
+              dlc:obj[key].dlc,
+              modeJeux:obj[key].modeJeux,
+              moteurGraph:obj[key].moteurGraph,
+              genreJeux:obj[key].genreJeux
             })
           }
           commit('setLoadedGamesXBOX', jeux)

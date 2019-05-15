@@ -18,6 +18,7 @@ import PlaystationGames from './components/Games/PlaystationGames'
 import XboxGames from './components/Games/XboxGames'
 import SwitchGames from './components/Games/SwitchGames'
 import PcGames from './components/Games/PcGames'
+import Contact from './components/Games/SearchedGame'
 
 Vue.use(Router)
 
@@ -193,6 +194,10 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+    },
+    {
+      path: '/contacts/:id', 
+      component: Contact 
     }
   ]
 })
