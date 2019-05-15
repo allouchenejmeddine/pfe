@@ -129,7 +129,7 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items class="hidden-sm-and-down">
-      <v-autocomplete name="name" :items="items"
+      <v-autocomplete name="name" :items="gamesCharged"
         :search-input.sync="search" v-model="selectedGame" label="Rechercher"  height="40px"
         v-if="searchVisible" color="#008080" @change="getSelectedGame()" item-text="nom" >
       </v-autocomplete>
@@ -366,18 +366,11 @@ export default {
     userIsAuthenticated(){
       return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     },
-    items () {
-      let gamesChargedTitles= []
-      this.gamesCharged.map(entry => {
-        gamesChargedTitles.push(entry)
-      })
-        return gamesChargedTitles
-      },
     gamesCharged : function (){
-        return this.$store.state.loadedSuggestedGamesPC
-          .concat(this.$store.state.loadedSuggestedGamesPS)
-          .concat(this.$store.state.loadedSuggestedGamesXBOX)
-          .concat(this.$store.state.loadedSuggestedGamesSWITCH)
+        return this.$store.state.loadedGamesPC
+          .concat(this.$store.state.loadedGamesPS)
+          .concat(this.$store.state.loadedGamesXBOX)
+          .concat(this.$store.state.loadedGamesSWITCH)
       }
   },
   mounted: function() {

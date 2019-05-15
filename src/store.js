@@ -147,6 +147,7 @@ export const store = new Vuex.Store({
         moteurGraph:payload.moteurGraph,
         genreJeux:payload.genreJeux,
         suggestedFrom:user.uid,
+        dateSortie:payload.dateSortie,
         image:'',
         id:''
       }
@@ -216,7 +217,8 @@ export const store = new Vuex.Store({
             dlc:obj[key].dlc,
             modeJeux:obj[key].modeJeux,
             moteurGraph:obj[key].moteurGraph,
-            genreJeux:obj[key].genreJeux
+            genreJeux:obj[key].genreJeux,
+            dateSortie:obj[key].dateSortie
           })
         }
         commit('setLoadedSuggestedGamesPC', jeuxSuggeres)
@@ -244,7 +246,8 @@ export const store = new Vuex.Store({
               dlc:obj[key].dlc,
               modeJeux:obj[key].modeJeux,
               moteurGraph:obj[key].moteurGraph,
-              genreJeux:obj[key].genreJeux
+              genreJeux:obj[key].genreJeux,
+              dateSortie:obj[key].dateSortie
             })
           }
           commit('setLoadedSuggestedGamesPS', jeuxSuggeres)
@@ -272,7 +275,8 @@ export const store = new Vuex.Store({
               dlc:obj[key].dlc,
               modeJeux:obj[key].modeJeux,
               moteurGraph:obj[key].moteurGraph,
-              genreJeux:obj[key].genreJeux
+              genreJeux:obj[key].genreJeux,
+              dateSortie:obj[key].dateSortie
             })
           }
           commit('setLoadedSuggestedGamesXBOX', jeuxSuggeres)
@@ -300,7 +304,8 @@ export const store = new Vuex.Store({
               dlc:obj[key].dlc,
               modeJeux:obj[key].modeJeux,
               moteurGraph:obj[key].moteurGraph,
-              genreJeux:obj[key].genreJeux
+              genreJeux:obj[key].genreJeux,
+              dateSortie:obj[key].dateSortie
             })
           }
           commit('setLoadedSuggestedGamesSWITCH', jeuxSuggeres)
@@ -328,7 +333,8 @@ export const store = new Vuex.Store({
               dlc:obj[key].dlc,
               modeJeux:obj[key].modeJeux,
               moteurGraph:obj[key].moteurGraph,
-              genreJeux:obj[key].genreJeux
+              genreJeux:obj[key].genreJeux,
+              dateSortie:obj[key].dateSortie
             })
           }
           commit('setLoadedGamesPC', jeux)
@@ -356,7 +362,8 @@ export const store = new Vuex.Store({
               dlc:obj[key].dlc,
               modeJeux:obj[key].modeJeux,
               moteurGraph:obj[key].moteurGraph,
-              genreJeux:obj[key].genreJeux
+              genreJeux:obj[key].genreJeux,
+              dateSortie:obj[key].dateSortie
             })
           }
           commit('setLoadedGamesPS', jeux)
@@ -384,7 +391,8 @@ export const store = new Vuex.Store({
               dlc:obj[key].dlc,
               modeJeux:obj[key].modeJeux,
               moteurGraph:obj[key].moteurGraph,
-              genreJeux:obj[key].genreJeux
+              genreJeux:obj[key].genreJeux,
+              dateSortie:obj[key].dateSortie
             })
           }
           commit('setLoadedGamesSWITCH', jeux)
@@ -412,7 +420,8 @@ export const store = new Vuex.Store({
               dlc:obj[key].dlc,
               modeJeux:obj[key].modeJeux,
               moteurGraph:obj[key].moteurGraph,
-              genreJeux:obj[key].genreJeux
+              genreJeux:obj[key].genreJeux,
+              dateSortie:obj[key].dateSortie
             })
           }
           commit('setLoadedGamesXBOX', jeux)

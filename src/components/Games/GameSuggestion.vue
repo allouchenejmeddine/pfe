@@ -308,7 +308,7 @@
          this.$store.dispatch('addGameToDatabase',{nom:this.nom,configuration:this.configuration,
           developpeur:this.developpeur,description:this.description,
           plateformeJeux:this.plateformeJeux,dlc:this.dlc,modeJeux:this.modeJeux,
-          moteurGraph:this.moteurGraph,genreJeux:this.genreJeux,image:this.image})
+          moteurGraph:this.moteurGraph,genreJeux:this.genreJeux,image:this.image,dateSortie:this.dateSortie})
           
           
           
