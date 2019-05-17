@@ -20,6 +20,8 @@ import SwitchGames from './components/Games/SwitchGames'
 import PcGames from './components/Games/PcGames'
 import Contact from './components/Games/SearchedGame'
 import ArticleCreated from './components/Articles/ArticleCreatedSuccessfully'
+import ArticleSuggestion from './components/Articles/ArticleSuggestion'
+import Error404 from './components/404'
 
 Vue.use(Router)
 
@@ -167,14 +169,33 @@ export default new Router({
             //beforeEnter:authGuard
         },
         {
-            path: '/ArticleCreated',
-            name: 'ArticleCreated',
+            path: '/article_created',
+            name: 'articleCreated',
             component: ArticleCreated,
             meta: {
                 title: "Article suggéré avec succès"
             },
             //beforeEnter:authGuard
         },
+        {
+            path: '/suggest_article',
+            name : 'suggestarticle',
+            component : ArticleSuggestion,
+            meta:
+            {
+              title: "Suggestion d'un article " 
+            },
+            //beforeEnter:authGuard
+          },
+          {
+            //handler when the path given doesn't exist
+            path: '*',
+            component: Error404,
+            meta:
+            {
+              title: "Error 404 - Page not found " 
+            },
+          },
         {
             path: '/about',
             name: 'about',

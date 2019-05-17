@@ -5,8 +5,8 @@
         
               <v-layout row wrap align-space-around justify-space-around pa-5>
               <!--card tous les jeux-->
-                <v-flex md4 sm5 xs10 lg4 xl3 pa-3>
-                  <v-card max-height="512" max-width="512" flat color="rgba(0,128,128,0.3)" style="border:5px solid #008080;border-radius:20px;-moz-border-radius:20px;-webkit-border-radius:20px;">
+                <v-flex md4 sm5 xs12 lg4 xl3 pa-3>
+                  <v-card to="/allgames" max-height="512" max-width="512" flat color="rgba(0,128,128,0.3)" style="border:5px solid #008080;border-radius:20px;-moz-border-radius:20px;-webkit-border-radius:20px;">
                     <v-card-title><span style="font-size:16px;color:#008080" >Tout les jeux</span></v-card-title>
                     <v-img
                       src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/901616f38b.png?alt=media&token=1d0bc37e-8760-434d-a5f1-d29822ac4f85"
@@ -17,7 +17,7 @@
                 </v-flex>
                 
                 <!--card Classement-->
-                <v-flex md4 sm5 xs10 lg4 xl3 pa-3>
+                <v-flex md4 sm5 xs12 lg4 xl3 pa-3>
                   <v-card color="rgba(0,128,128,0.3)" max-height="512" max-width="512"  flat style="border:5px solid #008080;border-radius:20px;-moz-border-radius:20px;-webkit-border-radius:20px;">
                     <v-card-title><span style="font-size:16px;color:#008080" >Classement</span></v-card-title> 
                     <v-img
@@ -29,7 +29,7 @@
                 </v-flex>
                 
                 <!--card Nouveauté-->
-                <v-flex md4 sm5 xs10 lg4 xl3 pa-3>
+                <v-flex md4 sm5 xs12 lg4 xl3 pa-3>
                   <v-card color="rgba(0,128,128,0.3)" max-height="512" max-width="512"  flat style="border:5px solid #008080;border-radius:20px;-moz-border-radius:20px;-webkit-border-radius:20px;">
                     <v-card-title><span style="font-size:16px;color:#008080">Nouveauté</span></v-card-title>
                     <v-img
