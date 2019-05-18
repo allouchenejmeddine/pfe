@@ -131,7 +131,7 @@
       <v-toolbar-items class="hidden-sm-and-down">
       <v-autocomplete name="name" :items="gamesCharged"
         :search-input.sync="search" v-model="selectedGame" label="Rechercher"  height="40px"
-        v-if="searchVisible" color="#008080" @change="getSelectedGame()" item-text="nom" >
+        v-if="searchVisible" color="#008080" @change="getSelectedGame(()=>{setTimeout(() => {if(this.selectedGame==null){alert('this time also')} return this.selectedGame}, 0)})" item-text="nom" >
       </v-autocomplete>
       <v-layout align-center>
       <v-btn icon @click="searchVisible = !searchVisible">
@@ -268,6 +268,7 @@ import HelloWorld from "./components/HelloWorld";
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import {store} from './store'
+import { isString } from 'util';
 
 export default {
   name: "App",
@@ -280,7 +281,7 @@ export default {
       email:'',
       password:'',
       confirmPassword:'',
-      selectedGame:'',
+      selectedGame:null,
       search:'something',
       dialog: false,
       sideNav: false,
@@ -460,11 +461,25 @@ export default {
       this.dialog = false;
       this.$store.dispatch('logoutUser')
     },
-    getSelectedGame(){
+    detectPlatform(){
+      
+        alert('dans le detecteur ='+this.selectedGame)
+        alert(typeof this.selectedGame)
+        return this.selectedGame
+  
+    },
+    getSelectedGame(value){
       let context = this
       setTimeout(() => {
-      alert(this.selectedGame.nom)
-      if(this.selectedGame.plateformeJeux.localeCompare('PC','en', {sensitivity: 'base'})==0)
+      alert('maintenant')
+      alert(typeof value)
+      if(value == null)
+      {
+        alert('failed this time')
+      }
+      alert('the value is '+this.detectPlatform())
+      
+      if(value.plateformeJeux.localeCompare('PC','en', {sensitivity: 'base'})==0)
       {
         this.$router.push('/Jeux_PC/'+ this.selectedGame.id)
       }

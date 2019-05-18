@@ -16,11 +16,15 @@ export const store = new Vuex.Store({
       loadedGamesPS:[],
       loadedGamesSWITCH:[],
       loadedGamesXBOX:[],
-      loadedAllGames:[]
+      loadedAllGames:[],
+      loadedArticles:[]
   },
   mutations: {
   setUser(state,payload){
     state.user=payload
+  },
+  setLoadedArticles(state,payload){
+    state.loadedArticles= payload 
   },
   setLoadedSuggestedGamesPC (state, payload) {
     state.loadedSuggestedGamesPC = payload
@@ -67,7 +71,8 @@ export const store = new Vuex.Store({
             listeJeux: payload.listeJeux,
             listeEnvies: payload.listeEnvies,
             listeGenre: payload.listeGenre,
-            listeVisible: payload.listeVisible
+            listeVisible: payload.listeVisible,
+            image: ''
           }
           commit('setUser',newUser)
           firebase.database().ref('/comptes/' + user.uid).set(newUser)
@@ -85,7 +90,7 @@ export const store = new Vuex.Store({
       firebase.auth().signInWithEmailAndPassword(payload.email,payload.password)
       .then(
         user =>{
-          const newUser={
+          /* const newUser={
             id:user.uid,
             email: user.email,
             nom: user.nom,
@@ -95,20 +100,31 @@ export const store = new Vuex.Store({
             listeJeux: user.listeJeux,
             listeEnvies: user.listeEnvies,
             listeGenre: user.listeGenre,
-            listeVisible: user.listeVisible
-
-            
-        }
+            listeVisible: user.listeVisible,
+            image:user.image          
+        } */
+        alert('successfully logged in ')
         firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
             // User is signed in.
             commit('setUser',user)
-            alert(store.getters.user.uid)
+            alert('im here 2 '+store.getters.user.image)
           } else {
             // No user is signed in.
             alert("No user found")
           }
         });        
+        firebase.database().ref('/comptes').orderByChild("id").equalTo(this.state.user.id).once("value",snapshot => {
+          alert('im here ')
+          if (snapshot.exists()){
+            const userData = snapshot.val();
+            console.log("exists!", userData);
+          }
+        }).then((user)=>{
+          commit('setUser',user)
+          alert(user.id)
+        })
+        
         
         
       })
@@ -121,8 +137,9 @@ export const store = new Vuex.Store({
     autoSignIn({commit},payload){
       commit('setUser',{id:payload.uid,email:payload.email,nom:payload.nom,prenom:payload.prenom,
       dateNaissance:payload.dateNaissance,pseudo:payload.pseudo,listeJeux:payload.listeJeux,
-      listeEnvies:payload.listeEnvies,listeGenre:payload.listeGenre,listeVisible:payload.listeVisible})
+      listeEnvies:payload.listeEnvies,listeGenre:payload.listeGenre,listeVisible:payload.listeVisible,image:payload.image})
       alert(store.getters.user.id)
+      alert(store.state.user.image)
     },
     logoutUser({commit}){
       firebase.auth().signOut().then(function(){
@@ -132,6 +149,43 @@ export const store = new Vuex.Store({
       })
       commit('setUser',null)
       
+    },
+    getUserAvatar(){
+
+    },
+    addArticleToDatabase({commit},payload){
+      let location = "/ArticlesProposes"
+      let user = firebase.auth().currentUser
+      let path
+      const newArticle= {
+        titre: payload.titre,
+        corps: payload.corps,
+        image: '',
+        suggestedFrom: user.uid
+      }
+      // Create a reference to destination
+      let reference = firebase.database().ref(location)
+      // Add game to database
+      reference.push(newArticle).then((data)=>{
+        const key = data.key
+        return key
+      }).then(key=>{
+        const filename=payload.image.name
+        const ext = filename.slice(filename.lastIndexOf('.'))
+        return firebase.storage().ref(key+ext).put(payload.image)
+      }).then(fileData=>{
+        path=fileData.metadata.fullPath
+        const some =firebase.storage().ref().child(path).getDownloadURL()
+        some.then((url)=>{
+          path=fileData.metadata.fullPath.substring(0,fileData.metadata.fullPath.length -4)
+          // Add stored image url to image property of game in the database
+          return reference.child(path).update({image:url})
+        })
+      }).then(()=>{
+        alert('Success! what a champion! Your article is suggested !')
+        router.push('/article_created')
+      })
+
     },
     addGameToDatabase({commit},payload){
       let location = '/JeuxSuggeres'
@@ -198,6 +252,53 @@ export const store = new Vuex.Store({
       ref.orderByChild("nom").equalTo(payload.nom).on("child_added", function(snapshot) {
         console.log(snapshot.key);
       });
+    },
+    updateUserAvatar({commit},payload){
+      var ref = firebase.database().ref('/comptes')
+      var user = this.state.user
+      ref.orderByChild("id").equalTo(user.id).once("value",snapshot => {
+        if (snapshot.exists()){
+          const userData = snapshot.val();
+          alert(this.state.user.id)
+        }
+        
+      }).then(()=>{
+        const userid = this.state.user.id
+        const filename=payload.image.name
+        const ext = filename.slice(filename.lastIndexOf('.'))
+        return firebase.storage().ref(userid+ext).put(payload.image)
+      }).then(fileData=>{
+        var path=fileData.metadata.fullPath
+        const some =firebase.storage().ref().child(path).getDownloadURL()
+        some.then((url)=>{
+          path=fileData.metadata.fullPath.substring(0,fileData.metadata.fullPath.length -4)
+          // Add stored image url to image property of game in the database
+          return reference.child(path).update({image:url})
+        })
+      }).then(()=>{
+        alert('Success! what a champion!')
+      })
+    },
+    laodArticles({commit}){
+      firebase.database().ref('/ArticlesSuggeres').once('value')
+        .then((data) => {
+          const articlesSuggeres = []
+          const obj = data.val()
+          for (let key in obj) {
+            articlesSuggeres.push({
+              titre: obj[key].titre,
+              corps: obj[key].corps,
+              image: obj[key].image,
+              
+            })
+          }
+          commit('setLoadedArticles', articlesSuggeres)
+        })
+        .catch(
+          (error) => {
+            console.log(error)
+          }
+        )
     },
     loadGames ({commit}) {
       // Load suggested games for PC 
@@ -442,13 +543,27 @@ export const store = new Vuex.Store({
         )
     },
     editProfile({commit},payload){
-      var user = firebase.auth().currentUser;
-      var newPass = payload.newPassword;
-      user.updatePassword(newPass).then(function() {
-        alert("Mot de passe changé avec succès")
-      }).catch(function(error) {
-        alert(error)
-      });
+      // Password update
+      firebase.auth().currentUser.reauthenticateWithCredential(
+        firebase.auth.EmailAuthProvider.credential(
+          firebase.auth().currentUser.email, 
+          payload.currentPassword
+        )
+      ).catch((error)=>{
+        alert('Mot de passe actuel non valide, veuillez vérifier svp')
+      }).then(()=>{
+        firebase.auth().currentUser.updatePassword(payload.newPassword);
+      }).catch((error)=>{
+        alert('Votre mot de passe doit contenir au moins 6 caractères')
+      }).then(()=>{
+        // Pseudo update
+        var ref = firebase.database().ref('/comptes').child(this.state.user.id).update({pseudo:payload.newPseudo})
+      })
+      .catch((error)=>{
+        alert("Un problème technique est survenu, veuillez svp contacter le service technique en mentionnant ce code d'erreur : 02")
+      })
+      
+      
     },
   },
   getters: {

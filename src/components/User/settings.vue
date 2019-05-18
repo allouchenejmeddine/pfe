@@ -1,4 +1,5 @@
 <template>
+<v-form v-model="valid">
     <v-container fill-height fluid>
         <v-layout align-center>
             <v-flex xs12 sm8 offset-sm2 md8 offset-md2>
@@ -62,8 +63,8 @@
                                 <v-flex mb-1> 
                                     <v-text-field
                                     color="#F5DCD7"
-                                    v-model="oldPassword"
-                                    name="oldpassword"
+                                    v-model="currentPassword"
+                                    name="currentpassword"
                                     label="Ancien mot de passe"
                                     type="password"
                                     required>
@@ -76,6 +77,7 @@
                                     name="newpassword"
                                     label="Nouveau mot de passe"
                                     type="password"
+                                    :rules="[v => /.+[A-Z].+/.test(v) || 'Le mot de passe doit contenir une lettre maj']"
                                     required>
                                     </v-text-field> 
                                 </v-flex>
@@ -86,7 +88,7 @@
                                     label="Confirmer votre nouveau mot de passe"
                                     type="password"
                                     required
-                                    :rules="[comparePasswords]">
+                                    :rules="[v => v === newPassword || 'Veuilelz revérifier !']">
                                     </v-text-field> 
                                 </v-flex>
 
@@ -94,6 +96,7 @@
                                     <v-text-field
                                     color="#F5DCD7"
                                     name="nickname"
+                                    v-model="newPseudo"
                                     label="Nouveau Pseudo"
                                     >
                                     </v-text-field> 
@@ -107,12 +110,13 @@
                     </v-list>
                     <v-card-actions > 
                         <v-spacer></v-spacer>
-                        <v-btn outline color="#008080"><span style="font-weight: bold">Valider</span><v-icon right>fas fa-check</v-icon></v-btn> 
+                        <v-btn outline @click="updateData()" color="#008080"><span style="font-weight: bold">Valider</span><v-icon right>fas fa-check</v-icon></v-btn> 
                     </v-card-actions>
                 </v-card>
             </v-flex>
         </v-layout>
     </v-container>
+</v-form>
 </template>
 <script>
 export default {
@@ -120,14 +124,13 @@ export default {
         return {
             newPassword:'',
             confirmPassword:'',
-            oldPassword:'',
-            image:null
+            currentPassword:'',
+            image:null,
+            newPseudo:'',
+            valid:true
         }
     },
     computed:{
-        comparePasswords() {
-            return this.newPassword !== this.confirmPassword ? "Reverifiez votre mot de passe svp" : ''
-        },
         imageRefresh(){
           this.image=inputUpload
       }
@@ -146,6 +149,13 @@ export default {
           })
           fileReader.readAsDataURL(files[0])
           this.image=files[0]  
+      },
+      updateData(){
+          this.$store.dispatch('editProfile',{currentPassword:this.currentPassword,newPassword:this.newPassword,newPseudo:this.newPseudo})
+          this.$store.dispatch('updateUserAvatar',{image:this.image})
+      },
+      getAvatar(){
+          
       }
     }
 }

@@ -3,7 +3,7 @@
         <v-layout align-center>
             <v-flex xs12 sm8 offset-sm2 md8 offset-md2 >
                 <v-card dark>
-                    <v-form @submit.prevent="addToDatabase()">
+                    <v-form @submit.prevent="addArticleToDatabase()">
                     <v-list>
                         <v-container>
                         <v-layout column wrap>
@@ -148,12 +148,9 @@
         return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
       },
       //A changer et essaye de récuperer la date de l'ordinateur au moment du clique sur valider pour la date de l'article
-      addToDatabase(){
+      addArticleToDatabase(){
           
-         this.$store.dispatch('addGameToDatabase',{nom:this.nom,configuration:this.configuration,
-          developpeur:this.developpeur,description:this.description,
-          plateformeJeux:this.plateformeJeux,dlc:this.dlc,modeJeux:this.modeJeux,
-          moteurGraph:this.moteurGraph,genreJeux:this.genreJeux,image:this.image,dateSortie:this.dateSortie})
+         this.$store.dispatch('addArticleToDatabase',{titre:this.resume,corps : this.article,image:this.image})
           
           
           
