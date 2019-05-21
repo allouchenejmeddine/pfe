@@ -3,7 +3,7 @@
         <v-layout align-center>
             <v-flex xs12 sm8 offset-sm2 md8 offset-md2 >
                 <v-card dark>
-                    <v-form @submit.prevent="addArticleToDatabase()">
+                    <v-form ref="form" v-model="valid">
                     <v-list>
                         <v-container>
                         <v-layout column wrap>
@@ -25,7 +25,6 @@
                                                     </template>
                                                     <span style="font-size:9px">NB : Taille max de l'image 8Mo</span>
                                                 </v-tooltip>
-                                            
                                             </v-layout>
                                         </v-img>
                                 </v-flex>
@@ -43,8 +42,7 @@
                                             </v-layout>
                                         </v-img>
                                 </v-flex>
-                                <input v-show="false" ref="inputUpload" type="file" @change="onFilePicked"  >    
-                                
+                                <input v-show="false" ref="inputUpload" type="file" required @change="onFilePicked">    
                             </v-layout>
 
                             <v-divider color="#008080"></v-divider>
@@ -53,9 +51,26 @@
                                 <v-flex mb-4>
                                     <span style="font-size:16px">Rédaction de l'article</span>
                                 </v-flex>
-                                
+                                     
+                                      <v-flex xs12 md6 pa-3> 
+                                            <v-textarea
+                                            color="#F5DCD7"
+                                            name="titre"
+                                            label="Titre de l'article"
+                                            single-line
+                                            outline
+                                            v-model="titre"
+                                            clearable
+                                            :rules="titreRules"
+                                            height="60"
+                                            no-resize
+                                            required
+                                            >
+                                            </v-textarea>
+                                        </v-flex>
+                                        
                                         <v-flex xs12 md6 pa-3> 
-                                            <v-text-field
+                                            <v-textarea
                                             color="#F5DCD7"
                                             name="resume"
                                             label="Résumé de l'article affiché dans la liste des articles"
@@ -63,14 +78,15 @@
                                             outline
                                             v-model="resume"
                                             clearable
+                                            auto-grow
                                             required
-                                            height="200"
+                                            :rules="textareaRules"
                                             >
-                                            </v-text-field>
+                                            </v-textarea>
                                         </v-flex>
                                        
                                         <v-flex xs12 md6 pa-3> 
-                                            <v-text-field
+                                            <v-textarea
                                             color="#F5DCD7"
                                             name="article"
                                             label="Corps de l'article"
@@ -78,12 +94,12 @@
                                             outline
                                             v-model="article"
                                             clearable
+                                            :rules="textareaRules"
+                                            auto-grow
                                             required
-                                            height="500"
                                             >
-                                            </v-text-field>
-                                        </v-flex>
-                                    
+                                            </v-textarea>
+                                        </v-flex>     
                             </v-layout>
                                 <v-divider color="#008080"></v-divider>
                         </v-layout>
@@ -91,7 +107,7 @@
                     </v-list>
                     <v-card-actions > 
                         <v-spacer></v-spacer>
-                        <v-btn outline color="#008080" type="submit" :loading="loading"><span style="font-weight: bold">Valider</span><v-icon right>fas fa-check</v-icon></v-btn> 
+                        <v-btn outline color="#008080" @click="addArticleToDatabase" ><span style="font-weight: bold">Valider</span><v-icon right>fas fa-check</v-icon></v-btn> 
                     </v-card-actions>
                     </v-form>
                 </v-card>
@@ -105,11 +121,21 @@
     data () {
         return {
             date: new Date().toISOString().substr(0, 10),
+            titre:'',
             resume:'',
             dateSortie:'',
             article:'',
-            image:null,
-            loading: false
+            image: null,
+            inputUpload: null,
+            textareaRules: [
+                v => !!v || 'Ce champ est obligatoire',
+            ],
+            titreRules: [
+                v => !!v || 'Ce champ est obligatoire',
+                v => ((v.toString().charCodeAt(0)>=65) && (v.toString().charCodeAt(0)<=91)) || 'Le titre de jeu doit commencer en majuscule',
+            ],
+            
+            valid: true
         }
     },
 
@@ -120,46 +146,35 @@
       imageRefresh(){
           this.image=inputUpload
       },
-      verifyResume()
-      {
-          if ((this.nom.toString().charCodeAt(0)<65)|| (this.nom.toString().charCodeAt(0)>91)) return "Le nom de jeu doit commencer en majuscule"
-          else return ''
-      }
     },
-    
-
-    watch: {
-      date (val) {
-        this.dateSortie = this.formatDate(this.date)
-      }
+    mounted: function(){
+        this.formatDate(this.date) 
     },
 
     methods: {
+        validate () {
+            
+            if (this.$refs.form.validate()) {   
+                this.addArticleToDatabase()
+            }  
+            
+      },
       formatDate (date) {
         if (!date) return null
 
         const [year, month, day] = date.split('-')
-        return `${month}/${day}/${year}`
+        this.dateSortie = `${month}/${day}/${year}`
       },
-      parseDate (date) {
-        if (!date) return null
-
-        const [month, day, year] = date.split('/')
-        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-      },
+     
       //A changer et essaye de récuperer la date de l'ordinateur au moment du clique sur valider pour la date de l'article
-      addArticleToDatabase(){
-          
-         this.$store.dispatch('addArticleToDatabase',{titre:this.resume,corps : this.article,image:this.image})
-          
-          
-          
+      addArticleToDatabase(){      
+         this.$store.dispatch('addArticleToDatabase',{titre:this.titre,resume:this.resume,corps:this.article,image:this.image,dateSortie:this.dateSortie})   
       },
       onFilePicked(event){
           alert(event.currentTarget)
-
           const files = event.target.files
           let filename= files[0].name
+          
           if(filename.lastIndexOf('.')<= 0){
               alert("Veuillez vérifier le type de votre fichier d'image")
           }
@@ -168,8 +183,7 @@
               this.$refs.avatar.src=fileReader.result
           })
           fileReader.readAsDataURL(files[0])
-          this.image=files[0]
-        
+          this.image=files[0]  
       }
     }
   }

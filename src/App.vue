@@ -501,5 +501,6 @@ export default {
   }
 };
 </script>
+
 <style src="./css/homepage.css">
 </style>

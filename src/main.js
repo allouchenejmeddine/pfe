@@ -33,6 +33,7 @@ new Vue({
       }
     })
     this.$store.dispatch('loadGames')
+    this.$store.dispatch('loadArticles')
     
   }
 }).$mount('#app');
