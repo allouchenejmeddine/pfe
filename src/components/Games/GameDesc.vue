@@ -16,8 +16,7 @@
                                 <v-flex xs11 sm12 md8 lg6 xl3 pr-5>
                                     <v-layout column align-center justify-center fill-height>
                                         <v-flex pb-1 xs12 sm8 md5 lg4 xl3>
-                                            <v-img width="250px" src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/nojacket.png?alt=media&token=6e15418a-fd0d-4453-b8f4-2bffc6e51f0b"></v-img>
-                                        
+                                            <v-img :lazy-src="this.simple" v-model="logo" height="250px" width="250px" :src="this.logo"></v-img>
                                         </v-flex>
                                         <v-flex xs12 sm12 md8 lg4 xl3 pb-2>
                                             <v-rating
@@ -106,7 +105,9 @@
             description:'',
             genre:'',
             plateforme:'',
-            idd:this.id
+            idd:this.id,
+            logo:null,
+            simple:"http://data-cache.abuledu.org/1024/carre-blanc-50218a31.jpg"
 
             
         }
@@ -130,6 +131,8 @@
             this.plateforme= this.game.plateformeJeux
             this.configuration=this.game.configuration
             this.description=this.game.description
+            this.logo=this.game.image
+            //alert(this.logo)
 
         },
     computed : {
@@ -142,6 +145,9 @@
     watch:{
         rating:function(){
             addRating()
+        },
+        logo:function(){
+            
         }
     },
     methods:{
