@@ -18,7 +18,6 @@ import PlaystationGames from './components/Games/PlaystationGames'
 import XboxGames from './components/Games/XboxGames'
 import SwitchGames from './components/Games/SwitchGames'
 import PcGames from './components/Games/PcGames'
-import Contact from './components/Games/SearchedGame'
 import ArticleCreated from './components/Articles/ArticleCreatedSuccessfully'
 import ArticleSuggestion from './components/Articles/ArticleSuggestion'
 import ArticleSuggested from './components/Articles/SuggestedArticles'
@@ -126,14 +125,6 @@ export default new Router({
             }
         },
         {
-            path: '/gamedesc',
-            name: 'GameDesc',
-            component: GameDesc,
-            meta: {
-                title: 'Description - Game Players Union'
-            }
-        },
-        {
             path: '/settings',
             name: 'settings',
             component: Settings,
@@ -219,9 +210,41 @@ export default new Router({
             component: () =>
                 import ( /* webpackChunkName: "about" */ './views/About.vue')
         },
-        {
-            path: '/contacts/:id',
-            component: Contact
+        { 
+            path: '/Jeux_PC/:id',
+            name: 'gameDescPC',
+            component: GameDesc,
+            props: true,
+            meta: {
+                title: 'Description - Game Players Union'
+            }
+        },
+        { 
+            path: '/Jeux_PS/:id',
+            name: 'gameDescPS',
+            component: GameDesc,
+            props: true,
+            meta: {
+                title: 'Description - Game Players Union'
+            }
+        },
+        { 
+            path: '/Jeux_XBOX/:id',
+            name: 'gameDescXBOX',
+            component: GameDesc,
+            props: true,
+            meta: {
+                title: 'Description - Game Players Union'
+            }
+        },
+        { 
+            path: '/Jeux_SWITCH/:id',
+            name: 'gameDescSWITCH',
+            component: GameDesc,
+            props: true,
+            meta: {
+                title: 'Description - Game Players Union'
+            }
         }
     ]
 })

@@ -37,4 +37,5 @@ new Vue({
     
   }
 }).$mount('#app');
+global.vm=app
 

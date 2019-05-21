@@ -131,7 +131,7 @@
       <v-toolbar-items class="hidden-sm-and-down">
       <v-autocomplete name="name" :items="gamesCharged"
         :search-input.sync="search" v-model="selectedGame" label="Rechercher"  height="40px"
-        v-if="searchVisible" color="#008080" @change="getSelectedGame(()=>{setTimeout(() => {if(this.selectedGame==null){alert('this time also')} return this.selectedGame}, 0)})" item-text="nom" >
+        v-if="searchVisible" color="#008080" @change="getSelectedGame()" item-text="nom" return-object >
       </v-autocomplete>
       <v-layout align-center>
       <v-btn icon @click="searchVisible = !searchVisible">
@@ -215,7 +215,7 @@
     >    
      <v-flex  xl12 xs12 md12 fluid fill-height>
       <v-content>
-       <router-view></router-view>
+       <router-view :key="$route.path"></router-view>
       </v-content> 
      </v-flex>
      </v-parallax>
@@ -461,39 +461,28 @@ export default {
       this.dialog = false;
       this.$store.dispatch('logoutUser')
     },
-    detectPlatform(){
-      
-        alert('dans le detecteur ='+this.selectedGame)
-        alert(typeof this.selectedGame)
-        return this.selectedGame
-  
-    },
-    getSelectedGame(value){
+    getSelectedGame(){
       let context = this
-      setTimeout(() => {
-      alert('maintenant')
-      alert(typeof value)
-      if(value == null)
+      setTimeout(() => { 
+      if(this.selectedGame.plateformeJeux.localeCompare('PC','en', {sensitivity: 'base'})==0)
       {
-        alert('failed this time')
-      }
-      alert('the value is '+this.detectPlatform())
-      
-      if(value.plateformeJeux.localeCompare('PC','en', {sensitivity: 'base'})==0)
-      {
-        this.$router.push('/Jeux_PC/'+ this.selectedGame.id)
+        this.$router.push({name:'gameDescPC', params:{id:this.selectedGame.id , force : true}})
+        this.$forceUpdate();
       }
       if(this.selectedGame.plateformeJeux.localeCompare('PS','en', {sensitivity: 'base'})==0)
       {
-        this.$router.push('/Jeux_PS/'+ this.selectedGame.id)
+        this.$router.push({name:'gameDescPS', params:{id:this.selectedGame.id , force : true}})
+        this.$forceUpdate();
       }
       if(this.selectedGame.plateformeJeux.localeCompare('XBOX','en', {sensitivity: 'base'})==0)
       {
-        this.$router.push('/Jeux_XBOX/'+ this.selectedGame.id)
+        this.$router.push({name:'gameDescXBOX', params:{id:this.selectedGame.id } , force : true})
+        this.$forceUpdate();
       }
       if(this.selectedGame.plateformeJeux.localeCompare('SWITCH','en', {sensitivity: 'base'})==0)
       {
-        this.$router.push('/Jeux_SWITCH/'+ this.selectedGame.id)
+        this.$router.push({name:'gameDescSWITCH', params:{id:this.selectedGame.id}})
+        this.$forceUpdate();
       }
       }, 0)
       
