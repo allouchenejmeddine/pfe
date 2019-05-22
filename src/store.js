@@ -135,10 +135,10 @@ export const store = new Vuex.Store({
       )
     },
     autoSignIn({commit},payload){
-      commit('setUser',{id:payload.uid,email:payload.email,nom:payload.nom,prenom:payload.prenom,
+      commit('setUser',{id:payload.id,email:payload.email,nom:payload.nom,prenom:payload.prenom,
       dateNaissance:payload.dateNaissance,pseudo:payload.pseudo,listeJeux:payload.listeJeux,
       listeEnvies:payload.listeEnvies,listeGenre:payload.listeGenre,listeVisible:payload.listeVisible,image:payload.image})
-      alert(store.getters.user.id)
+      alert(store.state.user.id)
       alert(store.state.user.image)
     },
     logoutUser({commit}){

@@ -20,7 +20,7 @@
                                 </v-flex>
                                 <v-flex v-if="image == null" xs12 sm6 md8 mb-4> 
                                     <v-avatar size="200" tile>
-                                        <v-img ref="avatar" src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/Portrait_placeholder.png?alt=media&token=49580b44-9483-4418-8c35-92fcd766e72d">
+                                        <v-img v-model="image" ref="avatar" :src="this.image">
                                             <v-layout row justify-end align-end fill-height>
                                             
                                                 <v-tooltip color="rgb(0,128,128)" left>
@@ -130,12 +130,26 @@ export default {
             valid:true
         }
     },
+    created: function(){
+          this.image=""
+    },
+    mounted: function (){
+        alert("hahahhaa")
+        alert("heyy heyy " +this.$store.state.user.image)
+    },
     computed:{
         imageRefresh(){
-          this.image=inputUpload
+          //this.image=inputUpload
       }
     },
+    watch:{
+        image:function(){
+        }
+    },
     methods:{
+        getLogoFromStore(){
+            
+        },
         onFilePicked(event){
           alert(event.currentTarget)
           const files = event.target.files
@@ -157,7 +171,8 @@ export default {
       getAvatar(){
           
       }
-    }
+    },
+    
 }
 </script>
 

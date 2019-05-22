@@ -29,10 +29,18 @@ new Vue({
     })
     firebase.auth().onAuthStateChanged((user)=>{
       if(user){
-        this.$store.dispatch('autoSignIn',user)
+        let currentUser
+        var ref = firebase.database().ref("comptes");
+        ref.orderByChild("id").equalTo(user.uid).on("child_added", function(snapshot) {
+          currentUser = snapshot.val()
+          alert('dans le main ' +currentUser.image)
+          store.dispatch('autoSignIn',currentUser)
+        });
+        
       }
     })
     this.$store.dispatch('loadGames')
+    this.$store.dispatch('loadArticles')
     
   }
 }).$mount('#app');
