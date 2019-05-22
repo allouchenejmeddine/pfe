@@ -99,8 +99,8 @@ import firebase from 'firebase'
     methods: {
     // Method to move article from Articles suggeres to Articles after being approved
     moveToConfirmedArticles(articleId) {   
-      let oldRef= firebase.database().ref('/ArticlesProposes').child(articleId)
-      let newRef=firebase.database().ref('/articles').child(articleId)
+      let oldRef= firebase.database().ref('/ArticlesProposes/').child(articleId)
+      let newRef=firebase.database().ref('/articles/').child(articleId)
       alert(articleId)
       return new Promise((resolve, reject) => {
           oldRef.once('value').then(snap => {

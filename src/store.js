@@ -17,7 +17,8 @@ export const store = new Vuex.Store({
       loadedGamesSWITCH:[],
       loadedGamesXBOX:[],
       loadedAllGames:[],
-      loadedArticles:[]
+      loadedArticles:[],
+      loadedAllArticles:[]
   },
   mutations: {
   setUser(state,payload){
@@ -25,6 +26,9 @@ export const store = new Vuex.Store({
   },
   setLoadedArticles(state,payload){
     state.loadedArticles= payload 
+  },
+  setLoadedAllArticles(state,payload){
+    state.loadedAllArticles= payload 
   },
   setLoadedSuggestedGamesPC (state, payload) {
     state.loadedSuggestedGamesPC = payload
@@ -299,6 +303,29 @@ export const store = new Vuex.Store({
           }
           
           commit('setLoadedArticles', articlesSuggeres)
+        })
+        .catch(
+          (error) => {
+            console.log(error)
+          }
+        )
+
+        firebase.database().ref('/articles').once('value')
+        .then((data) => {
+          const articlesSuggeres = []
+          const obj = data.val()
+          for (let key in obj) {
+            articlesSuggeres.push({
+              id: key,
+              titre: obj[key].titre,
+              corps: obj[key].corps,
+              resume: obj[key].resume,
+              image: obj[key].image,
+              dateSortie: obj[key].dateSortie,
+            })
+          }
+          
+          commit('setLoadedAllArticles', articlesSuggeres)
         })
         .catch(
           (error) => {

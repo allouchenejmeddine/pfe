@@ -210,7 +210,7 @@
       
 <v-layout column fill-height >
   <v-parallax
-        src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/back6300.png?alt=media&token=8ce7c681-047d-4456-9a1c-642ac633b44e"
+        src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/background.png?alt=media&token=eac09e35-865d-43b0-851f-ea6063849dc9"
         id="paral" height="4000"
     >    
      <v-flex  xl12 xs12 md12 fluid fill-height>

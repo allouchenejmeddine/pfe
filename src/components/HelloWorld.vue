@@ -2,23 +2,26 @@
   <v-container fluid fill-height>
   <v-layout >
     <v-flex xs12 sm8 offset-sm2 md8 offset-md2>
-    <v-card raised tile v-for="(item,i) in infos"
+    <v-card raised tile v-for="(item,i) in articlesChargedForALL"
                :key="i"
                :src="item">
       <v-card-title primary-title>
-        {{item.title}}  
+        {{item.titre}}  
       </v-card-title>
-       <v-img src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/ar.jpg?alt=media&token=f1130270-8636-4fba-8cc4-41ebe3f8bbea"></v-img>
+       <v-img :src="item.image"></v-img>
+       <v-card-text>
+          <v-layout column>
+            <v-flex>
+              {{item.resume}}
+            </v-flex>             
+          </v-layout>
+       </v-card-text>
       <v-card-actions>
-          <v-btn flat color="orange" >Share</v-btn>
-          <v-btn flat color="orange" :href="item.page" >Explore</v-btn>
+          <v-btn flat color="#008080" :href="item.page" >Lire</v-btn>
       </v-card-actions>
     </v-card>
     </v-flex>
   </v-layout>
-  <v-btn @click="getid()">
-    user
-  </v-btn>
   </v-container>
   
  
@@ -30,44 +33,14 @@ import 'firebase/auth'
   export default {
     
     data: () => ({
-      infos: [
-        {
-          title: 'Article 1',
-          text: 'Nunc vero inanes flatus quorundam vile esse quicquid extra urbis pomerium nascitur aestimant praeter orbos et caelibes, nec credi potest qua obsequiorum diversitate coluntur homines sine liberis Romae.',
-          image: 'https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/ar.jpg?alt=media&token=f1130270-8636-4fba-8cc4-41ebe3f8bbea',
-          page:'https://google.com'
-          
-        },
-        {
-          title: 'Article 1',
-          text: 'Nunc vero inanes flatus quorundam vile esse quicquid extra urbis pomerium nascitur aestimant praeter orbos et caelibes, nec credi potest qua obsequiorum diversitate coluntur homines sine liberis Romae.',
-          image: 'https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/ar.jpg?alt=media&token=f1130270-8636-4fba-8cc4-41ebe3f8bbea',
-          page:'https://google.com'
-        },
-        { 
-          title: 'Article 1',
-          text: 'Nunc vero inanes flatus quorundam vile esse quicquid extra urbis pomerium nascitur aestimant praeter orbos et caelibes, nec credi potest qua obsequiorum diversitate coluntur homines sine liberis Romae.',
-          image: 'https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/ar.jpg?alt=media&token=f1130270-8636-4fba-8cc4-41ebe3f8bbea',
-          page:'https://google.com'
-          
-        },
-        { 
-          title: 'Article 1',
-          text: 'Nunc vero inanes flatus quorundam vile esse quicquid extra urbis pomerium nascitur aestimant praeter orbos et caelibes, nec credi potest qua obsequiorum diversitate coluntur homines sine liberis Romae.',
-          image: 'https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/ar.jpg?alt=media&token=f1130270-8636-4fba-8cc4-41ebe3f8bbea',
-          page:'https://google.com'
-          
-        }
-        
-      ],
-      userId:''
+      
     }),
-    methods : {
-      getid : function (){
-        if(firebase.auth().currentUser==null)
-          alert('sorry, no user')
-        else alert(firebase.auth().currentUser.email)
-      }
+    computed :{
+        articlesChargedForALL : function (){
+            var all = this.$store.state.loadedAllArticles
+            all = all.sort(function(a,b){return a.dateSortie.localeCompare(b.Sortie); })
+            return all.slice(0,10);
+        }
     }
   }
 </script>
