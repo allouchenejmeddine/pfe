@@ -33,7 +33,6 @@ new Vue({
         var ref = firebase.database().ref("comptes");
         ref.orderByChild("id").equalTo(user.uid).on("child_added", function(snapshot) {
           currentUser = snapshot.val()
-          alert('dans le main ' +currentUser.image)
           store.dispatch('autoSignIn',currentUser)
         });
         

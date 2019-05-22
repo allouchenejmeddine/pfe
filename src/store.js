@@ -547,7 +547,7 @@ export const store = new Vuex.Store({
           }
         )
 
-        firebase.database().ref('/ArticleProposes').once('value')
+        firebase.database().ref('/ArticlesProposes').once('value')
         .then((data) => {
           const articlesSuggeres = []
           const obj = data.val()

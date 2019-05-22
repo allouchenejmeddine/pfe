@@ -7,6 +7,7 @@ import Signup from './components/User/signup'
 import Settings from './components/User/settings'
 import GameSuggestion from './components/Games/GameSuggestion'
 import authGuard from './auth-guard';
+import checkUserCharged from './components/User/checkUserCharged'
 import GameSuggestions from './components/Games/suggestedGames'
 import GameCreated from './components/Games/GameCreatedSuccessfully'
 import Game from './components/Game'
@@ -131,7 +132,7 @@ export default new Router({
             meta: {
                 title: 'Paramètres de Compte - Game Players Union'
             },
-            //beforeEnter:authGuard
+            beforeEnter:checkUserCharged
         },
         {
             path: '/suggest_game',

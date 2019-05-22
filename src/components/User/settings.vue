@@ -36,7 +36,7 @@
                                 </v-flex>
                                 <v-flex v-else xs12 sm6 md8 mb-4> 
                                     <v-avatar size="200" tile>
-                                        <v-img :src="imageRefresh">
+                                        <v-img :src="this.image">
                                             <v-layout row justify-end align-end fill-height>
                                             
                                                 <v-tooltip color="rgb(0,128,128)" left>
@@ -119,6 +119,9 @@
 </v-form>
 </template>
 <script>
+import * as firebase from 'firebase'
+import settings from './settings'
+import {store} from '../../store'
 export default {
     data () {
         return {
@@ -131,11 +134,9 @@ export default {
         }
     },
     created: function(){
-          this.image=""
+        this.image=this.$store.state.user.image
     },
-    mounted: function (){
-        alert("hahahhaa")
-        alert("heyy heyy " +this.$store.state.user.image)
+    mounted: function (){  
     },
     computed:{
         imageRefresh(){
@@ -144,11 +145,12 @@ export default {
     },
     watch:{
         image:function(){
+
         }
     },
     methods:{
-        getLogoFromStore(){
-            
+        getLogoFromStore(image){
+            this.image=image
         },
         onFilePicked(event){
           alert(event.currentTarget)
