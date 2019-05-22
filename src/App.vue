@@ -211,7 +211,7 @@
 <v-layout column fill-height >
   <v-parallax
         src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/background.png?alt=media&token=eac09e35-865d-43b0-851f-ea6063849dc9"
-        id="paral" height="4000"
+        id="paral" height="7000"
     >    
      <v-flex  xl12 xs12 md12 fluid fill-height>
       <v-content>
@@ -433,14 +433,11 @@ export default {
       if(document.documentElement.scrollHeight>document.documentElement.clientHeight || document.body.scrollHeight>document.body.clientHeight) {
         document.getElementById("paral").style.height = null;
           document.getElementById("paral").style.height = "150%";
-          
-          
+     
       }  
       else{
           document.getElementById("paral").style.height = null;
-          document.getElementById("paral").style.height = "100%";
-         
-          
+          document.getElementById("paral").style.height = "100%";        
       }
     }
     ,

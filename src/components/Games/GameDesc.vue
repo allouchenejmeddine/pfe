@@ -7,7 +7,7 @@
                         <v-layout pa-3 column>
                             <v-flex>
                             <v-layout px-3 pb-3>
-                                <v-flex style="font-size:22px">{{nomJeux}}</v-flex>
+                                <v-flex style="font-size:22px;font-weight:bold">{{nomJeux}}</v-flex>
                             </v-layout>
                             </v-flex>
                             <v-divider color="#008080"></v-divider>
@@ -36,23 +36,23 @@
                                 <v-flex xs12 sm12 md8 lg5 xl4>
                                         <v-list>
                                             <v-container pb-2>  
-                                                <v-flex style="font-size:16px">Date de Sortie : {{dateSortie}}</v-flex> 
+                                                <v-flex style="font-size:16px"><span style="font-size:16px;font-weight:bold;color:#66b2b2">Date de Sortie :</span> {{dateSortie}}</v-flex> 
                                             </v-container>
                                             <v-divider></v-divider>
                                             <v-container pb-2>
-                                                <v-flex style="font-size:16px">Développeur : {{developpeur}}</v-flex>
+                                                <v-flex style="font-size:16px"><span style="font-size:16px;font-weight:bold;color:#66b2b2">Développeur :</span> {{developpeur}}</v-flex>
                                             </v-container>
                                             <v-divider></v-divider>
                                             <v-container pb-2>
-                                                <v-flex style="font-size:16px">Genre : {{genre}}</v-flex>
+                                                <v-flex style="font-size:16px"><span style="font-size:16px;font-weight:bold;color:#66b2b2">Genre :</span> {{genre}}</v-flex>
                                             </v-container>
                                             <v-divider></v-divider>
                                             <v-container pb-1>
-                                                <v-flex style="font-size:16px">Moteur Graphique : {{moteurGraphique}}</v-flex>
+                                                <v-flex style="font-size:16px"><span style="font-size:16px;font-weight:bold;color:#66b2b2">Moteur Graphique :</span> {{moteurGraphique}}</v-flex>
                                             </v-container>
                                             <v-divider></v-divider>
                                             <v-container pb-1>
-                                                <v-flex style="font-size:16px">Plateforme : {{plateforme}}</v-flex>
+                                                <v-flex style="font-size:16px"><span style="font-size:16px;font-weight:bold;color:#66b2b2">Plateforme :</span> {{plateforme}}</v-flex>
                                             </v-container>
                                         </v-list>
                                 </v-flex>
@@ -61,24 +61,24 @@
                             <v-divider color="#008080"></v-divider>
                             <v-flex>
                             <v-layout pa-3 ma-2>
-                                <v-flex style="font-size:16px">Configuration minimale :</v-flex>
+                                <v-flex style="font-size:16px;font-weight:bold;color:#66b2b2">Configuration minimale :</v-flex>
                             </v-layout>
                             </v-flex>
                             <v-layout pa-3 mb-4 align-center justify-center>
                                 <v-flex xl6>  
-                                    <span id="config">{{configuration}}</span>
+                                    <span id="config" >{{configuration}}</span>
                                 </v-flex>
                             </v-layout>
                             <v-divider color="#008080"></v-divider>
                             <v-flex>
                             <v-layout pa-3 ma-2>
-                                <v-flex style="font-size:16px">Description :</v-flex>
+                                <v-flex style="font-size:16px;font-weight:bold;color:#66b2b2">Description :</v-flex>
                             </v-layout>
-<!--                             <v-btn @click="getGameFromStore">valider </v-btn>
+<!--                             <v-btn @click="getGameFromStore">valider</v-btn>
  -->                            </v-flex>
                             <v-layout pa-3 align-center justify-center>
                                 <v-flex xl6>  
-                                    <span id="desc">{{description}}</span>
+                                    <span id="desc" >{{description}}</span>
                                 </v-flex>
                             </v-layout>
                         </v-layout>
