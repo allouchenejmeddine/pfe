@@ -16,7 +16,7 @@
                                 <v-flex xs11 sm12 md8 lg6 xl3 pr-5>
                                     <v-layout column align-center justify-center fill-height>
                                         <v-flex pb-1 xs12 sm8 md5 lg4 xl3>
-                                            <v-img :lazy-src="this.simple" v-model="logo" height="250px" width="250px" :src="this.logo"></v-img>
+                                            <v-img :lazy-src="this.simple" v-model="logo" height="250px" width="200px" :src="this.logo"></v-img>
                                         </v-flex>
                                         <v-flex xs12 sm12 md8 lg4 xl3 pb-2>
                                             <v-rating
@@ -36,7 +36,7 @@
                                 <v-flex xs12 sm12 md8 lg5 xl4>
                                         <v-list>
                                             <v-container pb-2>  
-                                                <v-flex style="font-size:16px">Date de Sortie :<p id="date">{{dateSortie}}</p></v-flex> 
+                                                <v-flex style="font-size:16px">Date de Sortie : {{dateSortie}}</v-flex> 
                                             </v-container>
                                             <v-divider></v-divider>
                                             <v-container pb-2>
@@ -44,15 +44,15 @@
                                             </v-container>
                                             <v-divider></v-divider>
                                             <v-container pb-2>
-                                                <v-flex style="font-size:16px">Genre:{{genre}}</v-flex>
+                                                <v-flex style="font-size:16px">Genre : {{genre}}</v-flex>
                                             </v-container>
                                             <v-divider></v-divider>
                                             <v-container pb-1>
-                                                <v-flex style="font-size:16px">Moteur Graphique :{{moteurGraphique}}</v-flex>
+                                                <v-flex style="font-size:16px">Moteur Graphique : {{moteurGraphique}}</v-flex>
                                             </v-container>
                                             <v-divider></v-divider>
                                             <v-container pb-1>
-                                                <v-flex style="font-size:16px">Plateforme :{{plateforme}}</v-flex>
+                                                <v-flex style="font-size:16px">Plateforme : {{plateforme}}</v-flex>
                                             </v-container>
                                         </v-list>
                                 </v-flex>
@@ -61,24 +61,24 @@
                             <v-divider color="#008080"></v-divider>
                             <v-flex>
                             <v-layout pa-3 ma-2>
-                                <v-flex style="font-size:16px">Configuration minimale :{{configuration}}</v-flex>
+                                <v-flex style="font-size:16px">Configuration minimale :</v-flex>
                             </v-layout>
                             </v-flex>
                             <v-layout pa-3 mb-4 align-center justify-center>
                                 <v-flex xl6>  
-                                    <span id="config">Error</span>
+                                    <span id="config">{{configuration}}</span>
                                 </v-flex>
                             </v-layout>
                             <v-divider color="#008080"></v-divider>
                             <v-flex>
                             <v-layout pa-3 ma-2>
-                                <v-flex style="font-size:16px">Description :{{description}}</v-flex>
+                                <v-flex style="font-size:16px">Description :</v-flex>
                             </v-layout>
 <!--                             <v-btn @click="getGameFromStore">valider </v-btn>
  -->                            </v-flex>
                             <v-layout pa-3 align-center justify-center>
                                 <v-flex xl6>  
-                                    <span id="desc">Error</span>
+                                    <span id="desc">{{description}}</span>
                                 </v-flex>
                             </v-layout>
                         </v-layout>
@@ -134,6 +134,7 @@
             this.description=this.game.description
             this.logo=this.game.image
             this.rating= this.game.eval
+            this.dateSortie = this.game.dateSortie
             
             //alert(this.logo)
 
