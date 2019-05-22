@@ -1,1 +1,1 @@
-git add --all && git commit -m "settings profile image"
+git add --all && git commit -m "rating system made"

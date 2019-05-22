@@ -138,8 +138,6 @@ export const store = new Vuex.Store({
       commit('setUser',{id:payload.id,email:payload.email,nom:payload.nom,prenom:payload.prenom,
       dateNaissance:payload.dateNaissance,pseudo:payload.pseudo,listeJeux:payload.listeJeux,
       listeEnvies:payload.listeEnvies,listeGenre:payload.listeGenre,listeVisible:payload.listeVisible,image:payload.image})
-      alert(store.state.user.id)
-      alert(store.state.user.image)
     },
     logoutUser({commit}){
       firebase.auth().signOut().then(function(){
@@ -206,7 +204,10 @@ export const store = new Vuex.Store({
         suggestedFrom:user.uid,
         dateSortie:payload.dateSortie,
         image:'',
-        id:''
+        id:'',
+        eval:5,
+        nbVotes:1,
+        totalVotes:5
       }
       // Find the appropriate location on the database
       alert(newGame.plateformeJeux)
@@ -325,7 +326,10 @@ export const store = new Vuex.Store({
             modeJeux:obj[key].modeJeux,
             moteurGraph:obj[key].moteurGraph,
             genreJeux:obj[key].genreJeux,
-            dateSortie:obj[key].dateSortie
+            dateSortie:obj[key].dateSortie,
+            eval:obj[key].eval,
+            nbVotes:obj[key].nbVotes,
+            totalVotes:obj[key].totalVotes
           })
         }
         jeuxSuggeres.sort(function(a,b){return a.nom.localeCompare(b.nom); });
@@ -355,7 +359,11 @@ export const store = new Vuex.Store({
               modeJeux:obj[key].modeJeux,
               moteurGraph:obj[key].moteurGraph,
               genreJeux:obj[key].genreJeux,
-              dateSortie:obj[key].dateSortie
+              dateSortie:obj[key].dateSortie,
+              eval:obj[key].eval,
+              nbVotes:obj[key].nbVotes,
+              totalVotes:obj[key].totalVotes
+
             })
           }
           jeuxSuggeres.sort(function(a,b){return a.nom.localeCompare(b.nom); });
@@ -385,7 +393,10 @@ export const store = new Vuex.Store({
               modeJeux:obj[key].modeJeux,
               moteurGraph:obj[key].moteurGraph,
               genreJeux:obj[key].genreJeux,
-              dateSortie:obj[key].dateSortie
+              dateSortie:obj[key].dateSortie,
+              eval:obj[key].eval,
+              nbVotes:obj[key].nbVotes,
+              totalVotes:obj[key].totalVotes
             })
           }
           jeuxSuggeres.sort(function(a,b){return a.nom.localeCompare(b.nom); });
@@ -415,7 +426,11 @@ export const store = new Vuex.Store({
               modeJeux:obj[key].modeJeux,
               moteurGraph:obj[key].moteurGraph,
               genreJeux:obj[key].genreJeux,
-              dateSortie:obj[key].dateSortie
+              dateSortie:obj[key].dateSortie,
+              eval:obj[key].eval,
+              nbVotes:obj[key].nbVotes,
+              totalVotes:obj[key].totalVotes
+
             })
           }
           jeuxSuggeres.sort(function(a,b){return a.nom.localeCompare(b.nom); });
@@ -445,7 +460,11 @@ export const store = new Vuex.Store({
               modeJeux:obj[key].modeJeux,
               moteurGraph:obj[key].moteurGraph,
               genreJeux:obj[key].genreJeux,
-              dateSortie:obj[key].dateSortie
+              dateSortie:obj[key].dateSortie,
+              eval:obj[key].eval,
+              nbVotes:obj[key].nbVotes,
+              totalVotes:obj[key].totalVotes
+
             })
           }
           jeux.sort(function(a,b){return a.nom.localeCompare(b.nom); });
@@ -475,7 +494,11 @@ export const store = new Vuex.Store({
               modeJeux:obj[key].modeJeux,
               moteurGraph:obj[key].moteurGraph,
               genreJeux:obj[key].genreJeux,
-              dateSortie:obj[key].dateSortie
+              dateSortie:obj[key].dateSortie,
+              eval:obj[key].eval,
+              nbVotes:obj[key].nbVotes,
+              totalVotes:obj[key].totalVotes
+
             })
           }
           jeux.sort(function(a,b){return a.nom.localeCompare(b.nom); });
@@ -505,7 +528,10 @@ export const store = new Vuex.Store({
               modeJeux:obj[key].modeJeux,
               moteurGraph:obj[key].moteurGraph,
               genreJeux:obj[key].genreJeux,
-              dateSortie:obj[key].dateSortie
+              dateSortie:obj[key].dateSortie,
+              eval:obj[key].eval,
+              nbVotes:obj[key].nbVotes,
+              totalVotes:obj[key].totalVotes
             })
           }
           jeux.sort(function(a,b){return a.nom.localeCompare(b.nom); });
@@ -535,7 +561,10 @@ export const store = new Vuex.Store({
               modeJeux:obj[key].modeJeux,
               moteurGraph:obj[key].moteurGraph,
               genreJeux:obj[key].genreJeux,
-              dateSortie:obj[key].dateSortie
+              dateSortie:obj[key].dateSortie,
+              eval:obj[key].eval,
+              nbVotes:obj[key].nbVotes,
+              totalVotes:obj[key].totalVotes
             })
           }
           jeux.sort(function(a,b){return a.nom.localeCompare(b.nom); });
@@ -593,6 +622,82 @@ export const store = new Vuex.Store({
       
       
     },
+    addRatingToGame({commit}, payload){
+      if (payload.plateformeJeux.localeCompare('PS','en', {sensitivity: 'base'})==0)
+      {
+        var game =this.state.loadedGamesPS.find((element)=>{
+          return element.id==payload.gameId
+        })
+        // Define the new rating
+        var newEval = 0
+        // Add 1 to voters number
+        game.nbVotes++
+        // Add rating to total ratings
+        game.totalVotes=payload.newRating+game.totalVotes
+        // Calculate the new rating
+        newEval = game.totalVotes / game.nbVotes
+        firebase.database().ref("jeux").child('PS').child(game.id).update({eval:newEval})
+        firebase.database().ref("jeux").child('PS').child(game.id).update({nbVotes:game.nbVotes})
+        firebase.database().ref("jeux").child('PS').child(game.id).update({totalVotes:game.totalVotes})
+
+      }
+      if (payload.plateformeJeux.localeCompare('PC','en', {sensitivity: 'base'})==0)
+      {
+        var game =this.state.loadedGamesPC.find((element)=>{
+          return element.id==payload.gameId
+        })
+        // Define the new rating
+        var newEval = 0
+        // Add 1 to voters number
+        game.nbVotes++
+        // Add rating to total ratings
+        game.totalVotes=payload.newRating+game.totalVotes
+        // Calculate the new rating
+        newEval = game.totalVotes / game.nbVotes
+        firebase.database().ref("jeux").child('PC').child(game.id).update({eval:newEval})
+        firebase.database().ref("jeux").child('PC').child(game.id).update({nbVotes:game.nbVotes})
+        firebase.database().ref("jeux").child('PC').child(game.id).update({totalVotes:game.totalVotes})
+
+      }
+      if (payload.plateformeJeux.localeCompare('SWITCH','en', {sensitivity: 'base'})==0)
+      {
+        var game =this.state.loadedGamesSWITCH.find((element)=>{
+          return element.id==payload.gameId
+        })
+        // Define the new rating
+        var newEval = 0
+        // Add 1 to voters number
+        game.nbVotes++
+        // Add rating to total ratings
+        game.totalVotes=payload.newRating+game.totalVotes
+        // Calculate the new rating
+        newEval = game.totalVotes / game.nbVotes
+        firebase.database().ref("jeux").child('SWITCH').child(game.id).update({eval:newEval})
+        firebase.database().ref("jeux").child('SWITCH').child(game.id).update({nbVotes:game.nbVotes})
+        firebase.database().ref("jeux").child('SWITCH').child(game.id).update({totalVotes:game.totalVotes})
+
+      }
+      if (payload.plateformeJeux.localeCompare('XBOX','en', {sensitivity: 'base'})==0)
+      {
+        var game =this.state.loadedGamesXBOX.find((element)=>{
+          return element.id==payload.gameId
+        })
+        // Define the new rating
+        var newEval = 0
+        // Add 1 to voters number
+        game.nbVotes++
+        // Add rating to total ratings
+        game.totalVotes=payload.newRating+game.totalVotes
+        // Calculate the new rating
+        newEval = game.totalVotes / game.nbVotes
+        firebase.database().ref("jeux").child('XBOX').child(game.id).update({eval:newEval})
+        firebase.database().ref("jeux").child('XBOX').child(game.id).update({nbVotes:game.nbVotes})
+        firebase.database().ref("jeux").child('XBOX').child(game.id).update({totalVotes:game.totalVotes})
+
+      }
+
+    },
+
   },
   getters: {
     user(){

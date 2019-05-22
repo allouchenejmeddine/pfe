@@ -29,6 +29,7 @@
                                                 half-increments
                                                 hover
                                                 small></v-rating>
+                                                <v-btn @click="showrating()">Valider</v-btn>
                                         </v-flex>
                                     </v-layout>
                                 </v-flex>
@@ -132,6 +133,8 @@
             this.configuration=this.game.configuration
             this.description=this.game.description
             this.logo=this.game.image
+            this.rating= this.game.eval
+            
             //alert(this.logo)
 
         },
@@ -144,7 +147,7 @@
     },
     watch:{
         rating:function(){
-            addRating()
+            //addRating()
         },
         logo:function(){
             
@@ -162,7 +165,14 @@
 
         },
         addRating(newRating , gameID){
-            this.$store.dispatch('addRatingToGame',{newRating:this.rating,gameId:this.idd,plateformeJeux:this.plateformeJeux})
+            this.$store.dispatch('addRatingToGame',{newRating:this.rating,gameId:this.idd,plateformeJeux:this.plateforme})
+        },
+        showrating(){
+            alert(this.rating)
+            alert(this.idd)
+            alert(this.plateforme)
+            this.addRating(this.rating,this.idd)
+            
         }
     }
   }
