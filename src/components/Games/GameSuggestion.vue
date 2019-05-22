@@ -279,7 +279,7 @@
       verifyNom()
       {
           if ( (this.nom.toString().charCodeAt(0)<65)|| (this.nom.toString().charCodeAt(0)>91)) return "Le nom de jeu doit commencer en majuscule"
-          else return ''
+          else return true
       }
     },
     

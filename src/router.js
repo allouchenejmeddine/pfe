@@ -20,6 +20,7 @@ import SwitchGames from './components/Games/SwitchGames'
 import PcGames from './components/Games/PcGames'
 import ArticleCreated from './components/Articles/ArticleCreatedSuccessfully'
 import ArticleSuggestion from './components/Articles/ArticleSuggestion'
+import ArticleSuggested from './components/Articles/SuggestedArticles'
 import Error404 from './components/404'
 
 Vue.use(Router)
@@ -175,6 +176,16 @@ export default new Router({
             meta:
             {
               title: "Suggestion d'un article " 
+            },
+            //beforeEnter:authGuard
+          },
+          {
+            path: '/suggested_articles',
+            name : 'suggestedarticles',
+            component : ArticleSuggested,
+            meta:
+            {
+              title: "Articles suggérés " 
             },
             //beforeEnter:authGuard
           },

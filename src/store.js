@@ -159,13 +159,15 @@ export const store = new Vuex.Store({
       let path
       const newArticle= {
         titre: payload.titre,
+        resume: payload.resume,
         corps: payload.corps,
-        image: '',
+        image: payload.image,
+        dateSortie: payload.dateSortie,
         suggestedFrom: user.uid
       }
       // Create a reference to destination
       let reference = firebase.database().ref(location)
-      // Add game to database
+      // Add article to database
       reference.push(newArticle).then((data)=>{
         const key = data.key
         return key
@@ -182,8 +184,8 @@ export const store = new Vuex.Store({
           return reference.child(path).update({image:url})
         })
       }).then(()=>{
-        alert('Success! what a champion! Your article is suggested !')
         router.push('/article_created')
+        alert('Success! what a champion! Your article is suggested !') 
       })
 
     },
@@ -279,19 +281,22 @@ export const store = new Vuex.Store({
         alert('Success! what a champion!')
       })
     },
-    laodArticles({commit}){
-      firebase.database().ref('/ArticlesSuggeres').once('value')
+    loadArticles({commit}){
+      firebase.database().ref('/ArticlesProposes').once('value')
         .then((data) => {
           const articlesSuggeres = []
           const obj = data.val()
           for (let key in obj) {
             articlesSuggeres.push({
+              id: key,
               titre: obj[key].titre,
               corps: obj[key].corps,
+              resume: obj[key].resume,
               image: obj[key].image,
-              
+              dateSortie: obj[key].dateSortie,
             })
           }
+          
           commit('setLoadedArticles', articlesSuggeres)
         })
         .catch(
@@ -535,6 +540,29 @@ export const store = new Vuex.Store({
           }
           jeux.sort(function(a,b){return a.nom.localeCompare(b.nom); });
           commit('setLoadedGamesXBOX', jeux)
+        })
+        .catch(
+          (error) => {
+            console.log(error)
+          }
+        )
+
+        firebase.database().ref('/ArticleProposes').once('value')
+        .then((data) => {
+          const articlesSuggeres = []
+          const obj = data.val()
+          for (let key in obj) {
+            articlesSuggeres.push({
+              id: key,
+              titre: obj[key].titre,
+              corps: obj[key].corps,
+              resume: obj[key].resume,
+              image: obj[key].image,
+              dateSortie: obj[key].dateSortie,
+            })
+          }
+          
+          commit('setLoadedArticles', articlesSuggeres)
         })
         .catch(
           (error) => {
