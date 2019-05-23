@@ -24,14 +24,16 @@
                                 <v-layout>
                                     <v-flex pa-2>
                                         <v-card pa-4 color="rgba(0, 128, 128,0.9)">
-                                            <v-card-action><v-layout align-center justify-space-around>{{item.nom}}</v-layout></v-card-action>
+                                            <v-card-actions><v-layout align-center justify-space-around>{{item.nom}}</v-layout></v-card-actions>
                                         </v-card>
+                                        
                                     </v-flex>
                                 </v-layout>
                             </v-img>
 
-                            <v-card-text>
-                                <span>Date de sortie : {{item.dateSortie}}</span>
+                            <v-card-text >
+                                <span >Date de sortie : {{item.dateSortie}}</span>
+                                <facebook :url="url" scale="1"></facebook>
                             </v-card-text>
                         </v-card>
                     </v-flex>
@@ -45,10 +47,15 @@
 </v-container>
 </template>
 <script>
+import { Facebook } from 'vue-socialmedia-share'
 export default {
+    components:{
+        Facebook
+    },
     data (){
         return {
-            show: true
+            show: true,
+            url:'localhost:8081/XboxGames'
         }
     },
     computed :{

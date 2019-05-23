@@ -24,7 +24,7 @@
                                 <v-layout>
                                     <v-flex pa-2>
                                         <v-card pa-4 color="rgba(0, 128, 128,0.9)">
-                                            <v-card-action><v-layout align-center justify-space-around>{{item.nom}}</v-layout></v-card-action>
+                                            <v-card-actions><v-layout align-center justify-space-around>{{item.nom}}</v-layout></v-card-actions>
                                         </v-card>
                                     </v-flex>
                                 </v-layout>

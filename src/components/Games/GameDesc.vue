@@ -90,6 +90,7 @@
 </template>
 
 <script>
+import {store} from '../../store'
   export default {
     props:['id'],
     data (){
@@ -108,7 +109,9 @@
             plateforme:'',
             idd:this.id,
             logo:null,
-            simple:"http://data-cache.abuledu.org/1024/carre-blanc-50218a31.jpg"
+            simple:"http://data-cache.abuledu.org/1024/carre-blanc-50218a31.jpg",
+            store
+            
 
             
         }
@@ -118,11 +121,23 @@
     },
     created :function(){
             let gameId=this.idd
-            this.games=this.$store.state.loadedGamesPC.concat(this.$store.state.loadedGamesXBOX).concat(this.$store.state.loadedGamesPS).concat(this.$store.state.loadedGamesSWITCH)
+            this.games=this.store.state.loadedAllGames
+            alert("before "+gameId)
+            //alert(this.games[0].nom)
+            
+            alert('thiss '+this.idd)
             this.game = this.games.find(function(element) {
                 return element.id===gameId; 
             }); 
-            alert('thiss '+this.idd)
+            if((this.games!= null)&& ( this.games!= undefined))
+            {
+                alert('this.games va très bien')
+            }
+            if((this.game!= null)&& ( this.game!= undefined))
+            {
+                alert('this.game va très bien')
+            }
+
             alert(this.game.nom)
             alert(this.game.id)
             this.nomJeux=this.game.nom
@@ -135,6 +150,8 @@
             this.logo=this.game.image
             this.rating= this.game.eval
             this.dateSortie = this.game.dateSortie
+            
+            
             
             //alert(this.logo)
 
@@ -174,7 +191,21 @@
             alert(this.plateforme)
             this.addRating(this.rating,this.idd)
             
+        },
+        loadGames:function(){
+            var promise1 = new Promise(function(resolve, reject) {
+            setTimeout(function() {
+                resolve(this.$store.state.loadedAllGames);
+            }, 0);
+            });
         }
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+            if(this.game==undefined){
+                this.$router.push({ name: '404' })
+            }
+        })
     }
   }
 </script>

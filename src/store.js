@@ -53,6 +53,12 @@ export const store = new Vuex.Store({
   },
   setLoadedGamesSWITCH(state,paylaod){
     state.loadedGamesSWITCH=paylaod
+  },
+  setLoadedGamesALL(state , payload){
+    state.loadedAllGames=state.loadedGamesPC
+    .concat(state.loadedGamesPS)
+    .concat(state.loadedGamesXBOX)
+    .concat(state.loadedSuggestedGamesSWITCH)
   }
     
   
@@ -596,12 +602,14 @@ export const store = new Vuex.Store({
           }
           jeux.sort(function(a,b){return a.nom.localeCompare(b.nom); });
           commit('setLoadedGamesXBOX', jeux)
+          commit('setLoadedGamesALL', jeux)
         })
         .catch(
           (error) => {
             console.log(error)
           }
         )
+        
 
         firebase.database().ref('/ArticlesProposes').once('value')
         .then((data) => {

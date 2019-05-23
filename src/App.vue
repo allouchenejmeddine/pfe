@@ -481,6 +481,9 @@ export default {
         this.$router.push({name:'gameDescSWITCH', params:{id:this.selectedGame.id}})
         this.$forceUpdate();
       }
+      this.$nextTick(() => {
+        this.selectedGame = null  
+      })
       }, 0)
       
     }

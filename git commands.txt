@@ -1,1 +1,1 @@
-git add --all && git commit -m "rating system made"
+git add --all && git commit -m "fix strange urls"

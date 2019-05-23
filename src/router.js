@@ -8,6 +8,7 @@ import Settings from './components/User/settings'
 import GameSuggestion from './components/Games/GameSuggestion'
 import authGuard from './auth-guard';
 import checkUserCharged from './components/User/checkUserCharged'
+import checkStoreCharged from './components/Games/checkStoreCharged'
 import GameSuggestions from './components/Games/suggestedGames'
 import GameCreated from './components/Games/GameCreatedSuccessfully'
 import Game from './components/Game'
@@ -193,6 +194,7 @@ export default new Router({
           {
             //handler when the path given doesn't exist
             path: '*',
+            name: '404',
             component: Error404,
             meta:
             {
@@ -218,7 +220,8 @@ export default new Router({
             props: true,
             meta: {
                 title: 'Description - Game Players Union'
-            }
+            },
+            beforeEnter:checkStoreCharged
         },
         { 
             path: '/Jeux_PS/:id',
@@ -227,7 +230,8 @@ export default new Router({
             props: true,
             meta: {
                 title: 'Description - Game Players Union'
-            }
+            },
+            beforeEnter:checkStoreCharged
         },
         { 
             path: '/Jeux_XBOX/:id',
@@ -236,7 +240,8 @@ export default new Router({
             props: true,
             meta: {
                 title: 'Description - Game Players Union'
-            }
+            },
+            beforeEnter:checkStoreCharged
         },
         { 
             path: '/Jeux_SWITCH/:id',
@@ -245,7 +250,8 @@ export default new Router({
             props: true,
             meta: {
                 title: 'Description - Game Players Union'
-            }
+            },
+            beforeEnter:checkStoreCharged
         }
     ]
 })
