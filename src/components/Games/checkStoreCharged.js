@@ -1,7 +1,6 @@
 import {store} from '../../store'
 export default ( to , from , next)=>{
     if(store.state.loadedAllGames.length===0){
-        alert('here')
         store.watch(
             (state)=>state.loadedAllGames,
             (value)=>{
@@ -15,7 +14,6 @@ export default ( to , from , next)=>{
         )
     }
     else{
-        alert('here2')
         next(next)
     }
 }

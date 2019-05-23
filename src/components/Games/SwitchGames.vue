@@ -17,6 +17,7 @@
               <v-flex>
                 <v-layout row wrap justify-start pa-3>
                     <v-flex md6 xs12 sm12 lg4 xl3 pa-3 v-for="(item,i) in gamesChargedForSWITCH" :key="i" :src="item" >
+                        <router-link :to="getSelectedGame(item.id)">
                         <v-card raised tile color="rgba(0, 128, 128,0.9)">   
                             <v-img max-height="250" min-height="250"
                                 :src="item.image" 
@@ -34,6 +35,7 @@
                                 <span>Date de sortie : {{item.dateSortie}}</span>
                             </v-card-text>
                         </v-card>
+                        </router-link>
                     </v-flex>
                 </v-layout>
               </v-flex>
@@ -54,6 +56,11 @@ export default {
     computed :{
         gamesChargedForSWITCH : function (){
             return this.$store.state.loadedGamesSWITCH
+        }
+    },
+    methods :{
+        getSelectedGame(id){
+            return "/Jeux_SWITCH/"+id  
         }
     }
 }

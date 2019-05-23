@@ -373,12 +373,6 @@ export default {
     };
   },
   computed: {
-    contact() {
-      const id = parseInt(this.$route.params.id)
-        return this.$store.state.loadedGamesPC.filter(function(c) {
-            return c.id === id;
-        })[0];
-    },
     onScroll() {
       window.onscroll = () => {
         this.scrollFunction();
@@ -398,9 +392,6 @@ export default {
       this.getHeight();
   },
   methods: {
-    dialogclose() {
-      this.dialog = false
-    },
     onSignIn () {
       if(this.sideNav==true)
       {

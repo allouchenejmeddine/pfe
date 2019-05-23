@@ -219,7 +219,7 @@ export default new Router({
             component: GameDesc,
             props: true,
             meta: {
-                title: 'Description - Game Players Union'
+                title: 'Chargement'
             },
             beforeEnter:checkStoreCharged
         },
@@ -229,7 +229,7 @@ export default new Router({
             component: GameDesc,
             props: true,
             meta: {
-                title: 'Description - Game Players Union'
+                title: 'Chargement'
             },
             beforeEnter:checkStoreCharged
         },
@@ -239,7 +239,7 @@ export default new Router({
             component: GameDesc,
             props: true,
             meta: {
-                title: 'Description - Game Players Union'
+                title: 'Chargement'
             },
             beforeEnter:checkStoreCharged
         },
@@ -249,7 +249,7 @@ export default new Router({
             component: GameDesc,
             props: true,
             meta: {
-                title: 'Description - Game Players Union'
+                title: 'Chargement'
             },
             beforeEnter:checkStoreCharged
         }

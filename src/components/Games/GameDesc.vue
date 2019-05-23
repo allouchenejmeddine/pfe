@@ -122,24 +122,19 @@ import {store} from '../../store'
     created :function(){
             let gameId=this.idd
             this.games=this.store.state.loadedAllGames
-            alert("before "+gameId)
-            //alert(this.games[0].nom)
-            
-            alert('thiss '+this.idd)
             this.game = this.games.find(function(element) {
                 return element.id===gameId; 
             }); 
             if((this.games!= null)&& ( this.games!= undefined))
             {
-                alert('this.games va très bien')
+                
             }
             if((this.game!= null)&& ( this.game!= undefined))
             {
-                alert('this.game va très bien')
+                
             }
 
-            alert(this.game.nom)
-            alert(this.game.id)
+            
             this.nomJeux=this.game.nom
             this.developpeur=this.game.developpeur
             this.genre= this.game.genreJeux
@@ -172,23 +167,10 @@ import {store} from '../../store'
         }
     },
     methods:{
-        writeDesc(){
-            document.getElementById("date").innerHTML="test"
-            document.getElementById("dev").innerHTML="test"
-            document.getElementById("genre").innerHTML="test"
-            document.getElementById("moteur").innerHTML="test"
-            document.getElementById("platf").innerHTML="test"
-            document.getElementById("config").innerHTML= "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet mauris aliquet, efficitur leo ut, iaculis lectus. Integer ac consequat lectus, nec dictum ex. Mauris viverra orci ante, vitae auctor urna aliquam quis. Quisque lobortis diam felis, in ullamcorper lorem sodales vitae. Pellentesque eu venenatis tellus. Pellentesque porta, dui vel blandit ornare, enim sapien eleifend dui, eu dignissim felis augue nec felis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum in accumsan neque. Curabitur in elit imperdiet, porta leo ac, ornare felis. Nulla a dolor ligula. Donec malesuada semper semper. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas a sodales tortor, sed iaculis mi. Pellentesque at ante varius, semper elit vel, pharetra nisl. Nullam placerat sapien viverra, interdum eros nec, commodo justo."
-            document.getElementById("desc").innerHTML= "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet mauris aliquet, efficitur leo ut, iaculis lectus. Integer ac consequat lectus, nec dictum ex. Mauris viverra orci ante, vitae auctor urna aliquam quis. Quisque lobortis diam felis, in ullamcorper lorem sodales vitae. Pellentesque eu venenatis tellus. Pellentesque porta, dui vel blandit ornare, enim sapien eleifend dui, eu dignissim felis augue nec felis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum in accumsan neque. Curabitur in elit imperdiet, porta leo ac, ornare felis. Nulla a dolor ligula. Donec malesuada semper semper. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas a sodales tortor, sed iaculis mi. Pellentesque at ante varius, semper elit vel, pharetra nisl. Nullam placerat sapien viverra, interdum eros nec, commodo justo."
-
-        },
         addRating(newRating , gameID){
             this.$store.dispatch('addRatingToGame',{newRating:this.rating,gameId:this.idd,plateformeJeux:this.plateforme})
         },
         showrating(){
-            alert(this.rating)
-            alert(this.idd)
-            alert(this.plateforme)
             this.addRating(this.rating,this.idd)
             
         },
@@ -198,6 +180,9 @@ import {store} from '../../store'
                 resolve(this.$store.state.loadedAllGames);
             }, 0);
             });
+        },
+        changetitle(){
+            document.title = this.nomJeux+" - Game Players Union"
         }
     },
     mounted: function () {
@@ -205,7 +190,10 @@ import {store} from '../../store'
             if(this.game==undefined){
                 this.$router.push({ name: '404' })
             }
-        })
+        }),
+        this.changetitle()
+
+
     }
   }
 </script>
