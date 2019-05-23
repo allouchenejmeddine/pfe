@@ -292,7 +292,9 @@ export const store = new Vuex.Store({
         alert('Success! what a champion!')
       })
     },
-    loadArticles({commit}){
+  
+    loadGames ({commit}) {
+
       firebase.database().ref('/ArticlesProposes').once('value')
         .then((data) => {
           const articlesSuggeres = []
@@ -307,7 +309,7 @@ export const store = new Vuex.Store({
               dateSortie: obj[key].dateSortie,
             })
           }
-          
+          articlesSuggeres.sort(function(a,b){return a.dateSortie.localeCompare(b.dateSortie); })
           commit('setLoadedArticles', articlesSuggeres)
         })
         .catch(
@@ -319,6 +321,7 @@ export const store = new Vuex.Store({
         firebase.database().ref('/articles').once('value')
         .then((data) => {
           const articlesSuggeres = []
+          
           const obj = data.val()
           for (let key in obj) {
             articlesSuggeres.push({
@@ -331,15 +334,16 @@ export const store = new Vuex.Store({
             })
           }
           
+          articlesSuggeres.sort(function(a,b){return a.dateSortie.localeCompare(b.dateSortie); })
           commit('setLoadedAllArticles', articlesSuggeres)
+          
         })
         .catch(
           (error) => {
             console.log(error)
           }
         )
-    },
-    loadGames ({commit}) {
+        
       // Load suggested games for PC 
       firebase.database().ref('/JeuxSuggeres/PC').once('value')
       .then((data) => {
@@ -603,30 +607,6 @@ export const store = new Vuex.Store({
           jeux.sort(function(a,b){return a.nom.localeCompare(b.nom); });
           commit('setLoadedGamesXBOX', jeux)
           commit('setLoadedGamesALL', jeux)
-        })
-        .catch(
-          (error) => {
-            console.log(error)
-          }
-        )
-        
-
-        firebase.database().ref('/ArticlesProposes').once('value')
-        .then((data) => {
-          const articlesSuggeres = []
-          const obj = data.val()
-          for (let key in obj) {
-            articlesSuggeres.push({
-              id: key,
-              titre: obj[key].titre,
-              corps: obj[key].corps,
-              resume: obj[key].resume,
-              image: obj[key].image,
-              dateSortie: obj[key].dateSortie,
-            })
-          }
-          
-          commit('setLoadedArticles', articlesSuggeres)
         })
         .catch(
           (error) => {

@@ -25,17 +25,21 @@
                     <span style="font-size:18px;color:#F5DCD7">Identifiez-vous</span>
                   </v-layout>
                   <v-flex mx-5 mt-3 justify-center>
-                    <v-text-field dark label="Pseudo" v-model="email" prepend-inner-icon="fas fa-user" color="#F5DCD7"></v-text-field>
+                    <v-text-field dark label="Email" v-model="email" prepend-inner-icon="fas fa-user" color="#F5DCD7"></v-text-field>
                   </v-flex>
                   <v-flex mx-5 mt-3 justify-center>
                     <v-text-field
                     dark
+                    type='password'
                     v-model="password"
                     label="Mot de passe"
                     prepend-inner-icon="fas fa-unlock-alt"
                     color="#F5DCD7"
                   >
                     </v-text-field>
+                  </v-flex>
+                  <v-flex mx-5 mt-3 justify-center>  
+                      <router-link to="/signup" @click.native="dialog=false">Pas de compte ? Créer-en-un</router-link>
                   </v-flex>
                   <v-layout column wrap align-center justify-center mx-5>
                     <v-flex >
@@ -44,11 +48,11 @@
                         </v-btn>
                     </v-flex>
                     <v-flex>
-                        <v-btn color="#F5DCD7" class="mx-3" icon>
+                        <v-btn disabled color="#F5DCD7" class="mx-3" icon>
                             <v-icon size="24px">fab fa-google</v-icon>
                         </v-btn>
                     
-                        <v-btn color="#F5DCD7" class="mx-3" icon>
+                        <v-btn disabled color="#F5DCD7" class="mx-3" icon>
                             <v-icon size="24px">fab fa-facebook</v-icon>
                         </v-btn>
                     </v-flex>
@@ -64,11 +68,20 @@
               <v-list-tile-action><v-avatar><v-img  src="https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png"></v-img></v-avatar></v-list-tile-action>
               <v-list-tile-title>Profil</v-list-tile-title>
             </v-list-tile>
+            <v-list-tile to="/settings">
+              <v-list-tile-title>Paramètres</v-list-tile-title>
+            </v-list-tile>
             <v-list-tile @click='onLogout()'>
               <v-list-tile-title>Deconnexion</v-list-tile-title>
             </v-list-tile>
           </v-list-group>
           
+          <v-list-tile>
+            <v-autocomplete name="name" :items="gamesCharged"
+            :search-input.sync="search" v-model="selectedGame" label="Rechercher"  height="40px"
+             color="#008080" @change="getSelectedGame()" item-text="nom" return-object >
+            </v-autocomplete>
+          </v-list-tile>
           <v-list-group >
               <v-list-tile slot="activator" >
                 <v-list-tile-action><v-icon>fas fa-gamepad</v-icon></v-list-tile-action>
@@ -82,7 +95,7 @@
               </v-list-tile>
           </v-list-group>
           
-          <v-list-tile to="Settings">
+          <v-list-tile to="News">
             <v-list-tile-action><v-icon>far fa-newspaper</v-icon></v-list-tile-action>
               <v-list-tile-title >News</v-list-tile-title>
           </v-list-tile>
@@ -161,17 +174,21 @@
                     <span style="font-size:18px;color:#F5DCD7">Identifiez-vous</span>
                   </v-layout>
                   <v-flex mx-5 mt-3 justify-center>
-                    <v-text-field dark label="Pseudo" v-model="email" prepend-inner-icon="fas fa-user" color="#F5DCD7"></v-text-field>
+                    <v-text-field dark label="Email" v-model="email" prepend-inner-icon="fas fa-user" color="#F5DCD7"></v-text-field>
                   </v-flex>
                   <v-flex mx-5 mt-3 justify-center>
                     <v-text-field
                     dark
+                    type='password'
                     v-model="password"
                     label="Mot de passe"
                     prepend-inner-icon="fas fa-unlock-alt"
                     color="#F5DCD7"
                   >
                     </v-text-field>
+                  </v-flex>
+                  <v-flex mx-5 mt-3 justify-center>  
+                      <router-link to="/signup" @click.native="dialog=false">Pas de compte ? Créer-en-un</router-link>
                   </v-flex>
                   <v-layout column wrap align-center justify-center mx-5>
                     <v-flex >
@@ -180,11 +197,11 @@
                         </v-btn>
                     </v-flex>
                     <v-flex>
-                        <v-btn color="#F5DCD7" class="mx-3" icon>
+                        <v-btn disabled color="#F5DCD7" class="mx-3" icon>
                             <v-icon size="24px">fab fa-google</v-icon>
                         </v-btn>
                     
-                        <v-btn color="#F5DCD7" class="mx-3" icon>
+                        <v-btn disabled color="#F5DCD7" class="mx-3" icon>
                             <v-icon size="24px">fab fa-facebook</v-icon>
                         </v-btn>
                     </v-flex>
@@ -196,6 +213,9 @@
       <v-menu v-else open-on-hover bottom offset-y origin="center center" transition="scale-transition">
         <v-btn slot="activator" flat><v-avatar><v-img  src="https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png"></v-img></v-avatar>&nbsp;Profil</v-btn>
         <v-list>
+          <v-list-tile to="/settings">
+              <v-list-tile-title>Paramètres</v-list-tile-title>
+            </v-list-tile>
           <v-list-tile @click='onLogout()'>
             <v-list-tile-title>Deconnexion</v-list-tile-title>
           </v-list-tile>
@@ -210,7 +230,7 @@
       
 <v-layout column fill-height >
   <v-parallax
-        src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/background.png?alt=media&token=eac09e35-865d-43b0-851f-ea6063849dc9"
+        src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/background.png?alt=media&token=2f5715e8-a52a-4343-98f9-83e1193e8b75"
         id="paral" height="7000"
     >    
      <v-flex  xl12 xs12 md12 fluid fill-height>
@@ -378,6 +398,9 @@ export default {
       this.getHeight();
   },
   methods: {
+    dialogclose() {
+      this.dialog = false
+    },
     onSignIn () {
       if(this.sideNav==true)
       {

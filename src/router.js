@@ -133,7 +133,7 @@ export default new Router({
             meta: {
                 title: 'Paramètres de Compte - Game Players Union'
             },
-            beforeEnter:checkUserCharged
+            beforeEnter:authGuard
         },
         {
             path: '/suggest_game',

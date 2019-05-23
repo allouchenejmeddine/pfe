@@ -38,8 +38,7 @@ import 'firebase/auth'
     computed :{
         articlesChargedForALL : function (){
             var all = this.$store.state.loadedAllArticles
-            all = all.sort(function(a,b){return a.dateSortie.localeCompare(b.Sortie); })
-            return all.slice(0,10);
+            return all.slice(0,5);
         }
     }
   }
