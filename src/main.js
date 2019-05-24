@@ -27,6 +27,8 @@ new Vue({
       projectId: "gpufinal",
       storageBucket: "gpufinal.appspot.com"
     })
+    
+    this.$store.dispatch('loadGames')
     firebase.auth().onAuthStateChanged((user)=>{
       if(user){
         let currentUser
@@ -34,11 +36,11 @@ new Vue({
         ref.orderByChild("id").equalTo(user.uid).on("child_added", function(snapshot) {
           currentUser = snapshot.val()
           store.dispatch('autoSignIn',currentUser)
+          console.log('user done')
         });
         
       }
     })
-    this.$store.dispatch('loadGames')
     
   }
 }).$mount('#app');

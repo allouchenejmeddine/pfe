@@ -1,13 +1,23 @@
 import { store } from './store'
-export default ( to , from , next) => {
-    if (store.getters.user !== null){
-        next(next)
-        alert(store.getters.user)
-        console.log('anything')
-    }
-    else{
-        document.title = from.meta.title;
-        next('/')
-        console.log("hello world!")
-    }
+export default ( to , from , next)=>{
+        store.watch(
+            (state)=>state.loadedAllGames,
+            (value)=>{
+                if (value.length> 0){
+                    setTimeout(function(){ if(store.state.user !== null){
+                        next(next)
+                    }
+                    else{
+                        next('/')
+                    } }, 0);
+                }
+                else{
+                    console.log("here")
+
+                }
+                
+            }
+        )
+    
+    
 }
