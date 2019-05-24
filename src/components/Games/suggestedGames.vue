@@ -29,7 +29,7 @@
                     <!--acceptation du jeu et deplacementvers la liste des jeux confirmé-->
                     <v-btn flat icon><v-icon color="green" @click="moveToConfirmedGames(item.id,'PC')">fas fa-check</v-icon></v-btn>
                     <!--suppression du jeu car non accepter(rajouter une confirmation avant la suppression-->
-                    <v-btn flat icon><v-icon color="red">fas fa-times</v-icon></v-btn>
+                    <v-btn @click="rejectGame(item.id,'PC')"  flat icon><v-icon color="red">fas fa-times</v-icon></v-btn>
                       </v-layout>
                     </v-card-actions>
                   </v-card>
@@ -69,7 +69,7 @@
                     <!--acceptation du jeu et deplacementvers la liste des jeux confirmé-->
                     <v-btn flat icon><v-icon color="green" @click="moveToConfirmedGames(item.id,'PS')">fas fa-check</v-icon></v-btn>
                     <!--suppression du jeu car non accepter(rajouter une confirmation avant la suppression-->
-                    <v-btn flat icon><v-icon color="red">fas fa-times</v-icon></v-btn>
+                    <v-btn @click="rejectGame(item.id,'PS')" flat icon><v-icon color="red">fas fa-times</v-icon></v-btn>
                       </v-layout>
                     </v-card-actions>
                   </v-card>
@@ -109,7 +109,7 @@
                     <!--acceptation du jeu et deplacementvers la liste des jeux confirmé-->
                     <v-btn flat icon><v-icon color="green" @click="moveToConfirmedGames(item.id,'XBOX')">fas fa-check</v-icon></v-btn>
                     <!--suppression du jeu car non accepter(rajouter une confirmation avant la suppression-->
-                    <v-btn flat icon><v-icon color="red">fas fa-times</v-icon></v-btn>
+                    <v-btn @click="rejectGame(item.id,'XBOX')" flat icon><v-icon color="red">fas fa-times</v-icon></v-btn>
                       </v-layout>
                     </v-card-actions>
                   </v-card>
@@ -149,7 +149,7 @@
                     <!--acceptation du jeu et deplacementvers la liste des jeux confirmé-->
                     <v-btn flat icon><v-icon color="green" @click="moveToConfirmedGames(item.id,'SWITCH')">fas fa-check</v-icon></v-btn>
                     <!--suppression du jeu car non accepter(rajouter une confirmation avant la suppression-->
-                    <v-btn flat icon><v-icon color="red">fas fa-times</v-icon></v-btn>
+                    <v-btn @click="rejectGame(item.id,'SWITCH')" flat icon><v-icon color="red">fas fa-times</v-icon></v-btn>
                       </v-layout>
                     </v-card-actions>
                   </v-card>
@@ -228,6 +228,12 @@ import firebase from 'firebase'
                reject();
           });
         })
+     },
+     rejectGame(gameId, src){
+       let ref= firebase.database().ref('/JeuxSuggeres/'+src).child(gameId).remove().catch((err)=>{
+         console.log(err)
+       })
+       location.reload()
      }
     }
   }
