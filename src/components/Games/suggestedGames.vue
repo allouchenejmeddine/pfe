@@ -31,7 +31,7 @@
                       <v-card-actions>
                         <v-layout align-center justify-space-around>
                           <!-- affiche les details du jeu-->
-                          <v-btn flat icon :href="item.page">
+                          <v-btn flat icon :to="getSelectedGame(item.id,item.plateformeJeux)">
                             <v-icon color="#008080">fas fa-eye</v-icon>
                           </v-btn>
                           <!--acceptation du jeu et deplacementvers la liste des jeux confirmé-->
@@ -90,7 +90,7 @@
                       <v-card-actions>
                         <v-layout align-center justify-space-around>
                           <!-- affiche les details du jeu-->
-                          <v-btn flat icon :href="item.page">
+                          <v-btn flat icon :to="getSelectedGame(item.id,item.plateformeJeux)">
                             <v-icon color="#008080">fas fa-eye</v-icon>
                           </v-btn>
                           <!--acceptation du jeu et deplacementvers la liste des jeux confirmé-->
@@ -149,7 +149,7 @@
                       <v-card-actions>
                         <v-layout align-center justify-space-around>
                           <!-- affiche les details du jeu-->
-                          <v-btn flat icon :href="item.page">
+                          <v-btn flat icon :to="getSelectedGame(item.id,item.plateformeJeux)">
                             <v-icon color="#008080">fas fa-eye</v-icon>
                           </v-btn>
                           <!--acceptation du jeu et deplacementvers la liste des jeux confirmé-->
@@ -206,7 +206,7 @@
                       <v-card-actions>
                         <v-layout align-center justify-space-around>
                           <!-- affiche les details du jeu-->
-                          <v-btn flat icon :href="item.page">
+                          <v-btn flat icon :to="getSelectedGame(item.id,item.plateformeJeux)">
                             <v-icon color="#008080">fas fa-eye</v-icon>
                           </v-btn>
                           <!--acceptation du jeu et deplacementvers la liste des jeux confirmé-->
@@ -278,6 +278,9 @@ export default {
     }
   },
   methods: {
+    getSelectedGame(id, platform) {
+      return "/Jeux_" + platform + "/" + id;
+    },
     // Method to move game from Jeux suggeres to Jeux after being approved
     moveToConfirmedGames(gameId, src) {
       let oldRef = firebase

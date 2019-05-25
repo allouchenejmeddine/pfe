@@ -7,7 +7,7 @@
           <v-list>
             <v-layout column ma-3>
               <v-flex>
-                <v-layout align-center fluid fill-height mx-3 mt-4>
+                <v-layout align-center row wrap fluid fill-height mx-3 mt-4>
                   <v-flex mb-4>
                     <span style="font-size:22px">Tout les jeux</span>
                   </v-flex>
@@ -46,6 +46,7 @@
 
                         <v-card-text>
                           <span>Date de sortie : {{item.dateSortie}}</span>
+                          <facebook :url="url" scale="1.2" class="right"></facebook>
                         </v-card-text>
                       </v-card>
                     </router-link>
@@ -60,10 +61,15 @@
   </v-container>
 </template>
 <script>
+import { Facebook } from "vue-socialmedia-share";
 export default {
+  components: {
+    Facebook
+  },
   name: "",
   data() {
     return {
+      url: "localhost:8081/Games",
       selectedGame: null
     };
   },

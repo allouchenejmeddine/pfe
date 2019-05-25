@@ -7,7 +7,7 @@
           <v-list>
             <v-layout column ma-3>
               <v-flex>
-                <v-layout align-center fluid fill-height mx-3 mt-4>
+                <v-layout align-center row wrap fluid fill-height mx-3 mt-4>
                   <v-flex mb-4>
                     <span style="font-size:22px">News</span>
                   </v-flex>
@@ -28,7 +28,7 @@
                     :key="i"
                     :src="item"
                   >
-                    <v-card light raised tile>
+                    <v-card light raised tile :to="getSelectedArticle(item.id)">
                       <v-layout row wrap fill-height align-start>
                         <v-flex md12 xs12 sm12 lg5>
                           <v-img max-height="250" :src="item.image">
@@ -73,10 +73,12 @@ export default {
   },
   computed: {
     articlesChargedForALL: function() {
-      var all = this.$store.state.loadedAllArticles;
-      return all.sort(function(a, b) {
-        return a.dateSortie.localeCompare(b.Sortie);
-      });
+      return this.$store.state.loadedArticles;
+    }
+  },
+  methods: {
+    getSelectedArticle(id) {
+      return "/Articles/" + id;
     }
   }
 };

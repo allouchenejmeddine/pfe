@@ -1,22 +1,26 @@
 import { store } from './store'
 export default ( to , from , next)=>{
+    alert(store.state.user.pseudo)
         store.watch(
-            (state)=>state.loadedAllGames,
+            (state)=>state.user,
             (value)=>{
-                if (value.length> 0){
+                alert(value)
+                if (value !== null){
                     setTimeout(function(){ if(store.state.user !== null){
-                        next(next)
+                        //next(next);
+                        console.log("here");
                     }
                     else{
-                        next('/')
+                        next('/');
                     } }, 0);
                 }
                 else{
                     console.log("here")
-
+                    
                 }
                 
-            }
+            },
+            
         )
     
     

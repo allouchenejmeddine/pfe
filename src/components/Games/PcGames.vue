@@ -7,7 +7,7 @@
           <v-list>
             <v-layout column ma-3>
               <v-flex>
-                <v-layout align-center fluid fill-height mx-3 mt-4>
+                <v-layout align-center row wrap fluid fill-height mx-3 mt-4>
                   <v-flex mb-4>
                     <span style="font-size:22px">Jeux PC</span>
                   </v-flex>
@@ -30,8 +30,7 @@
                     :key="i"
                     :src="item"
                   >
-                    <router-link :to="getSelectedGame(item.id)">
-                      <v-card raised tile color="rgba(0, 128, 128,0.9)">
+                      <v-card raised tile color="rgba(0, 128, 128,0.9)" :to="getSelectedGame(item.id)">
                         <v-img max-height="250" min-height="250" :src="item.image">
                           <v-layout>
                             <v-flex pa-2>
@@ -43,13 +42,12 @@
                             </v-flex>
                           </v-layout>
                         </v-img>
-
+                      
                         <v-card-text>
                           <span>Date de sortie : {{item.dateSortie}}</span>
-                          <facebook :url="url" scale="1"></facebook>
+                          <facebook :url="url" scale="1.2" class="right"></facebook>
                         </v-card-text>
                       </v-card>
-                    </router-link>
                   </v-flex>
                 </v-layout>
               </v-flex>
@@ -69,7 +67,7 @@ export default {
   data() {
     return {
       show: true,
-      url: "localhost:8081/XboxGames"
+      url: "localhost:8081/PcGames"
     };
   },
   computed: {

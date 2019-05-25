@@ -175,7 +175,7 @@ export default {
       if (!date) return null;
 
       const [year, month, day] = date.split("-");
-      this.dateSortie = `${month}/${day}/${year}`;
+      this.dateSortie = `${day}/${month}/${year}`;
     },
 
     //A changer et essaye de récuperer la date de l'ordinateur au moment du clique sur valider pour la date de l'article

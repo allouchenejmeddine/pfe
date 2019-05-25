@@ -99,7 +99,7 @@
                               @blur="date = parseDate(dateSortie)"
                             ></v-text-field>
                           </template>
-                          <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
+                          <v-date-picker v-model="date" no-title @input="menu1 = false" locale></v-date-picker>
                         </v-menu>
                       </v-flex>
                     </v-layout>
@@ -283,7 +283,7 @@ export default {
       if (!date) return null;
 
       const [year, month, day] = date.split("-");
-      return `${month}/${day}/${year}`;
+      return `${day}/${month}/${year}`;
     },
     parseDate(date) {
       if (!date) return null;
@@ -299,6 +299,8 @@ export default {
         description: this.description,
         plateformeJeux: this.plateformeJeux,
         dlc: this.dlc,
+        nbVotes: this.nbVotes,
+        eval: "0",
         modeJeux: this.modeJeux,
         moteurGraph: this.moteurGraph,
         genreJeux: this.genreJeux,

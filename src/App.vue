@@ -75,11 +75,11 @@
             <v-list-tile-action>
               <v-avatar>
                 <v-img
-                  src="https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png"
+                  :src="avatar"
                 ></v-img>
               </v-avatar>
             </v-list-tile-action>
-            <v-list-tile-title>Profil</v-list-tile-title>
+            <v-list-tile-title>{{username}}</v-list-tile-title>
           </v-list-tile>
           <v-list-tile to="/settings">
             <v-list-tile-title>Paramètres</v-list-tile-title>
@@ -268,9 +268,9 @@
               <v-btn slot="activator" flat>
                 <v-avatar>
                   <v-img
-                    src="https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png"
+                    :src="avatar"
                   ></v-img>
-                </v-avatar>&nbsp;Profil
+                </v-avatar>&nbsp;{{username}}
               </v-btn>
               <v-list>
                 <v-list-tile to="/settings">
@@ -370,6 +370,8 @@ export default {
       email: "",
       password: "",
       confirmPassword: "",
+      username: "",
+      avatar: null,
       selectedGame: null,
       search: "something",
       dialog: false,
@@ -448,6 +450,22 @@ export default {
       };
     },
     userIsAuthenticated() {
+      if(
+        this.$store.getters.user !== null &&
+        this.$store.getters.user !== undefined
+      )
+      {
+        this.username = this.$store.state.user.pseudo
+        if(this.$store.state.user.image !== null && this.$store.state.user.image !== undefined) 
+        {
+          this.avatar = this.$store.state.user.image
+        }
+        else
+        {
+          this.avatar = "https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png"
+        }
+      
+      }
       return (
         this.$store.getters.user !== null &&
         this.$store.getters.user !== undefined
@@ -463,7 +481,7 @@ export default {
   mounted: function() {
     this.getHeight();
   },
-  methods: {
+  methods: { 
     onSignIn() {
       if (this.sideNav == true) {
         this.sideNav = !this.sideNav;

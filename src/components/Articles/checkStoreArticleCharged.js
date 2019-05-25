@@ -1,8 +1,8 @@
 import {store} from '../../store'
 export default ( to , from , next)=>{
-    if(store.state.user===null){
+    if(store.state.loadedAllArticles.length===0){
         store.watch(
-            (state)=>state.user,
+            (state)=>(state.loadedAllArticles),
             (value)=>{
                 if (value!= null){
                     next(next)
@@ -12,5 +12,8 @@ export default ( to , from , next)=>{
                 }
             }
         )
+    }
+    else{
+        next(next)
     }
 }

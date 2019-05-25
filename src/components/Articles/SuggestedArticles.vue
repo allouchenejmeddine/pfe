@@ -55,7 +55,7 @@
                       <v-card-actions>
                         <v-layout align-center justify-space-around>
                           <!-- affiche les details du jeu-->
-                          <v-btn flat icon :href="item.page">
+                          <v-btn flat icon :to="getSelectedArticle(item.id)">
                             <v-icon color="#008080">fas fa-eye</v-icon>
                           </v-btn>
                           <!--acceptation du jeu et deplacementvers la liste des jeux confirmé-->
@@ -66,7 +66,7 @@
                             >fas fa-check</v-icon>
                           </v-btn>
                           <!--suppression du jeu car non accepter(rajouter une confirmation avant la suppression-->
-                          <v-btn flat icon>
+                          <v-btn flat icon @click="rejectArticle(item.id)">
                             <v-icon color="red">fas fa-times</v-icon>
                           </v-btn>
                         </v-layout>
@@ -101,13 +101,16 @@ export default {
   },
   computed: {
     articleCharged: function() {
-      return this.$store.state.loadedArticles;
+      return this.$store.state.loadedSuggestedArticles;
     },
     testarticleCharged: function() {
-      return this.$store.state.loadedArticles.length == 0;
+      return this.$store.state.loadedSuggestedArticles.length == 0;
     }
   },
   methods: {
+    getSelectedArticle(id) {
+      return "/Articles/" + id;
+    },
     // Method to move article from Articles suggeres to Articles after being approved
     moveToConfirmedArticles(articleId) {
       let oldRef = firebase
@@ -138,8 +141,19 @@ export default {
             reject();
           });
       });
+    },
+    rejectArticle(articleId) {
+      let ref = firebase
+        .database()
+        .ref("/ArticlesProposes/")
+        .child(articleId)
+        .remove()
+        .catch(err => {
+          console.log(err);
+        });
+      location.reload();
     }
-  }
+  },
 };
 </script>
 

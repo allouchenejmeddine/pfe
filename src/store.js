@@ -17,18 +17,31 @@ export const store = new Vuex.Store({
       loadedGamesSWITCH:[],
       loadedGamesXBOX:[],
       loadedAllGames:[],
+      loadedGames:[],
+      loadedSuggestedArticles:[],
       loadedArticles:[],
-      loadedAllArticles:[]
+      loadedAllArticles:[],
+      loadedSuggestedAllGames:[]
   },
   mutations: {
   setUser(state,payload){
     state.user=payload
   },
-  setLoadedArticles(state,payload){
-    state.loadedArticles= payload 
+  setLoadedSuggestedArticles(state,payload){
+    state.loadedSuggestedArticles= payload 
   },
   setLoadedAllArticles(state,payload){
-    state.loadedAllArticles= payload 
+    state.loadedAllArticles = state.loadedSuggestedArticles
+    .concat(state.loadedArticles) 
+    state.loadedAllArticles.sort(function(a, b) {
+      return a.dateSortie.localeCompare(b.Sortie);
+    });
+  },
+  setLoadedArticles(state,payload){
+    state.loadedArticles= payload
+    state.loadedArticles.sort(function(a, b) {
+      return a.dateSortie.localeCompare(b.Sortie);
+    }); 
   },
   setLoadedSuggestedGamesPC (state, payload) {
     state.loadedSuggestedGamesPC = payload
@@ -42,23 +55,33 @@ export const store = new Vuex.Store({
   setLoadedSuggestedGamesSWITCH (state, payload) {
     state.loadedSuggestedGamesSWITCH = payload
   },
-  setLoadedGamesPC(state,paylaod){
-    state.loadedGamesPC=paylaod
+  setLoadedGamesPC(state,payload){
+    state.loadedGamesPC=payload
   },
-  setLoadedGamesPS(state,paylaod){
-    state.loadedGamesPS=paylaod
+  setLoadedGamesPS(state,payload){
+    state.loadedGamesPS=payload
   },
-  setLoadedGamesXBOX(state,paylaod){
-    state.loadedGamesXBOX=paylaod
+  setLoadedGamesXBOX(state,payload){
+    state.loadedGamesXBOX=payload
   },
-  setLoadedGamesSWITCH(state,paylaod){
-    state.loadedGamesSWITCH=paylaod
+  setLoadedGamesSWITCH(state,payload){
+    state.loadedGamesSWITCH=payload
   },
-  setLoadedGamesALL(state , payload){
-    state.loadedAllGames=state.loadedGamesPC
+  setLoadedGames(state){
+    state.loadedGames=state.loadedGamesPC
     .concat(state.loadedGamesPS)
     .concat(state.loadedGamesXBOX)
+    .concat(state.loadedGamesSWITCH)
+  },
+  setLoadedSuggestedGamesALL(state){
+    state.loadedSuggestedAllGames=state.loadedSuggestedGamesPC
+    .concat(state.loadedSuggestedGamesPS)
+    .concat(state.loadedSuggestedGamesXBOX)
     .concat(state.loadedSuggestedGamesSWITCH)
+  },
+  setLoadedGamesALL(state){
+    state.loadedAllGames=state.loadedGames
+    .concat(state.loadedSuggestedAllGames)
   }
     
   
@@ -215,9 +238,9 @@ export const store = new Vuex.Store({
         dateSortie:payload.dateSortie,
         image:'',
         id:'',
-        eval:5,
+        eval:0,
         nbVotes:1,
-        totalVotes:5
+        totalVotes:0
       }
       // Find the appropriate location on the database
       alert(newGame.plateformeJeux)
@@ -294,7 +317,6 @@ export const store = new Vuex.Store({
     },
   
     loadGames ({commit}) {
-
       firebase.database().ref('/ArticlesProposes').once('value')
         .then((data) => {
           const articlesSuggeres = []
@@ -310,7 +332,7 @@ export const store = new Vuex.Store({
             })
           }
           articlesSuggeres.sort(function(a,b){return a.dateSortie.localeCompare(b.dateSortie); })
-          commit('setLoadedArticles', articlesSuggeres)
+          commit('setLoadedSuggestedArticles', articlesSuggeres)
         })
         .catch(
           (error) => {
@@ -335,6 +357,7 @@ export const store = new Vuex.Store({
           }
           
           articlesSuggeres.sort(function(a,b){return a.dateSortie.localeCompare(b.dateSortie); })
+          commit('setLoadedArticles', articlesSuggeres)
           commit('setLoadedAllArticles', articlesSuggeres)
           
         })
@@ -478,6 +501,7 @@ export const store = new Vuex.Store({
             console.log(error)
           }
         )
+        
         // Load confirmed games for PC
         firebase.database().ref('jeux/PC').once('value')
         .then((data) => {
@@ -606,6 +630,8 @@ export const store = new Vuex.Store({
           }
           jeux.sort(function(a,b){return a.nom.localeCompare(b.nom); });
           commit('setLoadedGamesXBOX', jeux)
+          commit('setLoadedGames', jeux)
+          commit('setLoadedSuggestedGamesALL', jeux)
           commit('setLoadedGamesALL', jeux)
         })
         .catch(

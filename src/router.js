@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import GameDesc from './components/Games/GameDesc'
+import ArticleDesc from './components/Articles/ArticleDesc'
 import Signin from './components/User/signin'
 import Signup from './components/User/signup'
 import Settings from './components/User/settings'
@@ -9,6 +10,7 @@ import GameSuggestion from './components/Games/GameSuggestion'
 import authGuard from './auth-guard';
 import checkUserCharged from './components/User/checkUserCharged'
 import checkStoreCharged from './components/Games/checkStoreCharged'
+import checkStoreArticleCharged from './components/Articles/checkStoreArticleCharged'
 import GameSuggestions from './components/Games/suggestedGames'
 import GameCreated from './components/Games/GameCreatedSuccessfully'
 import Game from './components/Game'
@@ -190,6 +192,16 @@ export default new Router({
               title: "Articles suggérés " 
             },
             //beforeEnter:authGuard
+          },
+          { 
+            path: '/Articles/:id',
+            name: 'articleDesc',
+            component: ArticleDesc,
+            props: true,
+            meta: {
+                title: 'Chargement'
+            },
+            beforeEnter:checkStoreArticleCharged
           },
           {
             //handler when the path given doesn't exist

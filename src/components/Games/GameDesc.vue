@@ -230,7 +230,7 @@ export default {
   mounted: function() {
     this.$nextTick(function() {
       if (this.game == undefined) {
-        this.$router.push({ name: "404" });
+        this.$router.push("/404");
       }
     }),
       this.changetitle();
