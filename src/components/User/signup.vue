@@ -180,7 +180,6 @@ export default {
       confirmPassword: "",
       nom: "",
       prenom: "",
-      items: ["jeux1", "jeux2", "jeux3"],
       genres: ["Homme", "Femme", "Entre les deux"],
       visibilite: ["Visible", "Invisible"],
       pseudo: "",
@@ -193,6 +192,11 @@ export default {
     };
   },
   computed: {
+    items(){
+      let gameNames = []
+      gameNames= this.$store.state.loadedAllGames.map(a => a.nom)
+      return gameNames
+    },
     comparePasswords() {
       return this.password !== this.confirmPassword
         ? "Reverifiez votre mot de passe svp"

@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import * as firebase from 'firebase'
 import router from './router'
+import { type } from 'os';
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
@@ -738,6 +739,31 @@ export const store = new Vuex.Store({
       }
 
     },
+    addGameToUserList({commit} , payload){
+      let userId = this.state.user.id
+      let listeJeuxActuelle = this.state.user.listeJeux
+      alert(typeof listeJeuxActuelle)
+      
+      if((typeof listeJeuxActuelle) == 'string' )
+      {
+        let arr = []
+        arr.push(payload.gameName)
+        firebase.database().ref('comptes/').child(userId).update({listeJeux: arr})
+        return 1
+      }
+      else{
+        if(listeJeuxActuelle.includes(payload.gameName))
+        {
+          return 0
+        }
+        else{
+          listeJeuxActuelle.push(payload.gameName)
+          firebase.database().ref('comptes/').child(userId).update({listeJeux: listeJeuxActuelle})
+          return 1
+        }
+        
+      }
+    }
 
   },
   getters: {

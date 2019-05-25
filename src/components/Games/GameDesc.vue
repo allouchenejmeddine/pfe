@@ -9,7 +9,7 @@
                 <v-layout px-3 pb-3>
                   <v-flex style="font-size:22px;font-weight:bold">{{nomJeux}}</v-flex>
                 </v-layout>
-                <v-btn round @click="gamealert=!gamealert">
+                <v-btn round  @click="addGameToUserList()">
                   <v-icon small left>fas fa-plus-circle</v-icon>Ajouter a ma liste
                 </v-btn>
                 <v-alert
@@ -225,6 +225,19 @@ export default {
     },
     changetitle() {
       document.title = this.nomJeux + " - Game Players Union";
+    },
+    addGameToUserList(){
+      let bool 
+      this.$store.dispatch("addGameToUserList" , {gameId: this.idd, gameName:this.nomJeux, plateforme: this.plateforme}).then((result)=>{
+        if(result ===1){
+          this.gamealert=!this.gamealert
+        }
+        else{
+          alert('Le jeux existe dans votre liste')
+        }
+      })
+      
+
     }
   },
   mounted: function() {
