@@ -190,18 +190,27 @@ export default {
     },
     onFilePicked(event) {
       alert(event.currentTarget);
+
       const files = event.target.files;
       let filename = files[0].name;
-
       if (filename.lastIndexOf(".") <= 0) {
         alert("Veuillez vérifier le type de votre fichier d'image");
+        this.image= null 
       }
-      const fileReader = new FileReader();
-      fileReader.addEventListener("load", () => {
-        this.$refs.avatar.src = fileReader.result;
-      });
-      fileReader.readAsDataURL(files[0]);
-      this.image = files[0];
+      else if ( (filename.lastIndexOf(".jpg")<= 0) && (filename.lastIndexOf(".png")<= 0) ){
+        alert("Les types accéptés sont : .jpg et .png");
+        this.image= null 
+      }
+      else{
+        const fileReader = new FileReader();
+        fileReader.addEventListener("load", () => {
+          this.$refs.avatar.src = fileReader.result;
+        });
+        fileReader.readAsDataURL(files[0]);
+        this.image = files[0];
+        
+      }
+      
     }
   }
 };

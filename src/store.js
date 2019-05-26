@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import * as firebase from 'firebase'
+//import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/database'
+import 'firebase/auth'
 import router from './router'
 import { type } from 'os';
 Vue.use(Vuex)
@@ -142,13 +145,12 @@ export const store = new Vuex.Store({
           if (user) {
             // User is signed in.
             commit('setUser',user)
-            alert('im here 2 '+store.getters.user.image)
           } else {
             // No user is signed in.
-            alert("No user found")
+            alert("Déconnexion réussie")
           }
         });        
-        firebase.database().ref('/comptes').orderByChild("id").equalTo(this.state.user.id).once("value",snapshot => {
+        /* firebase.database().ref('/comptes').orderByChild("id").equalTo(this.state.user.id).once("value",snapshot => {
           alert('im here ')
           if (snapshot.exists()){
             const userData = snapshot.val();
@@ -157,14 +159,22 @@ export const store = new Vuex.Store({
         }).then((user)=>{
           commit('setUser',user)
           alert(user.id)
-        })
+        }) */
         
         
         
       })
       .catch(
         error=>{
-          console.log(error)
+          if(error.code=='auth/user-not-found'){
+            alert('Veuillez vérfier votre Email/Mot de passe svp')
+          }
+          else if(error.code =='auth/invalid-email'){
+            alert('Veuillez vérifier le format de votre email')
+          }
+          else{
+            console.log(error + "Veuillez contacter l'administrateur svp ")
+          }
         }
       )
     },
