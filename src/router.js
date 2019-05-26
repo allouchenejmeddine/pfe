@@ -144,7 +144,7 @@ export default new Router({
             meta: {
                 title: "Suggestion d'un jeux "
             },
-            //beforeEnter:authGuard
+            beforeEnter:authGuard
         },
         {
             path: '/suggested_games',
@@ -153,7 +153,7 @@ export default new Router({
             meta: {
                 title: "Jeux suggérés "
             },
-            //beforeEnter:authGuard
+            beforeEnter:authGuard
         },
         {
             path: '/game_created',
@@ -162,7 +162,7 @@ export default new Router({
             meta: {
                 title: "Jeu suggéré avec succès"
             },
-            //beforeEnter:authGuard
+            beforeEnter:authGuard
         },
         {
             path: '/article_created',
@@ -171,7 +171,7 @@ export default new Router({
             meta: {
                 title: "Article suggéré avec succès"
             },
-            //beforeEnter:authGuard
+            beforeEnter:authGuard
         },
         {
             path: '/suggest_article',
@@ -181,7 +181,7 @@ export default new Router({
             {
               title: "Suggestion d'un article " 
             },
-            //beforeEnter:authGuard
+            beforeEnter:authGuard
           },
           {
             path: '/suggested_articles',
@@ -191,7 +191,7 @@ export default new Router({
             {
               title: "Articles suggérés " 
             },
-            //beforeEnter:authGuard
+            beforeEnter:authGuard
           },
           { 
             path: '/Articles/:id',

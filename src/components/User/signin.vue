@@ -25,6 +25,7 @@
                     <v-flex mx-5 mt-3>
                         <v-text-field
                         dark
+                        type="password"
                         v-model="password"
                         label="Mot de passe"
                         prepend-inner-icon="fas fa-unlock-alt"
@@ -47,11 +48,11 @@
                         </v-btn>
                     </v-flex>
                     <v-flex>
-                        <v-btn color="#F5DCD7" class="mx-3" icon>
+                        <v-btn color="#F5DCD7" disabled class="mx-3" icon>
                             <v-icon size="24px">fab fa-google</v-icon>
                         </v-btn>
                     
-                        <v-btn color="#F5DCD7" class="mx-3" icon>
+                        <v-btn color="#F5DCD7" disabled class="mx-3" icon>
                             <v-icon size="24px">fab fa-facebook</v-icon>
                         </v-btn>
                     </v-flex>

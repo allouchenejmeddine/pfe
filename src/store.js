@@ -141,6 +141,7 @@ export const store = new Vuex.Store({
             image:user.image          
         } */
         alert('successfully logged in ')
+        router.push("/")
         firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
             // User is signed in.

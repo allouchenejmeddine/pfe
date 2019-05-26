@@ -15,14 +15,10 @@
                 <v-layout py-3 align-center justify-center fill-height row wrap>
                   <v-flex xs11 sm12 md8 lg6 xl6 pr-5>
                     <v-layout column align-center justify-center fill-height>
-                      <v-flex pb-1 xs12 sm8 md6 lg6 xl12>
-                        <v-img
-                          :lazy-src="this.simple"
-                           v-model="logo"
-                           width="600"
-                           height="300"
-                          :src="this.logo"
-                        ></v-img>
+                      <v-flex pb-1 xs12 sm8 md6 lg12 xl12>
+                        <v-card>
+                          <v-img :lazy-src="simple" min-width="200" :src="logo"></v-img>
+                        </v-card>
                       </v-flex>
                       <v-flex>
                         <v-layout align-center justify-center>

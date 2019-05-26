@@ -1,27 +1,25 @@
 import { store } from './store'
-export default ( to , from , next)=>{
-    alert(store.state.user.pseudo)
-        store.watch(
-            (state)=>state.user,
-            (value)=>{
-                alert(value)
-                if (value !== null){
-                    setTimeout(function(){ if(store.state.user !== null){
-                        //next(next);
-                        console.log("here");
-                    }
-                    else{
-                        next('/');
-                    } }, 0);
-                }
-                else{
-                    console.log("here")
-                    
-                }
-                
-            },
-            
-        )
-    
-    
+
+export default ( to , from , next) => {
+
+    if(store.getters.user == null)
+    {
+    setTimeout(function(){
+    if (store.getters.user){
+        next(next);
+    }
+    else{
+        document.title = from.meta.title;
+        next('/signin');
+    }},1700)
+    }
+    else{
+        if (store.getters.user){
+            next(next);
+        }
+        else{
+            document.title = from.meta.title;
+            next('/signin');
+        }
+    }
 }
