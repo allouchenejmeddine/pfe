@@ -10,6 +10,7 @@ import GameSuggestion from './components/Games/GameSuggestion'
 import authGuard from './auth-guard';
 import checkUserCharged from './components/User/checkUserCharged'
 import checkStoreCharged from './components/Games/checkStoreCharged'
+import checkHavingAdminAccess from './adminAccess'
 import checkStoreArticleCharged from './components/Articles/checkStoreArticleCharged'
 import GameSuggestions from './components/Games/suggestedGames'
 import GameCreated from './components/Games/GameCreatedSuccessfully'
@@ -153,7 +154,7 @@ export default new Router({
             meta: {
                 title: "Jeux suggérés "
             },
-            beforeEnter:authGuard
+            beforeEnter:checkHavingAdminAccess
         },
         {
             path: '/game_created',
@@ -191,7 +192,7 @@ export default new Router({
             {
               title: "Articles suggérés " 
             },
-            beforeEnter:authGuard
+            beforeEnter:checkHavingAdminAccess
           },
           { 
             path: '/Articles/:id',

@@ -109,7 +109,8 @@ export const store = new Vuex.Store({
             listeEnvies: payload.listeEnvies,
             listeGenre: payload.listeGenre,
             listeVisible: payload.listeVisible,
-            image: ''
+            image: '',
+            isAdmin:false
           }
           commit('setUser',newUser)
           firebase.database().ref('/comptes/' + user.uid).set(newUser)
@@ -182,7 +183,7 @@ export const store = new Vuex.Store({
     autoSignIn({commit},payload){
       commit('setUser',{id:payload.id,email:payload.email,nom:payload.nom,prenom:payload.prenom,
       dateNaissance:payload.dateNaissance,pseudo:payload.pseudo,listeJeux:payload.listeJeux,
-      listeEnvies:payload.listeEnvies,listeGenre:payload.listeGenre,listeVisible:payload.listeVisible,image:payload.image})
+      listeEnvies:payload.listeEnvies,listeGenre:payload.listeGenre,listeVisible:payload.listeVisible,image:payload.image, isAdmin:payload.isAdmin})
     },
     logoutUser({commit}){
       firebase.auth().signOut().then(function(){
@@ -321,10 +322,10 @@ export const store = new Vuex.Store({
         some.then((url)=>{
           path=fileData.metadata.fullPath.substring(0,fileData.metadata.fullPath.length -4)
           // Add stored image url to image property of game in the database
-          return reference.child(path).update({image:url})
+          return firebase.database().ref('/comptes').child(path).update({image:url})
         })
       }).then(()=>{
-        alert('Success! what a champion!')
+        alert('Votre profil a été mis à jour avec succès')
       })
     },
   

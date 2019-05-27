@@ -20,7 +20,7 @@
                   </v-flex>
                   <v-flex v-if="image == null" xs12 sm6 md8 mb-4>
                     <v-avatar size="200" tile>
-                      <v-img v-model="image" ref="avatar" :src="this.image">
+                      <v-img v-model="image" ref="avatar" id="avatar" :src="this.image">
                         <v-layout row justify-end align-end fill-height>
                           <v-tooltip color="rgb(0,128,128)" left>
                             <template v-slot:activator="{ on }">
@@ -154,13 +154,14 @@ export default {
     },
     onFilePicked(event) {
       const files = event.target.files;
+      var preview = document.getElementById("avatar")
       let filename = files[0].name;
       if (filename.lastIndexOf(".") <= 0) {
         alert("Veuillez vérifier le type de votre fichier d'image");
       }
-      const fileReader = new FileReader();
+      var fileReader = new FileReader();
       fileReader.addEventListener("load", () => {
-        this.$refs.avatar.src = fileReader.result;
+        preview.src = fileReader.result;
       });
       fileReader.readAsDataURL(files[0]);
       this.image = files[0];
