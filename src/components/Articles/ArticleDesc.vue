@@ -23,7 +23,7 @@
                       <v-flex>
                         <v-layout align-center justify-center>
                             <v-flex>
-                                <span class="font-weight-thin font-italic caption">Rédigé le : {{dateSortie}} par {{redacteur}}</span>
+                                <span class="font-weight-thin font-italic caption">Rédigé le : {{dateSortie}} par </span><v-btn depressed flat small fab  :to="{ path: '/user/'+this.redacteurId }">{{this.redacteur}}</v-btn>
                             </v-flex>
                         </v-layout>
                         </v-flex>
@@ -53,6 +53,7 @@
 
 <script>
 import { store } from "../../store";
+import firebase from 'firebase/app'
 export default {
   props: ["id"],
   data() {
@@ -65,6 +66,7 @@ export default {
       resume: "",
       corps: "",
       redacteur: "",
+      redacteurId:'',
       idd: this.id,
       logo: null,
       simple: "http://data-cache.abuledu.org/1024/carre-blanc-50218a31.jpg",
@@ -86,7 +88,15 @@ export default {
     }
     if (this.article != null && this.article != undefined) {
     }
-    this.redacteur = this.article.suggestedFrom;
+    this.redacteurId = this.article.suggestedFrom;
+    firebase.database().ref('/comptes').orderByChild("id").equalTo(this.redacteurId).once("value",snapshot => {
+            if (snapshot.exists()){
+                this.redacteur=snapshot.child(this.redacteurId).child('pseudo').val()
+            }
+            else{
+                this.redacteur="inconnu"
+            }
+            })
     this.titre = this.article.titre;
     this.resume = this.article.resume;
     this.corps = this.article.corps;

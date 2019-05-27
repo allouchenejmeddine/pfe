@@ -8,6 +8,8 @@
               <v-flex>
                 <v-layout px-3 pb-3>
                   <v-flex style="font-size:22px;font-weight:bold">{{nomJeux}}</v-flex>
+                  <v-flex><span class="font-weight-thin font-italic caption">Proposé par </span><v-btn depressed flat small fab  :to="{ path: '/user/'+this.redacteurId }">{{this.redacteur}}</v-btn>
+                  </v-flex>
                 </v-layout>
                 <v-btn round  @click="addGameToUserList()">
                   <v-icon small left>fas fa-plus-circle</v-icon>Ajouter a ma liste
@@ -144,6 +146,7 @@
 
 <script>
 import { store } from "../../store";
+import firebase from 'firebase/app'
 export default {
   props: ["id"],
   data() {
@@ -165,7 +168,9 @@ export default {
       simple: "http://data-cache.abuledu.org/1024/carre-blanc-50218a31.jpg",
       store,
       alert: false,
-      gamealert: false
+      gamealert: false,
+      redacteur: "",
+      redacteurId:''
     };
   },
   mounted: function() {
@@ -181,6 +186,15 @@ export default {
     }
     if (this.game != null && this.game != undefined) {
     }
+    this.redacteurId = this.game.suggestedFrom;
+    firebase.database().ref('/comptes').orderByChild("id").equalTo(this.redacteurId).once("value",snapshot => {
+            if (snapshot.exists()){
+                this.redacteur=snapshot.child(this.redacteurId).child('pseudo').val()
+            }
+            else{
+                this.redacteur="inconnu"
+            }
+            })
 
     this.nomJeux = this.game.nom;
     this.developpeur = this.game.developpeur;
