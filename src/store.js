@@ -106,9 +106,7 @@ export const store = new Vuex.Store({
             dateNaissance: payload.dateNaissance,
             pseudo : payload.pseudo,
             listeJeux: payload.listeJeux,
-            listeEnvies: payload.listeEnvies,
             listeGenre: payload.listeGenre,
-            listeVisible: payload.listeVisible,
             image: '',
             isAdmin:false
           }
@@ -152,16 +150,7 @@ export const store = new Vuex.Store({
             alert("Déconnexion réussie")
           }
         });        
-        /* firebase.database().ref('/comptes').orderByChild("id").equalTo(this.state.user.id).once("value",snapshot => {
-          alert('im here ')
-          if (snapshot.exists()){
-            const userData = snapshot.val();
-            console.log("exists!", userData);
-          }
-        }).then((user)=>{
-          commit('setUser',user)
-          alert(user.id)
-        }) */
+        
         
         
         
@@ -183,7 +172,7 @@ export const store = new Vuex.Store({
     autoSignIn({commit},payload){
       commit('setUser',{id:payload.id,email:payload.email,nom:payload.nom,prenom:payload.prenom,
       dateNaissance:payload.dateNaissance,pseudo:payload.pseudo,listeJeux:payload.listeJeux,
-      listeEnvies:payload.listeEnvies,listeGenre:payload.listeGenre,listeVisible:payload.listeVisible,image:payload.image, isAdmin:payload.isAdmin})
+      listeGenre:payload.listeGenre,image:payload.image, isAdmin:payload.isAdmin})
     },
     logoutUser({commit}){
       firebase.auth().signOut().then(function(){

@@ -5,6 +5,7 @@ import GameDesc from './components/Games/GameDesc'
 import ArticleDesc from './components/Articles/ArticleDesc'
 import Signin from './components/User/signin'
 import Signup from './components/User/signup'
+import UserDesc from './components/User/UserDesc'
 import Settings from './components/User/settings'
 import GameSuggestion from './components/Games/GameSuggestion'
 import authGuard from './auth-guard';
@@ -203,6 +204,16 @@ export default new Router({
                 title: 'Chargement'
             },
             beforeEnter:checkStoreArticleCharged
+          },
+          {
+            path: '/User/:id',
+            name : 'userDesc',
+            component : UserDesc,
+            props : true,
+            meta : {
+                title : "Gamer"
+            },
+            beforeEnter: checkUserCharged
           },
           {
             //handler when the path given doesn't exist

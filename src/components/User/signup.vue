@@ -135,31 +135,6 @@
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap>
-                  <v-flex>
-                    <v-select
-                      v-model="listeVisible"
-                      :items="visibilite"
-                      label="Visibilité de liste des jeux"
-                      outline
-                      prefix="Votre choix: "
-                    ></v-select>
-                  </v-flex>
-                </v-layout>
-                <v-layout row wrap>
-                  <v-flex>
-                    <v-select
-                      v-model="listeEnvies"
-                      :items="items"
-                      chips
-                      label="Liste d'envies"
-                      persistent-hint
-                      multiple
-                      outline
-                      solo
-                    ></v-select>
-                  </v-flex>
-                </v-layout>
-                <v-layout row wrap>
                   <v-btn type="submit" @click="onSignUp()">Envoyer</v-btn>
                 </v-layout>
               </v-form>
@@ -186,8 +161,6 @@ export default {
       dateNaissance: "",
       listeGenre: "",
       listeJeux: "",
-      listeVisible: "",
-      listeEnvies: "",
       menu1: false
     };
   },
@@ -230,8 +203,6 @@ export default {
         dateNaissance: this.dateNaissance,
         listeJeux: this.listeJeux,
         listeGenre: this.listeGenre,
-        listeVisible: this.listeVisible,
-        listeEnvies: this.listeEnvies
       });
     },
     parseDate(date) {

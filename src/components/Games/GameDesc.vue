@@ -164,7 +164,6 @@ export default {
       logo: null,
       simple: "http://data-cache.abuledu.org/1024/carre-blanc-50218a31.jpg",
       store,
-
       alert: false,
       gamealert: false
     };
