@@ -38,13 +38,13 @@ export const store = new Vuex.Store({
     state.loadedAllArticles = state.loadedSuggestedArticles
     .concat(state.loadedArticles) 
     state.loadedAllArticles.sort(function(a, b) {
-      return a.dateSortie.localeCompare(b.Sortie);
+      return a.dateSortie.localeCompare(b.dateSortie);
     });
   },
   setLoadedArticles(state,payload){
     state.loadedArticles= payload
     state.loadedArticles.sort(function(a, b) {
-      return a.dateSortie.localeCompare(b.Sortie);
+      return a.dateSortie.localeCompare(b.dateSortie);
     }); 
   },
   setLoadedSuggestedGamesPC (state, payload) {
@@ -106,9 +106,10 @@ export const store = new Vuex.Store({
             dateNaissance: payload.dateNaissance,
             pseudo : payload.pseudo,
             listeJeux: payload.listeJeux,
+            listeEnvies: payload.listeEnvies,
             listeGenre: payload.listeGenre,
-            image: '',
-            isAdmin:false
+            listeVisible: payload.listeVisible,
+            image: ''
           }
           commit('setUser',newUser)
           firebase.database().ref('/comptes/' + user.uid).set(newUser)
@@ -141,6 +142,7 @@ export const store = new Vuex.Store({
         } */
         alert('successfully logged in ')
         router.push("/")
+        
         firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
             // User is signed in.
@@ -150,7 +152,16 @@ export const store = new Vuex.Store({
             alert("Déconnexion réussie")
           }
         });        
-        
+        /* firebase.database().ref('/comptes').orderByChild("id").equalTo(this.state.user.id).once("value",snapshot => {
+          alert('im here ')
+          if (snapshot.exists()){
+            const userData = snapshot.val();
+            console.log("exists!", userData);
+          }
+        }).then((user)=>{
+          commit('setUser',user)
+          alert(user.id)
+        }) */
         
         
         
@@ -172,7 +183,7 @@ export const store = new Vuex.Store({
     autoSignIn({commit},payload){
       commit('setUser',{id:payload.id,email:payload.email,nom:payload.nom,prenom:payload.prenom,
       dateNaissance:payload.dateNaissance,pseudo:payload.pseudo,listeJeux:payload.listeJeux,
-      listeGenre:payload.listeGenre,image:payload.image, isAdmin:payload.isAdmin})
+      listeEnvies:payload.listeEnvies,listeGenre:payload.listeGenre,listeVisible:payload.listeVisible,image:payload.image})
     },
     logoutUser({commit}){
       firebase.auth().signOut().then(function(){
@@ -311,10 +322,10 @@ export const store = new Vuex.Store({
         some.then((url)=>{
           path=fileData.metadata.fullPath.substring(0,fileData.metadata.fullPath.length -4)
           // Add stored image url to image property of game in the database
-          return firebase.database().ref('/comptes').child(path).update({image:url})
+          return reference.child(path).update({image:url})
         })
       }).then(()=>{
-        alert('Votre profil a été mis à jour avec succès')
+        alert('Success! what a champion!')
       })
     },
   
@@ -331,7 +342,6 @@ export const store = new Vuex.Store({
               resume: obj[key].resume,
               image: obj[key].image,
               dateSortie: obj[key].dateSortie,
-              suggestedFrom: obj[key].suggestedFrom
             })
           }
           articlesSuggeres.sort(function(a,b){return a.dateSortie.localeCompare(b.dateSortie); })
@@ -356,7 +366,6 @@ export const store = new Vuex.Store({
               resume: obj[key].resume,
               image: obj[key].image,
               dateSortie: obj[key].dateSortie,
-              suggestedFrom: obj[key].suggestedFrom
             })
           }
           

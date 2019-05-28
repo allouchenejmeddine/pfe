@@ -211,7 +211,7 @@ export default new Router({
             component : UserDesc,
             props : true,
             meta : {
-                title : "Gamer"
+                title : "Chargement - Game Player Union"
             },
             beforeEnter: checkUserCharged
           },
