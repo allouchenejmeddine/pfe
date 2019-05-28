@@ -363,7 +363,7 @@ import { isString } from "util";
 export default {
   name: "App",
   components: {
-    HelloWorld
+    HelloWorld,
   },
   data() {
     return {

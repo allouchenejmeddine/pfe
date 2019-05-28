@@ -6,12 +6,9 @@
           <v-list>
             <v-layout pa-3 column>
               <v-flex>
-                <v-layout px-3 pb-3>
-                  <v-flex style="font-size:22px;font-weight:bold">{{nomJeux}}</v-flex>
-                  <v-flex>
-                    <v-avatar size="400">
-                      <img src="https://vuetifyjs.com/apple-touch-icon-180x180.png">
-                    </v-avatar>
+                <v-layout px-3 pb-3 align-center>
+                  <v-flex align-center>
+                      <v-img max-width="300px" :src="this.image"></v-img>
                   </v-flex>
                 </v-layout>
                 <span style="font-size:22px;font-weight:bold">{{this.pseudo}}</span>
@@ -26,7 +23,7 @@
                         <v-flex style="font-size:16px">
                           <span
                             style="font-size:16px;font-weight:bold;color:#66b2b2"
-                          >ID : mettre id de la session</span>
+                          > Nom : {{this.nom}}</span>
                         </v-flex>
                       </v-container>
                       <v-divider></v-divider>
@@ -34,7 +31,7 @@
                         <v-flex style="font-size:16px">
                           <span
                             style="font-size:16px;font-weight:bold;color:#66b2b2"
-                          >nom : mettre nom</span>
+                          >Prénom : {{this.prenom}}</span>
                         </v-flex>
                       </v-container>
                       <v-divider></v-divider>
@@ -42,7 +39,7 @@
                         <v-flex style="font-size:16px">
                           <span
                             style="font-size:16px;font-weight:bold;color:#66b2b2"
-                          >Prénom : mettre prénom</span>
+                          >genre : {{this.genre}}</span>
                         </v-flex>
                       </v-container>
                       <v-divider></v-divider>
@@ -50,7 +47,7 @@
                         <v-flex style="font-size:16px">
                           <span
                             style="font-size:16px;font-weight:bold;color:#66b2b2"
-                          >genre : mettre genre</span>
+                          >Date de naissance : {{this.dateNaissance}}</span>
                         </v-flex>
                       </v-container>
                       <v-divider></v-divider>
@@ -58,15 +55,7 @@
                         <v-flex style="font-size:16px">
                           <span
                             style="font-size:16px;font-weight:bold;color:#66b2b2"
-                          >Date de naissance : mettre date de naissance</span>
-                        </v-flex>
-                      </v-container>
-                      <v-divider></v-divider>
-                      <v-container pb-2>
-                        <v-flex style="font-size:16px">
-                          <span
-                            style="font-size:16px;font-weight:bold;color:#66b2b2"
-                          >@ : mettre e-mail</span>
+                          >@ : {{this.email}}</span>
                         </v-flex>
                       </v-container>
                     </v-list>
@@ -78,18 +67,11 @@
                 <v-layout pa-3 ma-2>
                   <v-flex
                     style="font-size:16px;font-weight:bold;color:#66b2b2"
-                  >Liste jeux : mettre liste jeux</v-flex>
+                  >Liste jeux : {{this.listeJeuxMod}}</v-flex>
                 </v-layout>
               </v-flex>
 
-              <v-divider color="#008080"></v-divider>
-              <v-flex>
-                <v-layout pa-3 ma-2>
-                  <v-flex
-                    style="font-size:16px;font-weight:bold;color:#66b2b2"
-                  >Liste d'envie : mettre lsite d'envie</v-flex>
-                </v-layout>
-              </v-flex>
+            
             </v-layout>
           </v-list>
         </v-card>
@@ -105,8 +87,13 @@ export default {
     return {
       idd: this.id,
       user: null,
-      pseudo: "hhhh"
+      pseudo: ""
     };
+  },
+  computed : {
+    listeJeuxMod(){
+      return this.listeJeux+''
+    }
   },
   created: function() {
     firebase
@@ -122,6 +109,15 @@ export default {
             .child(this.id)
             .child("pseudo")
             .val();
+          this.nom = snapshot.child(this.id).child("nom").val()
+          this.prenom = snapshot.child(this.id).child("prenom").val()
+          this.genre = snapshot.child(this.id).child("genre").val()
+          this.dateNaissance = snapshot.child(this.id).child("dateNaissance").val()
+          this.email = snapshot.child(this.id).child("email").val()
+          this.listeJeux = snapshot.child(this.id).child("listeJeux").val()
+          this.image = snapshot.child(this.id).child("image").val()
+
+
         } else {
           this.$router.push("/404");
         }
