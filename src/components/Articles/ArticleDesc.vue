@@ -23,7 +23,7 @@
                       <v-flex>
                         <v-layout align-center justify-center>
                             <v-flex>
-                                <span class="font-weight-thin font-italic caption">Rédigé le : {{dateSortie}} par </span><v-btn depressed flat small fab  :to="{ path: '/user/'+this.redacteurId }">{{this.redacteur}}</v-btn>
+                                <span class="font-weight-thin font-italic caption">Rédigé le : {{dateSortie}} par </span><v-btn depressed flat small fab  :to="{ path: '/user/'+this.redacteurId }" target="_blank">>{{this.redacteur}}</v-btn>
                             </v-flex>
                         </v-layout>
                         </v-flex>
@@ -120,6 +120,9 @@ export default {
     },
     changetitle() {
       document.title = this.titre + " - Game Players Union";
+    },
+    redirectToUser(){
+      this.$router.push({ path: '/user/'+this.redacteurId })
     }
   },
   mounted: function() {

@@ -342,6 +342,7 @@ export const store = new Vuex.Store({
               resume: obj[key].resume,
               image: obj[key].image,
               dateSortie: obj[key].dateSortie,
+              suggestedFrom: obj[key].suggestedFrom
             })
           }
           articlesSuggeres.sort(function(a,b){return a.dateSortie.localeCompare(b.dateSortie); })
@@ -366,6 +367,7 @@ export const store = new Vuex.Store({
               resume: obj[key].resume,
               image: obj[key].image,
               dateSortie: obj[key].dateSortie,
+              suggestedFrom: obj[key].suggestedFrom
             })
           }
           
