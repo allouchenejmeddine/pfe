@@ -2,77 +2,85 @@
   <v-container fill-height fluid>
     <v-layout align-center>
       <v-flex xs10 offset-xs1 sm8 offset-sm2 md8 offset-md2>
-        <v-card dark height="1200" align-center>
+        <v-card dark align-center>
           <v-card-text>
             <v-container>
-              <v-form @submit.prevent="onSignUp()" justify-space-around fill-height>
-                <v-layout row wrap>
-                  <v-flex>
+              
+              <v-form ref="form" v-model="valid">
+                <v-list>
+                <v-layout column wrap>
+                  <v-layout align-center>
+                    <v-flex pb-3>
+                      <span style="font-size:22px">Création d'un compte</span>
+                    </v-flex>
+                  </v-layout>
+                  
+                  <v-divider color="#008080"></v-divider>
+                
+                <v-layout fluid fill-height align-center justify-center row wrap>
+                  <v-flex xs12 md8 pa-3>
                     <v-text-field
                       name="Pseudonyme"
                       label="Pseudo"
                       id="pseudo"
                       v-model="pseudo"
+                      :rules="textareaRules"
                       required
                     ></v-text-field>
                   </v-flex>
-                </v-layout>
-                <v-layout row wrap>
-                  <v-flex>
+                
+                  <v-flex xs12 md8 pa-3>
                     <v-text-field
                       name="email"
-                      label="Adresse email"
+                      label="Adresse mail"
                       id="email"
                       v-model="email"
+                      :rules="emailRules"
                       type="email"
                       required
                     ></v-text-field>
                   </v-flex>
-                </v-layout>
-
-                <v-layout row wrap>
-                  <v-flex>
+                
+                  <v-flex xs12 md8 pa-3>
                     <v-text-field
                       name="password"
                       label="Mot de passe"
                       id="password"
                       v-model="password"
                       type="password"
+                      :rules="passwordRules"
                       required
                     ></v-text-field>
                   </v-flex>
-                </v-layout>
-
-                <v-layout row wrap>
-                  <v-flex>
+                
+                  <v-flex xs12 md8 pa-3>
                     <v-text-field
                       name="confirmPassword"
                       label="Confirmez votre mot de passe"
                       id="confirmPassword"
                       v-model="confirmPassword"
                       type="password"
-                      :rules="[comparePasswords]"
+                      :rules="passwordConfirmationRules"
+                      
                     ></v-text-field>
                   </v-flex>
-                </v-layout>
-                <v-layout row wrap>
-                  <v-flex>
-                    <v-text-field name="nom" label="nom" id="nom" v-model="nom" required></v-text-field>
+                
+                  <v-flex xs12 md8 pa-3>
+                    <v-text-field name="nom" label="Nom" id="nom" v-model="nom" :rules="textareaRules" required></v-text-field>
                   </v-flex>
-                </v-layout>
-                <v-layout row wrap>
-                  <v-flex>
+               
+                  <v-flex xs12 md8 pa-3>
                     <v-text-field
                       name="prenom"
-                      label="prenom"
+                      label="Prénom"
                       id="prenom"
+                      :rules="textareaRules"
                       v-model="prenom"
                       required
                     ></v-text-field>
                   </v-flex>
-                </v-layout>
-                <v-layout row wrap>
-                  <v-flex>
+                
+                  <v-flex xs12 md8 pa-3>
                     <v-menu
                       ref="menu1"
                       v-model="menu1"
@@ -102,29 +110,30 @@
                         v-model="date"
                         header-color="red"
                         locale="FR"
-                        show-current="2000-01-01"
-                        max="2009-01-01"
+                        :max="new Date().toISOString().substr(0, 10)"
+                        min="1950-01-01"
                       ></v-date-picker>
                     </v-menu>
                   </v-flex>
-                </v-layout>
-                <v-layout wrap>
-                  <v-flex>
+                
+                  <v-flex xs12 md8 pa-3>
                     <v-select
                       v-model="listeGenre"
                       :items="genres"
                       label="Genre"
+                      :rules="textareaRules"
                       persistent-hint
                       outline
                       solo
                     ></v-select>
                   </v-flex>
-                </v-layout>
-                <v-layout row wrap>
-                  <v-flex>
+                
+                  <v-flex xs12 md8 pa-3>
                     <v-select
                       v-model="listeJeux"
                       :items="items"
+                      item-text="nom"
+                      item-value="id"
                       chips
                       label="Liste des jeux"
                       persistent-hint
@@ -133,11 +142,15 @@
                       solo
                     ></v-select>
                   </v-flex>
+                
+                <v-flex xs12 md8 pa-3>
+                  <v-btn @click="validate">Envoyer</v-btn>
+                </v-flex>
+              </v-layout>
                 </v-layout>
-                <v-layout row wrap>
-                  <v-btn type="submit" @click="onSignUp()">Envoyer</v-btn>
-                </v-layout>
+                </v-list>
               </v-form>
+              
             </v-container>
           </v-card-text>
         </v-card>
@@ -155,19 +168,33 @@ export default {
       confirmPassword: "",
       nom: "",
       prenom: "",
-      genres: ["Homme", "Femme", "Entre les deux"],
+      genres: ["Homme", "Femme", "Neutre"],
       visibilite: ["Visible", "Invisible"],
       pseudo: "",
       dateNaissance: "",
       listeGenre: "",
       listeJeux: "",
-      menu1: false
+      menu1: false,
+      valid: true,
+      textareaRules: [v => !!v || "Ce champ est obligatoire"],
+      emailRules: [
+        v => !!v || 'Ce champ est obligatoire',
+        v => /.+@.+/.test(v) || 'Votre e-mail n\'est pas valide'
+      ],
+      passwordConfirmationRules: [
+        (v) => !!v || 'Ce champ est obligatoire',
+        (v) => v.localeCompare(this.password) == 0 || 'Les mots de passes ne sont pas identiques'
+      ],
+      passwordRules: [
+        (v) => !!v || 'Ce champ est obligatoire',
+        (v) => v.length > 6 || 'Votre mot de passe doit contenir 6 caractères minimum'
+      ],
     };
   },
   computed: {
     items(){
       let gameNames = []
-      gameNames= this.$store.state.loadedAllGames.map(a => a.nom)
+      gameNames= this.$store.state.loadedGames
       return gameNames
     },
     comparePasswords() {
@@ -193,7 +220,28 @@ export default {
     }
   },
   methods: {
+    validate() {
+      if (this.$refs.form.validate()) {
+        this.onSignUp();
+      }
+    },
+    getIdGames(){
+      var list = []
+      if(this.listeJeux != null && this.listeJeux.toString().localeCompare("") != 0){
+      this.listeJeux.forEach(function(element) {
+          list.push(element);
+        })
+      
+      this.listeJeux = list;
+      }
+      else
+      {
+        this.listeJeux = ""
+      }
+    }
+    ,
     onSignUp() {
+      this.getIdGames();
       this.$store.dispatch("signUserUp", {
         email: this.email,
         password: this.password,

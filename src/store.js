@@ -106,9 +106,7 @@ export const store = new Vuex.Store({
             dateNaissance: payload.dateNaissance,
             pseudo : payload.pseudo,
             listeJeux: payload.listeJeux,
-            listeEnvies: payload.listeEnvies,
             listeGenre: payload.listeGenre,
-            listeVisible: payload.listeVisible,
             image: ''
           }
           commit('setUser',newUser)
@@ -140,7 +138,6 @@ export const store = new Vuex.Store({
             listeVisible: user.listeVisible,
             image:user.image          
         } */
-        alert('successfully logged in ')
         router.push("/")
         
         firebase.auth().onAuthStateChanged(function(user) {
@@ -229,7 +226,6 @@ export const store = new Vuex.Store({
         })
       }).then(()=>{
         router.push('/article_created')
-        alert('Success! what a champion! Your article is suggested !') 
       })
 
     },
@@ -256,7 +252,6 @@ export const store = new Vuex.Store({
         totalVotes:5
       }
       // Find the appropriate location on the database
-      alert(newGame.plateformeJeux)
       if (newGame.plateformeJeux.localeCompare('PC','en', {sensitivity: 'base'})==0)
       {
         location='/JeuxSuggeres/PC'
@@ -292,7 +287,6 @@ export const store = new Vuex.Store({
           return reference.child(path).update({image:url})
         })
       }).then(()=>{
-        alert('Success! what a champion!')
         router.push('/game_created')
       })
     },
@@ -308,7 +302,6 @@ export const store = new Vuex.Store({
       ref.orderByChild("id").equalTo(user.id).once("value",snapshot => {
         if (snapshot.exists()){
           const userData = snapshot.val();
-          alert(this.state.user.id)
         }
         
       }).then(()=>{
@@ -325,7 +318,6 @@ export const store = new Vuex.Store({
           return reference.child(path).update({image:url})
         })
       }).then(()=>{
-        alert('Success! what a champion!')
       })
     },
   
@@ -756,7 +748,6 @@ export const store = new Vuex.Store({
     addGameToUserList({commit} , payload){
       let userId = this.state.user.id
       let listeJeuxActuelle = this.state.user.listeJeux
-      alert(typeof listeJeuxActuelle)
       
       if((typeof listeJeuxActuelle) == 'string' )
       {

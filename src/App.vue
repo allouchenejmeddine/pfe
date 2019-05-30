@@ -456,7 +456,7 @@ export default {
       )
       {
         this.username = this.$store.state.user.pseudo
-        if(this.$store.state.user.image !== null && this.$store.state.user.image !== undefined) 
+        if(this.$store.state.user.image !== null && this.$store.state.user.image !== undefined && this.$store.state.user.image.toString().localeCompare("") !=0) 
         {
           this.avatar = this.$store.state.user.image
         }
