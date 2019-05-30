@@ -183,7 +183,7 @@ export const store = new Vuex.Store({
     autoSignIn({commit},payload){
       commit('setUser',{id:payload.id,email:payload.email,nom:payload.nom,prenom:payload.prenom,
       dateNaissance:payload.dateNaissance,pseudo:payload.pseudo,listeJeux:payload.listeJeux,
-      listeEnvies:payload.listeEnvies,listeGenre:payload.listeGenre,listeVisible:payload.listeVisible,image:payload.image})
+      listeEnvies:payload.listeEnvies,listeGenre:payload.listeGenre,listeVisible:payload.listeVisible,image:payload.image,isAdmin:payload.isAdmin})
     },
     logoutUser({commit}){
       firebase.auth().signOut().then(function(){
@@ -251,9 +251,9 @@ export const store = new Vuex.Store({
         dateSortie:payload.dateSortie,
         image:'',
         id:'',
-        eval:0,
+        eval:5,
         nbVotes:1,
-        totalVotes:0
+        totalVotes:5
       }
       // Find the appropriate location on the database
       alert(newGame.plateformeJeux)

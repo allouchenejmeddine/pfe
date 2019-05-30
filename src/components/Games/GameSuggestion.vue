@@ -9,7 +9,7 @@
                 <v-layout column wrap>
                   <v-layout align-center>
                     <v-flex pb-3>
-                      <span style="font-size:22px">Suggestion d'un nouveau jeux</span>
+                      <span style="font-size:22px">Suggestion d'un nouveau jeu</span>
                     </v-flex>
                   </v-layout>
                   <v-divider color="#008080"></v-divider>
