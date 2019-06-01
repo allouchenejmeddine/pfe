@@ -67,7 +67,7 @@ export default {
   data() {
     return {
       show: true,
-      url: "localhost:8081/PcGames"
+      url: "https://www.gameplayerunion.com/PcGames"
     };
   },
   computed: {

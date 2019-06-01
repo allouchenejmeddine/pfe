@@ -69,7 +69,7 @@ export default {
   name: "",
   data() {
     return {
-      url: "localhost:8081/NewGame",
+      url: "https://www.gameplayerunion.com/NewGame",
       selectedGame: null
     };
   },

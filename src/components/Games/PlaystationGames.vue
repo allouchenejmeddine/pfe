@@ -68,7 +68,7 @@ export default {
   },
   data() {
     return {
-      url: "localhost:8081/PsGames"
+      url: "https://www.gameplayerunion.com/PsGames"
     };
   },
   computed: {

@@ -257,7 +257,7 @@ export default {
       return this.formatDate(this.date);
     },
     imageRefresh() {
-      this.image = this.inputUpload;
+      this.image = inputUpload;
     },
     logo() {
       this;

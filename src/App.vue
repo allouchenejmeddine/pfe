@@ -462,7 +462,7 @@ export default {
         }
         else
         {
-          this.avatar = "https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png"
+          this.avatar = "https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/Portrait_placeholder.png?alt=media&token=49580b44-9483-4418-8c35-92fcd766e72d"
         }
       
       }

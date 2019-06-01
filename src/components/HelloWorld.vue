@@ -9,7 +9,7 @@
             <v-layout column>
               <v-flex>{{item.resume}}</v-flex>
             </v-layout>
-            <facebook :url="url+'/'+item.id" scale="1.2" class="right"></facebook>
+            <facebook :url="url+'/'+item.id" scale="1.1" class="right"></facebook>
           </v-card-text>
           <v-card-actions>
             <v-btn flat color="#008080" :to="getSelectedArticle(item.id)">Lire</v-btn>
@@ -29,7 +29,7 @@ export default {
     Facebook
   },
   data: () => ({
-    url: "localhost:8081/articles"
+    url: "https://www.gameplayerunion.com/Articles"
   }),
   computed: {
     articlesChargedForALL: function() {

@@ -68,7 +68,7 @@ export default {
   },
   data() {
     return {
-      url: "localhost:8081/XboxGames"
+      url: "https://www.gameplayerunion.com/XboxGames"
     };
   },
   computed: {

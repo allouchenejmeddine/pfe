@@ -303,7 +303,6 @@ export const store = new Vuex.Store({
         if (snapshot.exists()){
           const userData = snapshot.val();
         }
-        
       }).then(()=>{
         const userid = this.state.user.id
         const filename=payload.image.name
@@ -315,9 +314,11 @@ export const store = new Vuex.Store({
         some.then((url)=>{
           path=fileData.metadata.fullPath.substring(0,fileData.metadata.fullPath.length -4)
           // Add stored image url to image property of game in the database
-          return reference.child(path).update({image:url})
+          return ref.child(path).update({image:url})
         })
       }).then(()=>{
+        alert("Modification réussie")
+        window.location.reload(false); 
       })
     },
   
@@ -654,12 +655,8 @@ export const store = new Vuex.Store({
           firebase.auth().currentUser.email, 
           payload.currentPassword
         )
-      ).catch((error)=>{
-        alert('Mot de passe actuel non valide, veuillez vérifier svp')
-      }).then(()=>{
+      ).then(()=>{
         firebase.auth().currentUser.updatePassword(payload.newPassword);
-      }).catch((error)=>{
-        alert('Votre mot de passe doit contenir au moins 6 caractères')
       }).then(()=>{
         // Pseudo update
         var ref = firebase.database().ref('/comptes').child(this.state.user.id).update({pseudo:payload.newPseudo})
