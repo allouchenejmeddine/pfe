@@ -750,7 +750,7 @@ export const store = new Vuex.Store({
       if((typeof listeJeuxActuelle) == 'string' )
       {
         let arr = []
-        arr.push(payload.gameName)
+        arr.push(payload.gameId)
         firebase.database().ref('comptes/').child(userId).update({listeJeux: arr})
         return 1
       }
