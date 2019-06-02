@@ -755,12 +755,12 @@ export const store = new Vuex.Store({
         return 1
       }
       else{
-        if(listeJeuxActuelle.includes(payload.gameName))
+        if(listeJeuxActuelle.includes(payload.gameId))
         {
           return 0
         }
         else{
-          listeJeuxActuelle.push(payload.gameName)
+          listeJeuxActuelle.push(payload.gameId)
           firebase.database().ref('comptes/').child(userId).update({listeJeux: listeJeuxActuelle})
           return 1
         }
