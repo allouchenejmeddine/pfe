@@ -443,6 +443,11 @@ export default {
       ]
     };
   },
+  watch: {
+      username: function() {
+        this.username = this.$store.state.user.pseudo
+      }
+  },
   computed: {
     onScroll() {
       window.onscroll = () => {

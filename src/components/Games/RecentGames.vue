@@ -46,7 +46,7 @@
 
                         <v-card-text>
                           <span>Date de sortie : {{item.dateSortie}}</span>
-                          <facebook :url="url" scale="1.2" class="right"></facebook>
+                          <facebook :url="url" scale="1.1" class="right"></facebook>
                         </v-card-text>
                       </v-card>
                     

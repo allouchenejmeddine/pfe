@@ -189,8 +189,6 @@ export default {
       });
     },
     onFilePicked(event) {
-      alert(event.currentTarget);
-
       const files = event.target.files;
       let filename = files[0].name;
       if (filename.lastIndexOf(".") <= 0) {
@@ -198,7 +196,7 @@ export default {
         this.image= null 
       }
       else if ( (filename.lastIndexOf(".jpg")<= 0) && (filename.lastIndexOf(".png")<= 0) ){
-        alert("Les types accéptés sont : .jpg et .png");
+        alert("Les types acceptés sont : .jpg et .png");
         this.image= null 
       }
       else{

@@ -135,6 +135,7 @@ export default {
       currentPassword: "",
       image: null,
       newPseudo: "",
+      testimage: false,
       valid: true,
       passwordRules: [
         (v) => !!v || 'Ce champ est obligatoire',
@@ -197,6 +198,11 @@ export default {
       
     },
     updateData() {
+      
+      if(this.image != null)
+      {
+        this.testimage = true
+      }
       if(this.newPseudo.localeCompare("") == 0)
       {
         this.newPseudo = this.$store.state.user.pseudo
@@ -210,9 +216,15 @@ export default {
       this.$store.dispatch("editProfile", {
         currentPassword: this.currentPassword,
         newPassword: this.newPassword,
-        newPseudo: this.newPseudo
+        newPseudo: this.newPseudo,
+        testimage: this.testimage
+      }).then(()=>{
+          if(this.image != null)
+          {
+            this.$store.dispatch("updateUserAvatar", { image: this.image });
+          }
       });
-      this.$store.dispatch("updateUserAvatar", { image: this.image });
+      
     },
     getAvatar() {}
   }

@@ -107,13 +107,11 @@ export const store = new Vuex.Store({
             pseudo : payload.pseudo,
             listeJeux: payload.listeJeux,
             listeGenre: payload.listeGenre,
-            image: ''
+            image: ""
           }
           commit('setUser',newUser)
           firebase.database().ref('/comptes/' + user.uid).set(newUser)
-          }
-        
-        
+          } 
       )
       .catch(
         error=>{
@@ -160,8 +158,6 @@ export const store = new Vuex.Store({
           alert(user.id)
         }) */
         
-        
-        
       })
       .catch(
         error=>{
@@ -172,7 +168,7 @@ export const store = new Vuex.Store({
             alert('Veuillez vérifier le format de votre email')
           }
           else{
-            console.log(error + "Veuillez contacter l'administrateur svp ")
+            alert(error + "Veuillez contacter l'administrateur svp ")
           }
         }
       )
@@ -302,7 +298,7 @@ export const store = new Vuex.Store({
       ref.orderByChild("id").equalTo(user.id).once("value",snapshot => {
         if (snapshot.exists()){
           const userData = snapshot.val();
-        }
+        } 
       }).then(()=>{
         const userid = this.state.user.id
         const filename=payload.image.name
@@ -314,12 +310,12 @@ export const store = new Vuex.Store({
         some.then((url)=>{
           path=fileData.metadata.fullPath.substring(0,fileData.metadata.fullPath.length -4)
           // Add stored image url to image property of game in the database
-          return ref.child(path).update({image:url})
+          return ref.child(path).update({"image" : url}).then(() => {window.location.reload(false);})
         })
-      }).then(()=>{
-        alert("Modification réussie")
-        window.location.reload(false); 
+      }).then(()=>{   
       })
+
+      
     },
   
     loadGames ({commit}) {
@@ -659,7 +655,12 @@ export const store = new Vuex.Store({
         firebase.auth().currentUser.updatePassword(payload.newPassword);
       }).then(()=>{
         // Pseudo update
-        var ref = firebase.database().ref('/comptes').child(this.state.user.id).update({pseudo:payload.newPseudo})
+        var ref = firebase.database().ref('/comptes').child(this.state.user.id).update({pseudo:payload.newPseudo}).then(() => {
+          if(payload.testimage == false)
+          {
+            window.location.reload(false);
+          }
+        })
       })
       .catch((error)=>{
         alert("Un problème technique est survenu, veuillez svp contacter le service technique en mentionnant ce code d'erreur : 02")
