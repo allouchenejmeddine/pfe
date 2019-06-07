@@ -54,15 +54,6 @@
                         <div>Se Connecter</div>
                       </v-btn>
                     </v-flex>
-                    <v-flex>
-                      <v-btn disabled color="#F5DCD7" class="mx-3" icon>
-                        <v-icon size="24px">fab fa-google</v-icon>
-                      </v-btn>
-
-                      <v-btn disabled color="#F5DCD7" class="mx-3" icon>
-                        <v-icon size="24px">fab fa-facebook</v-icon>
-                      </v-btn>
-                    </v-flex>
                   </v-layout>
                 </v-form>
               </v-card>
@@ -83,6 +74,15 @@
           </v-list-tile>
           <v-list-tile to="/settings">
             <v-list-tile-title>Paramètres</v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile :to="/user/ +this.$store.state.user.id">
+            <v-list-tile-title>Mon profil</v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile v-if="this.$store.state.user.isAdmin == true" to="/suggested_games">
+            <v-list-tile-title>Jeux suggérés</v-list-tile-title>
+          </v-list-tile>
+          <v-list-tile v-if="this.$store.state.user.isAdmin == true" to="/suggested_articles">
+            <v-list-tile-title>Articles suggérés</v-list-tile-title>
           </v-list-tile>
           <v-list-tile @click="onLogout()">
             <v-list-tile-title>Deconnexion</v-list-tile-title>
@@ -243,15 +243,7 @@
                         <div>Se Connecter</div>
                       </v-btn>
                     </v-flex>
-                    <v-flex>
-                      <v-btn disabled color="#F5DCD7" class="mx-3" icon>
-                        <v-icon size="24px">fab fa-google</v-icon>
-                      </v-btn>
 
-                      <v-btn disabled color="#F5DCD7" class="mx-3" icon>
-                        <v-icon size="24px">fab fa-facebook</v-icon>
-                      </v-btn>
-                    </v-flex>
                   </v-layout>
                 </v-form>
               </v-card>
@@ -275,6 +267,15 @@
               <v-list>
                 <v-list-tile to="/settings">
                   <v-list-tile-title>Paramètres</v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile :to="/user/ +this.$store.state.user.id">
+                  <v-list-tile-title>Mon profil</v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile v-if="this.$store.state.user.isAdmin == true" to="/suggested_games">
+                  <v-list-tile-title>Jeux suggérés</v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile v-if="this.$store.state.user.isAdmin == true" to="/suggested_articles">
+                  <v-list-tile-title>Articles suggérés</v-list-tile-title>
                 </v-list-tile>
                 <v-list-tile @click="onLogout()">
                   <v-list-tile-title>Deconnexion</v-list-tile-title>
@@ -435,6 +436,10 @@ export default {
         {
           title: "Paramètres",
           link: "/settings"
+        },
+        {
+          title: "Mon profil",
+          link: "/user/"+this.$store.state.user.id
         },
         {
           title: "Déconnexion",

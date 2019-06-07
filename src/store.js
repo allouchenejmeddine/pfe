@@ -107,7 +107,8 @@ export const store = new Vuex.Store({
             pseudo : payload.pseudo,
             listeJeux: payload.listeJeux,
             listeGenre: payload.listeGenre,
-            image: ""
+            image: "",
+            isAdmin: false
           }
           commit('setUser',newUser)
           firebase.database().ref('/comptes/' + user.uid).set(newUser)

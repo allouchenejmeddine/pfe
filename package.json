@@ -9,6 +9,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.2.0",
     "firebase": "^5.8.2",
+    "node-ipc": "^9.1.1",
     "register-service-worker": "^1.5.2",
     "reload": "^3.0.1",
     "roboto-fontface": "*",
