@@ -12,14 +12,14 @@
                   </v-flex>
                 </v-layout>
                 <v-btn round  @click="addGameToUserList()">
-                  <v-icon small left>fas fa-plus-circle</v-icon>Ajouter a ma liste
+                  <v-icon small left>fas fa-plus-circle</v-icon>Ajouter à ma liste
                 </v-btn>
                 <v-alert
                   :value="gamealert"
                   type="success"
                   transition="scale-transition"
                   style="border:5px solid #008080;border-radius:20px;-moz-border-radius:20px;-webkit-border-radius:20px;"
-                >le jeu a bien été ajouter a votre liste :)</v-alert>
+                >Le jeu a bien été ajouter à votre liste :)</v-alert>
               </v-flex>
 
               <v-divider color="#008080"></v-divider>
@@ -147,6 +147,7 @@
 <script>
 import { store } from "../../store";
 import firebase from 'firebase/app'
+import { setTimeout } from 'timers';
 export default {
   props: ["id"],
   data() {
@@ -244,6 +245,8 @@ export default {
       this.$store.dispatch("addGameToUserList" , {gameId: this.idd, gameName:this.nomJeux, plateforme: this.plateforme}).then((result)=>{
         if(result ===1){
           this.gamealert=!this.gamealert
+          setTimeout(function(){this.gamealert=!this.gamealert},2000).then(window.location.reload(false));
+          
         }
         else{
           alert('Le jeux existe dans votre liste')

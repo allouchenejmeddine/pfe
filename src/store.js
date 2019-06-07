@@ -44,8 +44,8 @@ export const store = new Vuex.Store({
   setLoadedArticles(state,payload){
     state.loadedArticles= payload
     state.loadedArticles.sort(function(a, b) {
-      return a.dateSortie.localeCompare(b.dateSortie);
-    }); 
+      return a.dateSortie.localeCompare(b.dateSortie) ;
+    }).reverse(); 
   },
   setLoadedSuggestedGamesPC (state, payload) {
     state.loadedSuggestedGamesPC = payload

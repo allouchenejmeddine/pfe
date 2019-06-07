@@ -14,7 +14,7 @@
               style="border:5px solid #008080;border-radius:20px;-moz-border-radius:20px;-webkit-border-radius:20px;"
             >
               <v-card-title>
-                <span style="font-size:16px;color:#008080">Tout les jeux</span>
+                <span style="font-size:16px;color:#008080">Tous les jeux</span>
               </v-card-title>
               <v-img
                 src="https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/901616f38b.png?alt=media&token=1d0bc37e-8760-434d-a5f1-d29822ac4f85"

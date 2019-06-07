@@ -82,28 +82,31 @@
                     :key="i"
                     :src="item"
                   >
-                    <router-link :to="getSelectedGame(item.id,item.plateformeJeux)">
-                      <v-card raised tile color="rgba(0, 128, 128,0.9)">
-                        <v-img max-height="250" min-height="250" :src="item.image">
+                    
+                        <v-btn fab small color="red lighten-2" width="20" height="20" icon v-if="removeBtn==true" @click="remove(item.id)"><v-icon size="15">fas fa-trash-alt</v-icon></v-btn>
+                    
+                      <v-card raised tile color="rgba(0, 128, 128,0.9)" >
+                        <router-link :to="getSelectedGame(item.id,item.plateformeJeux)">
+                        <v-img max-height="250" min-height="250" :src="item.image" >
                           <v-layout>
                             <v-flex pa-2>
                               <v-card pa-4 color="rgba(0, 128, 128,0.9)">
-                                <v-card-actions>
+                                <v-card-actions >
                                   <v-layout align-center justify-space-around>{{item.nom}}</v-layout>
                                 </v-card-actions>
                               </v-card>
                             </v-flex>
                           </v-layout>
                         </v-img>
+                        </router-link>
 
                         <v-card-text>
                           <span>Date de sortie : {{item.dateSortie}}</span>
+                          
                           <facebook :url="url" scale="1.2" class="right"></facebook>
                         </v-card-text>
-                        <v-btn @click="remove(item.id)"><i class="fas fa-minus-circle"></i></v-btn>
-
                       </v-card>
-                    </router-link>
+                   
                   </v-flex>
                 </v-layout>
                   </v-flex>
@@ -144,6 +147,8 @@ export default {
       pseudo: "",
       iconLogo: null,
       show: false,
+      removeBtn: false,
+      image:"",
       nom: "Non Communiqué",
       prenom: "Non Communiqué",
       genre:"",
@@ -167,8 +172,17 @@ export default {
         var liste = liste.filter(function(value, index, arr){
             return value !== id;
         });
-        firebase.database().ref('comptes/'+this.$store.state.user.id).update({listeJeux:liste})
-        this.$store.state.user.listeJeux=liste
+        if(liste.length){
+          firebase.database().ref('comptes/'+this.$store.state.user.id).update({listeJeux:liste}).then(()=>{this.$store.state.user.listeJeux=liste
+                                                                                                              window.location.reload(false)})
+        }
+        else
+        {
+          liste = ""
+          firebase.database().ref('comptes/'+this.$store.state.user.id).update({listeJeux:liste}).then(()=>{this.$store.state.user.listeJeux=liste
+                                                                                                              window.location.reload(false)})
+          
+        }
       }).catch((err)=>{
         alert(err)
       })
@@ -177,7 +191,11 @@ export default {
     },
     loadGameList(){
       var list = this.$store.state.loadedGames
-      if(this.listeJeux != null)
+      if(this.id.localeCompare(this.$store.state.user.id) == 0)
+      {
+        this.removeBtn = true
+      }
+      if(this.listeJeux.toString().localeCompare("") !=0)
       {
       var listejeu = this.listeJeux.toString().split(",")
       var finallist = []
@@ -230,7 +248,6 @@ export default {
           {
               this.nom = "Non Communiqué"
           }
-
           this.prenom = snapshot.child(this.id).child("prenom").val()
           if(this.prenom.localeCompare('') == 0 || this.prenom == null)
           {
@@ -238,7 +255,7 @@ export default {
           }
 
           this.genre = snapshot.child(this.id).child("listeGenre").val()
-          if(this.genre.localeCompare('') == 0 || this.genre == null)
+          if(this.genre.localeCompare('') == 0 || this.genre == null || this.genre.localeCompare('Neutre') == 0)
           {
             this.show = false
             this.genre = "Neutre"
@@ -267,7 +284,7 @@ export default {
 
           this.listeJeux = snapshot.child(this.id).child("listeJeux").val()
           this.image = snapshot.child(this.id).child("image").val()
-          if(this.image==null)
+          if(this.image==null || this.image.toString().localeCompare("") == 0)
           {
             this.image = "https://firebasestorage.googleapis.com/v0/b/gpufinal.appspot.com/o/Portrait_placeholder.png?alt=media&token=49580b44-9483-4418-8c35-92fcd766e72d"
           }
@@ -282,3 +299,6 @@ export default {
   }
 };
 </script>
+
+<style src="../../css/homepage.css">
+</style>

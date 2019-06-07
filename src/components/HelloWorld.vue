@@ -33,8 +33,9 @@ export default {
   }),
   computed: {
     articlesChargedForALL: function() {
-      var all = this.$store.state.loadedArticles;
-      return all.slice(0, 5);
+      //var all = this.$store.state.loadedArticles;
+      //return all.slice(0, 5);
+      return this.$store.state.loadedArticles;
     }
   },
   methods: {

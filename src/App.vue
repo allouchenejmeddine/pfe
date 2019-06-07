@@ -85,7 +85,7 @@
             <v-list-tile-title>Articles suggérés</v-list-tile-title>
           </v-list-tile>
           <v-list-tile @click="onLogout()">
-            <v-list-tile-title>Deconnexion</v-list-tile-title>
+            <v-list-tile-title>Déconnexion</v-list-tile-title>
           </v-list-tile>
         </v-list-group>
 
@@ -278,7 +278,7 @@
                   <v-list-tile-title>Articles suggérés</v-list-tile-title>
                 </v-list-tile>
                 <v-list-tile @click="onLogout()">
-                  <v-list-tile-title>Deconnexion</v-list-tile-title>
+                  <v-list-tile-title>Déconnexion</v-list-tile-title>
                 </v-list-tile>
               </v-list>
             </v-menu>
@@ -424,7 +424,7 @@ export default {
           link: "/GameRank"
         },
         {
-          title: "Tous les jeux",
+          title: "Tout les jeux",
           link: "/AllGames"
         },
         {
