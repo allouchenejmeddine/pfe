@@ -100,6 +100,8 @@
                           <span>Date de sortie : {{item.dateSortie}}</span>
                           <facebook :url="url" scale="1.2" class="right"></facebook>
                         </v-card-text>
+                        <v-btn @click="remove(item.id)"><i class="fas fa-minus-circle"></i></v-btn>
+
                       </v-card>
                     </router-link>
                   </v-flex>
@@ -156,6 +158,22 @@ export default {
   methods: {
     getSelectedGame(id, platform) {
       return "/Jeux_" + platform + "/" + id;
+    },
+    remove(id){
+      firebase.database().ref('comptes/'+this.$store.state.user.id).child('listeJeux').once('value', function(snapshot) {        
+      }).then((snap)=>{
+        var liste = snap.val()
+
+        var liste = liste.filter(function(value, index, arr){
+            return value !== id;
+        });
+        firebase.database().ref('comptes/'+this.$store.state.user.id).update({listeJeux:liste})
+        this.$store.state.user.listeJeux=liste
+      }).catch((err)=>{
+        alert(err)
+      })
+      
+      
     },
     loadGameList(){
       var list = this.$store.state.loadedGames

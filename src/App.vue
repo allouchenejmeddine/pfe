@@ -438,10 +438,6 @@ export default {
           link: "/settings"
         },
         {
-          title: "Mon profil",
-          link: "/user/"+this.$store.state.user.id
-        },
-        {
           title: "Déconnexion",
           link: ""
         }
