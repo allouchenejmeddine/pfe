@@ -162,7 +162,7 @@ export default {
   },
   methods: {
     getSelectedGame(id, platform) {
-      return "/Jeux_" + platform + "/" + id;
+      return "/Game_" + platform + "/" + id;
     },
     remove(id){
       firebase.database().ref('comptes/'+this.$store.state.user.id).child('listeJeux').once('value', function(snapshot) {        

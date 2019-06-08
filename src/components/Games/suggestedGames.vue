@@ -279,7 +279,7 @@ export default {
   },
   methods: {
     getSelectedGame(id, platform) {
-      return "/Jeux_" + platform + "/" + id;
+      return "/Game_" + platform + "/" + id;
     },
     // Method to move game from Jeux suggeres to Jeux after being approved
     moveToConfirmedGames(gameId, src) {

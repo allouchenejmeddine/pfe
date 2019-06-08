@@ -664,12 +664,17 @@ export const store = new Vuex.Store({
         var ref = firebase.database().ref('/comptes').child(this.state.user.id).update({pseudo:payload.newPseudo}).then(() => {
           if(payload.testimage == false)
           {
-            window.location.reload(false);
+            router.push('/user/'+this.state.user.id)
           }
         })
       })
-      .catch((error)=>{
-        alert("Un problème technique est survenu, veuillez svp contacter le service technique en mentionnant ce code d'erreur : 02")
+      .catch((error)=>{        
+        if(error.code == "auth/wrong-password"){
+          alert('Mot de passe actuel incorrect')
+        }
+        else{
+          alert("Un problème technique est survenu, veuillez svp contacter le service technique")
+        }
       })
       
       
