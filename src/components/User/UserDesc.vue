@@ -174,13 +174,13 @@ export default {
         });
         if(liste.length){
           firebase.database().ref('comptes/'+this.$store.state.user.id).update({listeJeux:liste}).then(()=>{this.$store.state.user.listeJeux=liste
-                                                                                                              window.location.reload(false)})
+                                                                                                              this.$router.push('/allgames')})
         }
         else
         {
           liste = ""
           firebase.database().ref('comptes/'+this.$store.state.user.id).update({listeJeux:liste}).then(()=>{this.$store.state.user.listeJeux=liste
-                                                                                                              window.location.reload(false)})
+                                                                                                             this.$router.push('/allgames')})
           
         }
       }).catch((err)=>{
