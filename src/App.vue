@@ -478,10 +478,7 @@ export default {
       );
     },
     gamesCharged: function() {
-      return this.$store.state.loadedGamesPC
-        .concat(this.$store.state.loadedGamesPS)
-        .concat(this.$store.state.loadedGamesXBOX)
-        .concat(this.$store.state.loadedGamesSWITCH);
+      return this.$store.state.loadedAllGames;
     }
   },
   mounted: function() {

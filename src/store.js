@@ -116,7 +116,12 @@ export const store = new Vuex.Store({
       )
       .catch(
         error=>{
-          console.log(error)
+          if(error.code == "auth/email-already-in-use"){
+            alert("Adresse email déjà utilisée")
+          }
+          else{
+            console.log(error)
+          }
         }
       )
     },

@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     getSelectedGame(id) {
-      return "/Jeux_PS/" + id;
+      return "/Game_PS/" + id;
     }
   }
 };

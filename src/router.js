@@ -238,7 +238,7 @@ export default new Router({
                 import ( /* webpackChunkName: "about" */ './views/About.vue')
         },
         { 
-            path: '/Jeux_PC/:id',
+            path: '/Game_PC/:id',
             name: 'gameDescPC',
             component: GameDesc,
             props: true,
@@ -248,7 +248,7 @@ export default new Router({
             beforeEnter:checkStoreCharged
         },
         { 
-            path: '/Jeux_PS/:id',
+            path: '/Game_PS/:id',
             name: 'gameDescPS',
             component: GameDesc,
             props: true,
@@ -258,7 +258,7 @@ export default new Router({
             beforeEnter:checkStoreCharged
         },
         { 
-            path: '/Jeux_XBOX/:id',
+            path: '/Game_XBOX/:id',
             name: 'gameDescXBOX',
             component: GameDesc,
             props: true,
@@ -268,7 +268,7 @@ export default new Router({
             beforeEnter:checkStoreCharged
         },
         { 
-            path: '/Jeux_SWITCH/:id',
+            path: '/Game_SWITCH/:id',
             name: 'gameDescSWITCH',
             component: GameDesc,
             props: true,
