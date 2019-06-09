@@ -8,7 +8,7 @@
               <v-flex>
                 <v-layout px-3 pb-3>
                   <v-flex style="font-size:22px;font-weight:bold">{{nomJeux}}</v-flex>
-                  <v-flex><v-btn flat :to="{ path: '/user/'+this.redacteurId }" target="_blank">><span class="font-weight-thin font-italic caption">Proposé par </span>  {{this.redacteur}}</v-btn>
+                  <v-flex><v-btn flat :to="{ path: '/user/'+this.redacteurId }" target="_blank"><span class="font-weight-thin font-italic caption">Proposé par </span><span style='color:red;margin-right:0.2em; display:inline-block;'>&nbsp;</span> {{this.redacteur}}</v-btn>
                   </v-flex>
                 </v-layout>
                 <v-btn round  @click="addGameToUserList()">

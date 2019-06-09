@@ -23,7 +23,7 @@
                       <v-flex>
                         <v-layout align-center justify-center>
                             <v-flex>
-                                <span class="font-weight-thin font-italic caption">Rédigé le : {{dateSortie}} par </span><v-btn depressed flat small fab  :to="{ path: '/user/'+this.redacteurId }" target="_blank">>{{this.redacteur}}</v-btn>
+                                <v-btn depressed flat small :to="{ path: '/user/'+this.redacteurId }" target="_blank"> <span class="font-weight-thin font-italic caption">Rédigé le : {{dateSortie}} par </span><span style='color:red;margin-right:0.2em; display:inline-block;'>&nbsp;</span> {{this.redacteur}}</v-btn>
                             </v-flex>
                         </v-layout>
                         </v-flex>

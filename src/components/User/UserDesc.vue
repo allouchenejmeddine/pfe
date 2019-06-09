@@ -103,7 +103,7 @@
                         <v-card-text>
                           <span>Date de sortie : {{item.dateSortie}}</span>
                           
-                          <facebook :url="url" scale="1.2" class="right"></facebook>
+                          <facebook :url="url+'/'+item.id"  scale="1.2" class="right"></facebook>
                         </v-card-text>
                       </v-card>
                    
@@ -156,7 +156,7 @@ export default {
       listeJeux: "",
       dateNaissance: "Non Communiqué",
       listeJeuxCards: [],
-      url: "localhost:8081/Games",
+      url: "www.gameplayerunion.com/Games",
       hasGame: true
     };
   },
