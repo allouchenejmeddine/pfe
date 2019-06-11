@@ -424,7 +424,7 @@ export default {
           link: "/GameRank"
         },
         {
-          title: "Tout les jeux",
+          title: "Tous les jeux",
           link: "/AllGames"
         },
         {

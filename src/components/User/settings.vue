@@ -86,7 +86,7 @@
                         color="#F5DCD7"
                         name="confpassword"
                         v-model="confirmPassword"
-                        label="Confirmer votre nouveau mot de passe"
+                        label="Confirmez votre nouveau mot de passe"
                         type="password"
                         required
                         :rules="passwordConfirmationRules"

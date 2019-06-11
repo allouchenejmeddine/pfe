@@ -35,7 +35,7 @@
                     </v-flex>
 
                     <v-flex mx-5 mt-3>
-                        <router-link to="/signup"><div>Pas de compte ? Crée-en-un</div></router-link>
+                        <router-link to="/signup"><div>Pas de compte ? Créez-en un</div></router-link>
                     </v-flex>
                 </v-layout>
                 </v-flex>

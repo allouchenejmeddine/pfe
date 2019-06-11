@@ -9,7 +9,7 @@
                 <v-layout column wrap>
                   <v-layout align-center>
                     <v-flex pb-3>
-                      <span style="font-size:22px">Suggestion d'un nouveau jeu</span>
+                      <span style="font-size:22px">Suggestion d'un jeu</span>
                     </v-flex>
                   </v-layout>
                   <v-divider color="#008080"></v-divider>
@@ -57,14 +57,14 @@
 
                   <v-layout column my-3>
                     <v-flex mb-4>
-                      <span style="font-size:16px">Informations sur le jeux</span>
+                      <span style="font-size:16px">Informations sur le jeu</span>
                     </v-flex>
                     <v-layout align-center fill-height justify-center row wrap>
                       <v-flex xs12 md6 pa-3>
                         <v-text-field
                           color="#F5DCD7"
                           name="nom"
-                          label="Nom du jeux"
+                          label="Nom du jeu"
                           single-line
                           outline
                           v-model="nom"
@@ -108,7 +108,7 @@
                         <v-text-field
                           color="#F5DCD7"
                           name="Developpeur"
-                          label="Développeur du jeux"
+                          label="Développeur du jeu"
                           single-line
                           required
                           outline
@@ -185,7 +185,7 @@
                         <v-textarea
                           color="#F5DCD7"
                           name="description"
-                          label="Description du jeux"
+                          label="Description du jeu"
                           single-line
                           v-model="description"
                           outline

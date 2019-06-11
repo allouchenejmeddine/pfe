@@ -15,13 +15,13 @@
           <v-card-text>
             <p
               style="font-size:16px;"
-            >Nous sommes un groupe de 4 étudiants en licence 3 de l'université Polythéchnique Haut de France.</p>
+            >Nous sommes un groupe de 4 étudiants en Licence 3 à l’Université Polytechnique Hauts-de-France.</p>
             <p
               style="font-size:16px;"
-            >Nous avons créé ce site pour permettre à chacun de partager son avis et ces connaissances dans les jeux vidéo tout en apportant de la nouveauté dans ce domaine.</p>
+            >Nous avons créé ce site pour permettre à chacun de partager son avis et ses connaissances sur les jeux vidéo tout en apportant de la nouveauté dans ce domaine.</p>
             <p
               style="font-size:16px;"
-            >Grâce à nous, vous pourrez en apprendre davantage sur les jeux vidéo, suivre leurs actualités et faire vos propres liste ou vous inspirer de celle des autres ou de vos amis.</p>
+            >Grâce à nous, vous pourrez en apprendre davantage sur les jeux vidéo, suivre leurs actualités et faire vos propres listes ou vous inspirer de celle des autres utilisateurs ou de vos amis.</p>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -35,14 +35,14 @@
             <p style="color:#009D9D">Vous êtes acteur!</p>
           </v-card-title>
           <v-card-text>
-            <p style="font-size:16px;">En effet , notre projet se veut communautaire.</p>
+            <p style="font-size:16px;">En effet, notre projet se veut communautaire.</p>
             <p
               style="font-size:16px;"
-            >Vos êtes important et on vous le fait comprendre en vous permettant de participer à l'amélioration de notre projet en vous permettant de donner votre avis sur le site pour l'améliorer, nous suggérer d'ajouter un jeu ou encore un article.</p>
+            >Vous êtes important et on vous le fait comprendre en vous permettant de participer à l'amélioration de notre projet en vous permettant de donner votre avis sur le site pour l'améliorer, nous suggérer l’ajout d’un jeu ou d’un article.</p>
             <p
               style="font-size:16px;"
             >Vous l'aurez compris, vous n'êtes pas un simple utilisateur mais un acteur à part entière de l'amélioration et de l'évolution de notre projet.</p>
-            <span style="font-size:16px;" class="text-xs-right">Les fondateurs</span>
+            <span style="font-size:16px;" class="text-xs-right">Les fondateurs.</span>
           </v-card-text>
         </v-card>
       </v-flex>

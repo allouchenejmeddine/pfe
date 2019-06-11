@@ -12,7 +12,7 @@
               <p style="font-size:32px;color:#008080">Erreur 404 :</p>
               <p
                 style="font-size:16px;color:#008080"
-              >La page que vous chercher n'est pas disponible ou n'existe pas !</p>
+              >La page que vous cherchez n'est pas disponible ou n'existe pas !</p>
             </v-flex>
 
             <v-flex xs8 sm6 md4 xl3>
