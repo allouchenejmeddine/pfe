@@ -87,7 +87,7 @@ export default {
   },
   methods: {
     getSelectedGame(id, platform) {
-      return "/Jeux_" + platform + "/" + id;
+      return "/Game_" + platform + "/" + id;
     }
   }
 };
