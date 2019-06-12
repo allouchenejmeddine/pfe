@@ -152,18 +152,7 @@ export const store = new Vuex.Store({
             // No user is signed in.
             alert("Déconnexion réussie")
           }
-        });        
-        /* firebase.database().ref('/comptes').orderByChild("id").equalTo(this.state.user.id).once("value",snapshot => {
-          alert('im here ')
-          if (snapshot.exists()){
-            const userData = snapshot.val();
-            console.log("exists!", userData);
-          }
-        }).then((user)=>{
-          commit('setUser',user)
-          alert(user.id)
-        }) */
-        
+        });         
       })
       .catch(
         error=>{

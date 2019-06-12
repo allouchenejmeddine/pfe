@@ -16,7 +16,7 @@ export default ( to , from , next)=>{
             if(store.state.user==null){
                 next('/signin')
             }
-        },3000);
+        },4000);
     }
     else{
         if (store.getters.user){
